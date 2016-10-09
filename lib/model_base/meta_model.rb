@@ -32,7 +32,7 @@ module ModelBase
 
     def columns
       retrieve_columns.reject {|c| excluded?(c.name) }.map do |c|
-        new_attribute(c.name, c.type.to_s)
+        new_attribute(c.name, c.type)
       end
     end
 
