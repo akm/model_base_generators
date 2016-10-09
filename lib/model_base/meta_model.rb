@@ -3,15 +3,9 @@ require "model_base"
 module ModelBase
   class MetaModel
 
-    DEFAULT_EXCLUDED_COLUMNS = [
-      /.*_checksum/,
-      /.*_count/,
-    ] + %w[_id _type id created_at updated_at]
-
-    attr_reader :name, :excluded_columns
-    def initialize(name, excluded_columns: DEFAULT_EXCLUDED_COLUMNS)
+    attr_reader :name
+    def initialize(name)
       @name = name
-      @excluded_columns = excluded_columns
     end
 
     alias_method :class_name, :name
@@ -59,7 +53,7 @@ module ModelBase
     end
 
     def excluded?(name)
-      excluded_columns.any?{|c| c === name}
+      ModelBase.config.excluded_columns.any?{|c| c === name}
     end
 
     def new_attribute(name, type)
