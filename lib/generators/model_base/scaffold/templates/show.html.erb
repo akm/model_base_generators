@@ -1,7 +1,7 @@
-<%- resource_name = model_name.underscore.gsub('/', '_').sub(/\A_/, '') -%>
-<%%- model_class = <%= model_name.sub(/\ATemplate::/, '::Template::') %> -%>
+<%- resource_name = model.name.underscore.gsub('/', '_').sub(/\A_/, '') -%>
+<%%- model_class = <%= model.name.sub(/\ATemplate::/, '::Template::') %> -%>
 <div class="page-header">
-  <h1><%%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%%=t '.title', :default => model_class.model.name.human.titleize %></h1>
 </div>
 
 <dl class="dl-horizontal">
