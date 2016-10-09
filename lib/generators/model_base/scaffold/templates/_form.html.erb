@@ -1,13 +1,14 @@
-<%%= form_for @<%= resource_name %>, :html => { :class => "form-horizontal <%= resource_name %>" } do |f| %>
+<%- resource_name = model_name.underscore.gsub('/', '_').sub(/\A_/, '') -%>
+<%%= form_for <%= resource_name %>, :html => { :class => "form-horizontal <%= resource_name %>" } do |f| %>
 
-  <%% if @<%= resource_name %>.errors.any? %>
+  <%% if <%= resource_name %>.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title"><%%= pluralize(@<%= resource_name %>.errors.count, "error") %> prohibited this <%= resource_name %> from being saved:</h3>
+        <h3 class="panel-title"><%%= pluralize(<%= resource_name %>.errors.count, "error") %> prohibited this <%= resource_name %> from being saved:</h3>
       </div>
       <div class="panel-body">
         <ul>
-        <%% @<%= resource_name %>.errors.full_messages.each do |msg| %>
+        <%% <%= resource_name %>.errors.full_messages.each do |msg| %>
           <li><%%= msg %></li>
         <%% end %>
         </ul>
@@ -15,11 +16,18 @@
     </div>
   <%% end %>
 
+<%-
+Rails::Generators::GeneratedAttribute.module_eval(<<-EOS)
+  def field_method_name
+    (self.type == 'text') ? :text_area : field_type
+  end
+EOS
+-%>
 <%- columns.each do |column| -%>
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%%= f.<%= column.field_type %> :<%= column.name %>, :class => 'form-control' %>
+      <%%= f.<%= column.field_method_name %> :<%= column.name %>, :class => 'form-control' %>
     </div>
     <%%=f.error_span(:<%= column.name %>) %>
   </div>
