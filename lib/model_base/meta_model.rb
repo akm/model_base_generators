@@ -24,12 +24,16 @@ module ModelBase
       name.demodulize.underscore
     end
 
+    def plural_resource_name
+      resource_name.pluralize
+    end
+
     def full_resource_name
       name.underscore.gsub('/', '_').sub(/\A_/, '')
     end
 
-    def plural_resource_name
-      resource_name.pluralize
+    def plural_full_resource_name
+      full_resource_name.pluralize
     end
 
     def columns
