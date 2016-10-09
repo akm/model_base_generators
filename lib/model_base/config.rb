@@ -12,7 +12,7 @@ module ModelBase
     end
 
     config_accessor(:title_column_candidates) do
-      ['name', 'title', 'display_name', 'display_title', /_name\z/, /_title\z/]
+      ['name', 'title', 'email', 'display_name', 'display_title', /_name\z/, /_title\z/]
     end
 
   end

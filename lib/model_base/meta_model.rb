@@ -44,13 +44,17 @@ module ModelBase
 
     def retrieve_columns
       raw_cols = active_record? ? model_class.columns : model_class.fields.map {|c| c[1] }
-      cols = raw_cols.map{|col| ColumnAttribute.new(col.name, col.type) }
-      title_col = nil
-      ModelBase.config.title_column_candidates.each do |tcc|
-        title_col = cols.detect{|col| tcc === col.name}
-        break if title_col
+      belongs_to_refs = model_class.reflections.values.select{|ref| ref.is_a?(ActiveRecord::Reflection::BelongsToReflection) }
+      cols = raw_cols.map do |col|
+        ref = belongs_to_refs.detect{|ref| ref.foreign_key == col.name}
+        ColumnAttribute.new(col.name, col.type, reference: ref)
       end
-      title_col.linkable = true if title_col
+      @title_column = nil
+      ModelBase.config.title_column_candidates.each do |tcc|
+        @title_column = cols.detect{|col| tcc === col.name}
+        break if @title_column
+      end
+      @title_column.linkable = true if @title_column
       cols
     end
 
@@ -63,17 +67,9 @@ module ModelBase
     end
 
     def title_column
-      unless defined?(@title_column)
-        @title_colunm = nil
-        ModelBase.config.title_column_candidates.each do |tcc|
-          @title_column = columns.detect{|col| tcc === col.name}
-          if @title_colunm
-            @title_colunm.linkable = true
-            break
-          end
-        end
-      end
-      @title_colunm
+      binding.pry
+      retrieve_columns unless defined?(@title_column)
+      @title_column
     end
 
     def display_columns
