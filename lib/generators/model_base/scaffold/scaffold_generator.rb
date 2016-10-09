@@ -28,6 +28,7 @@ module ModelBase
         @controller_routing_path = @controller_file_path.gsub(/\//, '_')
         @model_name = @controller_class_nesting + "::#{@base_name.singularize.camelize}" unless @model_name
         @model_name = @model_name.camelize
+        @model = ModelBase::MetaModel.new(@model_name)
       end
 
       def controller_routing_path
@@ -36,72 +37,6 @@ module ModelBase
 
       def singular_controller_routing_path
         ActiveModel::Naming.singular_route_key(@model_name.constantize)
-      end
-
-      def model_name
-        @model_name
-      end
-
-      def plural_model_name
-        @model_name.pluralize
-      end
-
-      def resource_name
-        @model_name.demodulize.underscore
-      end
-
-      def plural_resource_name
-        resource_name.pluralize
-      end
-
-      def columns
-        retrieve_columns.reject {|c| excluded?(c.name) }.map do |c|
-          new_attribute(c.name, c.type.to_s)
-        end
-      end
-
-      def excluded_columns_names
-        %w[_id _type id created_at updated_at]
-      end
-
-      def excluded_columns_pattern
-        [
-          /.*_checksum/,
-          /.*_count/,
-        ]
-      end
-
-      def excluded_columns
-        options['excluded_columns']||[]
-      end
-
-      def excluded?(name)
-        excluded_columns_names.include?(name) ||
-        excluded_columns_pattern.any? {|p| name =~ p } ||
-        excluded_columns.include?(name)
-      end
-
-      def retrieve_columns
-        if defined?(ActiveRecord) == "constant" && ActiveRecord.class == Module 
-          rescue_block ActiveRecord::StatementInvalid do
-            @model_name.constantize.columns
-          end
-        else
-          rescue_block do
-            @model_name.constantize.fields.map {|c| c[1] }
-          end
-        end
-      end
-
-      def new_attribute(name, type)
-        ::Rails::Generators::GeneratedAttribute.new(name, type)
-      end
-
-      def rescue_block(exception=Exception)
-        yield if block_given?
-      rescue exception => e
-        say e.message, :red
-        exit
       end
 
       def extract_modules(name)

@@ -1,5 +1,6 @@
 require "model_base/version"
 
 module ModelBase
-  # Your code goes here...
+
+  autoload :MetaModel, 'model_base/meta_model'
 end
