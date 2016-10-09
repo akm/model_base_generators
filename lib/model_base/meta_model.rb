@@ -24,6 +24,10 @@ module ModelBase
       name.demodulize.underscore
     end
 
+    def full_resource_name
+      name.underscore.gsub('/', '_').sub(/\A_/, '')
+    end
+
     def plural_resource_name
       resource_name.pluralize
     end
