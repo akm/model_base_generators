@@ -31,6 +31,8 @@ module ModelBase
         @model = ModelBase::MetaModel.new(@model_name)
       end
 
+      attr_reader :model
+
       def controller_routing_path
         ActiveModel::Naming.route_key(@model_name.constantize)
       end
@@ -78,6 +80,3 @@ module ModelBase
     end
   end
 end
-
-
-

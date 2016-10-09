@@ -59,7 +59,7 @@ module ModelBase
     end
 
     def excluded?(name)
-      excluded_columns.any?{|c| === name}
+      excluded_columns.any?{|c| c === name}
     end
 
     def new_attribute(name, type)
