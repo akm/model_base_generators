@@ -31,9 +31,7 @@ module ModelBase
     end
 
     def columns
-      retrieve_columns.reject {|c| excluded?(c.name) }.map do |c|
-        new_attribute(c.name, c.type)
-      end
+      @columns ||= retrieve_columns.reject {|c| excluded?(c.name) }
     end
 
     def model_class
@@ -45,19 +43,42 @@ module ModelBase
     end
 
     def retrieve_columns
-      if active_record?
-        model_class.columns
-      else
-        model_class.fields.map {|c| c[1] }
+      raw_cols = active_record? ? model_class.columns : model_class.fields.map {|c| c[1] }
+      cols = raw_cols.map{|col| ColumnAttribute.new(col.name, col.type) }
+      title_col = nil
+      ModelBase.config.title_column_candidates.each do |tcc|
+        title_col = cols.detect{|col| tcc === col.name}
+        break if title_col
       end
+      title_col.linkable = true if title_col
+      cols
     end
 
     def excluded?(name)
       ModelBase.config.excluded_columns.any?{|c| c === name}
     end
 
-    def new_attribute(name, type)
-      ::Rails::Generators::GeneratedAttribute.new(name, type)
+    def new_attribute(name, type, linkable=false)
+      ColumnAttribute.new(name, type).tap{|a| a.linkable = linkable}
+    end
+
+    def title_column
+      unless defined?(@title_column)
+        @title_colunm = nil
+        ModelBase.config.title_column_candidates.each do |tcc|
+          @title_column = columns.detect{|col| tcc === col.name}
+          if @title_colunm
+            @title_colunm.linkable = true
+            break
+          end
+        end
+      end
+      @title_colunm
+    end
+
+    def display_columns
+      @dispaly_columns ||=
+        title_column ? columns : [new_attribute(:id, :integer, true)] + columns
     end
 
   end

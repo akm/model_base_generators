@@ -5,8 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%%= model_class.human_attribute_name(:id) %></th>
-      <%- model.columns.each do |column| -%>
+      <%- model.display_columns.each do |column| -%>
       <th><%%= model_class.human_attribute_name(:<%= column.name %>) %></th>
       <%- end -%>
       <th><%%= model_class.human_attribute_name(:created_at) %></th>
@@ -16,9 +15,12 @@
   <tbody>
     <%% @<%= model.plural_full_resource_name %>.each do |<%= model.full_resource_name %>| %>
       <tr>
-        <td><%%= link_to <%= model.full_resource_name %>.id, <%= singular_controller_routing_path %>_path(<%= model.full_resource_name %>) %></td>
         <%- model.columns.each do |column| -%>
+          <%- if column.linkable? -%>
+        <td><%%= link_to <%= model.full_resource_name %>.<%= column.name %>, <%= singular_controller_routing_path %>_path(<%= model.full_resource_name %>) %></td>
+          <%- else -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.name %> %></td>
+          <%- end -%>
         <%- end -%>
         <td><%%=l <%= model.full_resource_name %>.created_at %></td>
         <td>
