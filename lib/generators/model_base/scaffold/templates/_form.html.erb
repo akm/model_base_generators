@@ -22,7 +22,7 @@ Rails::Generators::GeneratedAttribute.module_eval(<<-EOS)
   end
 EOS
 -%>
-<%- columns.each do |column| -%>
+<%- model.columns.each do |column| -%>
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th><%%= model_class.human_attribute_name(:id) %></th>
-      <%- columns.each do |column| -%>
+      <%- model.columns.each do |column| -%>
       <th><%%= model_class.human_attribute_name(:<%= column.name %>) %></th>
       <%- end -%>
       <th><%%= model_class.human_attribute_name(:created_at) %></th>
@@ -17,7 +17,7 @@
     <%% @<%= model.plural_full_resource_name %>.each do |<%= model.full_resource_name %>| %>
       <tr>
         <td><%%= link_to <%= model.full_resource_name %>.id, <%= singular_controller_routing_path %>_path(<%= model.full_resource_name %>) %></td>
-        <%- columns.each do |column| -%>
+        <%- model.columns.each do |column| -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.name %> %></td>
         <%- end -%>
         <td><%%=l <%= model.full_resource_name %>.created_at %></td>
