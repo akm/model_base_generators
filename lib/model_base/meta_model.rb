@@ -16,12 +16,12 @@ module ModelBase
 
     alias_method :class_name, :name
 
-    def plural_model_name
-      @model_name.pluralize
+    def plural_name
+      name.pluralize
     end
 
     def resource_name
-      @model_name.demodulize.underscore
+      name.demodulize.underscore
     end
 
     def plural_resource_name
@@ -35,7 +35,7 @@ module ModelBase
     end
 
     def model_class
-      @model_class ||= model_name.constantize
+      @model_class ||= name.constantize
     end
 
     def active_record?
