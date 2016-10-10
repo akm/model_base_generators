@@ -19,7 +19,11 @@
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
+  <%- if column.selectable? -%>
+      <%%= f.select :<%= column.name %>, :<%= column.select_choices_expression(model.full_resource_name) %>, :<%= column.select_options.inspect %>, :class => 'form-control' %>
+  <%- else -%>
       <%%= f.<%= column.field_type %> :<%= column.name %>, :class => 'form-control' %>
+  <%- end -%>
     </div>
     <%%=f.error_span(:<%= column.name %>) %>
   </div>
