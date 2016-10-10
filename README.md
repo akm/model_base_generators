@@ -1,8 +1,8 @@
 # ModelBase
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/model_base`. To experiment with that code, run `bin/console` for an interactive prompt.
+ModelBase is a set of generators for scaffolding with models.
+It uses twitter-bootstrap-rails, rspec, factory_girl and so on.
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
@@ -16,13 +16,14 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install model_base
-
 ## Usage
 
-TODO: Write usage instructions here
+```bash
+$ bin/rails g model_base:views
+$ bin/rails g model_base:controller
+$ bin/rails g model_base:scaffold
+```
+
 
 ## Development
 
