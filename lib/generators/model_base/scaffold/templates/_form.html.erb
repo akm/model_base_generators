@@ -15,13 +15,6 @@
     </div>
   <%% end %>
 
-<%-
-Rails::Generators::GeneratedAttribute.module_eval(<<-EOS)
-  def field_method_name
-    (self.type == 'text') ? :text_area : field_type
-  end
-EOS
--%>
 <%- model.columns.each do |column| -%>
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
