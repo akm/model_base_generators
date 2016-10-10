@@ -67,7 +67,6 @@ module ModelBase
     end
 
     def title_column
-      binding.pry
       retrieve_columns unless defined?(@title_column)
       @title_column
     end
