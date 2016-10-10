@@ -19,7 +19,7 @@
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%%= f.<%= column.field_method_name %> :<%= column.name %>, :class => 'form-control' %>
+      <%%= f.<%= column.field_type %> :<%= column.name %>, :class => 'form-control' %>
     </div>
     <%%=f.error_span(:<%= column.name %>) %>
   </div>
