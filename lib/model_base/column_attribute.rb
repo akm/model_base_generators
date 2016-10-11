@@ -31,22 +31,33 @@ module ModelBase
       !!ref_model
     end
 
-    def select_choices_expression(taregt_name)
-      query =
-        ref_model.respond_to?(:choices_for) ?
-          "#{ref_model.name}.choices_for(#{taregt_name})" :
-          "#{ref_model.name}.all"
-      "options_from_collection_for_select(#{qeury}, :id, :#{ref_model.title_column.name}x)"
-    end
-
-    def select_options
-      r = {}
-      r[:include_blank] = !required?
-      r
-    end
-
     def required?
       !column.try(:null)
+    end
+
+    def select_renderer
+      red_model ? ReferenceSelectRenderer.new(self) : nil
+    end
+
+    class ReferenceSelectRenderer
+      attr_reader :column_attr
+      def initialize(column_attr)
+        @column_attr = column_attr
+      end
+
+      def render(form_name, target_name, options)
+        ref_model = column_attr.ref_model
+        query =
+          ref_model.respond_to?(:choices_for) ?
+            "#{ref_model.name}.choices_for(#{taregt_name})" :
+            "#{ref_model.name}.all"
+        options_exp = {include_blank: !column_attr.required?}.inspect.gsub(/\A\{|\}\z/, '')
+        r = "#{form_name}.collection_select :#{@column_attr.name}, #{query}, :id, :#{ref_model.title_column.name}"
+        html = optinos.delete(:html) || {}
+        html_exp = html.empty? ? nil : html.inspect.gsub(/\A\{|\}\z/, '')
+        r << ", #{html}" if html
+        r
+      end
     end
   end
 

@@ -19,8 +19,8 @@
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-  <%- if column.selectable? -%>
-      <%%= f.select :<%= column.name %>, :<%= column.select_choices_expression(model.full_resource_name) %>, :<%= column.select_options.inspect %>, :class => 'form-control' %>
+  <%- if r = column.select_renderer -%>
+      <%%= <%= column.render('f', model.full_resource_name, html: {class: 'form-control'}) %> %>
   <%- else -%>
       <%%= f.<%= column.field_type %> :<%= column.name %>, :class => 'form-control' %>
   <%- end -%>
