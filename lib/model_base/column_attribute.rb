@@ -10,12 +10,6 @@ module ModelBase
     attr_reader :reference
     attr_reader :model, :column
 
-    class << self
-      def from_col(model, col, reference: nil)
-        ColumnAttribute.new(model, col.name, col.type, column: col, reference: reference)
-      end
-    end
-
     def initialize(model, name, type, column: nil, reference: nil, index_type: false, attr_options: {})
       super(name, type, index_type, attr_options)
       @model = model
@@ -28,10 +22,6 @@ module ModelBase
         @ref_model = reference.nil? ? nil : ModelBase::MetaModel.new(reference.class_name)
       end
       @ref_model
-    end
-
-    def selectable?
-      !!ref_model
     end
 
     def required?

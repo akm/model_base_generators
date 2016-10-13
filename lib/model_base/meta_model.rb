@@ -62,10 +62,6 @@ module ModelBase
       ModelBase.config.excluded_columns.any?{|c| c === name}
     end
 
-    def new_attribute(name, type, linkable=false)
-      ColumnAttribute.new(self, name, type).tap{|a| a.linkable = linkable}
-    end
-
     def title_column
       retrieve_columns unless defined?(@title_column)
       @title_column
