@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
+<% output_attributes = model.columns.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
   before(:each) do
     assign(:<%= table_name %>, [
