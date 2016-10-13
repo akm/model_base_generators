@@ -6,7 +6,7 @@ module ModelBase
     alias_method :linkable?, :linkable
 
     attr_reader :reference
-    attr_reader :column
+    attr_reader :model, :column
 
     class << self
       def from_col(model, col, reference: nil)
@@ -16,6 +16,7 @@ module ModelBase
 
     def initialize(model, name, type, column: nil, reference: nil, index_type: false, attr_options: {})
       super(name, type, index_type, attr_options)
+      @model = model
       @reference = reference
       @column = column
     end
@@ -52,10 +53,10 @@ module ModelBase
       end
 
       def render(form_name, target_name, options = {})
-        html = optinos.delete(:html) || {}
+        html = options.delete(:html) || {}
         html_exp = html.empty? ? nil : html.inspect.gsub(/\A\{|\}\z/, '')
         options.update(include_blank: !column_attr.required?)
-        options_exp = {}.inspect.gsub(/\A\{|\}\z/, '')
+        options_exp = {}.inspect
         r = render_core(form_name, target_name)
         r << ", #{options_exp}"
         r << ", #{html_exp}" if html

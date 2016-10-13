@@ -20,7 +20,7 @@
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
   <%- if r = column.select_renderer -%>
-      <%%= <%= column.render('f', model.full_resource_name, html: {class: 'form-control'}) %> %>
+      <%%= <%= r.render('f', model.full_resource_name, html: {class: 'form-control'}) %> %>
   <%- else -%>
       <%%= f.<%= column.field_type %> :<%= column.name %>, :class => 'form-control' %>
   <%- end -%>
