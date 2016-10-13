@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Provide generators for models with assocations.}
   spec.description   = %q{Provide generators for models with assocations.}
-  spec.homepage      = "https://github.com/akm/model_base"
+  spec.homepage      = "https://github.com/akm/model_base_generators"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
