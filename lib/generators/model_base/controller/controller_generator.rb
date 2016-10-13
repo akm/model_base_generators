@@ -3,6 +3,7 @@ require 'model_base/generators/base'
 module ModelBase
   module Generators
     class ControllerGenerator < ::ModelBase::Generators::Base # :nodoc:
+      source_root File.expand_path('../templates', __FILE__)
 
       check_class_collision suffix: "Controller"
 
