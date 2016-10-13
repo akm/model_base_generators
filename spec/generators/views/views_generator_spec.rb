@@ -24,7 +24,7 @@ describe ModelBase::Generators::ViewsGenerator, type: :generator do
     assert_file 'app/views/issues/_form.html.erb' do |c|
       expect(c).to match /\<\%\= form_for.*\%\>/
       expect(c).to include '<%= f.collection_select :project_id, Project.all, :id, :name, {}, :class=>"form-control" %>'
-      expect(c).to include '<%= f.select :status, Issue.status.optoins %>'
+      expect(c).to include '<%= f.select :status, Issue.status.optoins, {}, :class=>"form-control" %>'
     end
     assert_file 'app/views/issues/edit.html.erb', /render 'issues\/form'/
     assert_file 'app/views/issues/index.html.erb' do |c|

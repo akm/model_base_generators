@@ -51,7 +51,7 @@ module ModelBase
         options_exp = {}.inspect
         r = render_core(form_name, target_name)
         r << ", #{options_exp}"
-        r << ", #{html_exp}" if html
+        r << ", #{html_exp}" unless html.empty?
         r
       end
     end
@@ -68,7 +68,7 @@ module ModelBase
     end
 
     class EnumerizedSelectRenderer < AbstractSelectRenderer
-      def render(form_name, target_name, options = {})
+      def render_core(form_name, target_name, options = {})
         "#{form_name}.select :#{column_attr.name}, #{column_attr.model.name}.#{column_attr.name}.optoins"
       end
     end
