@@ -3,7 +3,7 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "plugin1"
+require "model_base"
 
 module Dummy
   class Application < Rails::Application
