@@ -1,5 +1,7 @@
 require 'model_base'
 
+require 'rails/generators/generated_attribute'
+
 module ModelBase
   class ColumnAttribute < ::Rails::Generators::GeneratedAttribute
     attr_accessor :linkable
