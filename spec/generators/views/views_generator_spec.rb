@@ -30,13 +30,13 @@ describe ModelBase::Generators::ViewsGenerator, type: :generator do
     assert_file 'app/views/issues/index.html.erb' do |c|
       expect(c).to match /\<table.*\>/
       expect(c).to include '<%= issue.project.name %>'
-      expect(c).to include '<%= issue.status %>'
+      expect(c).to include '<%= issue.status_text %>'
     end
     assert_file 'app/views/issues/new.html.erb', /render 'issues\/form'/
     assert_file 'app/views/issues/show.html.erb' do |c|
       expect(c).to match /\<dl .*\>/
       expect(c).to include '<%= @issue.project.name %>'
-      expect(c).to include '<%= @issue.status %>'
+      expect(c).to include '<%= @issue.status_text %>'
     end
   end
 end

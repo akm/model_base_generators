@@ -20,6 +20,8 @@
         <td><%%= link_to <%= model.full_resource_name %>.<%= column.name %>, <%= singular_controller_routing_path %>_path(<%= model.full_resource_name %>) %></td>
           <%- elsif tcol = column.ref_model.try(:title_column) -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.reference.name %>.<%= tcol.name %> %></td>
+          <%- elsif column.enumerized? -%>
+        <td><%%= <%= model.full_resource_name %>.<%= column.name %>_text %></td>
           <%- else -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.name %> %></td>
           <%- end -%>
