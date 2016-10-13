@@ -48,7 +48,7 @@ end
 $ bin/rails db:migrate
 ```
 
-### 4. Gemerate controller and views
+### 4. Generate controller and views
 
 ```bash
 $ bin/rails g scaffold_controller issues
