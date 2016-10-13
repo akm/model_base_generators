@@ -21,7 +21,7 @@ module ModelBase
       end
 
       # Invoke the helper using the controller name (pluralized)
-      hook_for :helper, as: :scaffold do |invoked|
+      hook_for :helper, as: :scaffold, in: 'rails' do |invoked|
         invoke invoked, [ controller_name ]
       end
     end
