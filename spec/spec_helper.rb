@@ -10,5 +10,7 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../spec/dummy/db
 
 require 'rspec/its'
 
+require 'generator_spec'
+
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "model_base"
