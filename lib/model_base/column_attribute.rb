@@ -38,6 +38,10 @@ module ModelBase
         enumerized? ? EnumerizedSelectRenderer.new(self) : nil
     end
 
+    def input_type
+      select_renderer ? :select : super
+    end
+
     class AbstractSelectRenderer
       attr_reader :column_attr
       def initialize(column_attr)
