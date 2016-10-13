@@ -15,7 +15,7 @@ module ModelBase
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
       def create_controller_files
-        template_file = options.api? ? "api_controller.rb" : "controller.rb"
+        template_file = options.api? ? "api_controller.rb.erb" : "controller.rb.erb"
         template template_file, File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
       end
 
