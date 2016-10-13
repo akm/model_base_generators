@@ -38,7 +38,7 @@ module ModelBase
 
     def enumerized?
       model.model_class.respond_to?(name) &&
-        defined?(Enumerize::Attribute) && model.model_class.send(name).is_a?(Enumerize::Attribute)
+        defined?(Enumerize) && model.model_class.send(name).is_a?(Enumerize::Attribute)
     end
 
     def select_renderer
