@@ -16,3 +16,5 @@ require 'generator_spec'
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "model_base"
+
+ModelBase.enable!
