@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'generators/model_base/views/views_generator'
+Rails::Generators.lookup(["erb:scaffold"])
 
-describe ModelBase::Generators::ViewsGenerator, type: :generator do
+describe Erb::Generators::ScaffoldGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))
   arguments %w(verbose)
 

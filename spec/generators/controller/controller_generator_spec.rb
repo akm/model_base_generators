@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'generators/model_base/controller/controller_generator'
+Rails::Generators.lookup(["rails:scaffold_controller"])
 
-describe ModelBase::Generators::ControllerGenerator, type: :generator do
+describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))
   arguments %w(verbose)
 
