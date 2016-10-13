@@ -3,9 +3,8 @@ require 'rails/generators/generated_attribute'
 
 module ModelBase
   module Generators
-    class ViewsGenerator < ::Rails::Generators::Base
+    class ViewsGenerator < ::Rails::Generators::NamedBase
       source_root File.expand_path('../templates', __FILE__)
-      argument :controller_path,    :type => :string
       argument :model_name,         :type => :string, :required => false
       argument :layout,             :type => :string, :default => "application",
                                     :banner => "Specify application layout"
@@ -32,6 +31,7 @@ module ModelBase
       end
 
       attr_reader :model
+      alias_method :controller_path, :name
 
       def controller_routing_path
         ActiveModel::Naming.route_key(@model_name.constantize)
