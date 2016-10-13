@@ -27,22 +27,13 @@ require 'rails_helper'
 RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:controller) %> do
 
 <%-
-  # UPDATE attributes with DB schema
-  db_cols = ActiveRecord::Base.connection.select_all("DESC #{table_name}")
-  db_cols_hash = db_cols.each_with_object({}){|col, d| d[col['Field']] = col }
-  attributes.each do |attr|
-    if col = db_cols_hash[attr.column_name]
-      attr.attr_options[:required] ||= (col['Null'] =~ /NO/i)
-    end
-  end
-
-  required_ref_attrs  = attributes.select{|attr|  attr.reference? && attr.required? }
-  required_data_attrs = attributes.select{|attr| !attr.reference? && attr.required? }
+  required_ref_attrs  = model.column.select{|attr|  attr.reference && attr.required? }
+  required_data_attrs = model.column.select{|attr| !attr.reference && attr.required? }
 -%>
 <%- required_ref_attrs.each do |attr| -%>
-  let(:<%= attr.name %>){ FactoryGirl.create(:<%= attr.name %>) }
+  let(:<%= attr.name %>){ FactoryGirl.create(:<%= attr.ref_model.full_resource_name %>) }
 <%- end -%>
-<%- unless required_ref_attrs.any?{|attr| attr.name == 'user' }-%>
+<%- unless required_ref_attrs.any?{|attr| attr.ref_model.name == 'User' }-%>
   let(:user){ FactoryGirl.create(:user) }
 <%- end -%>
   before{ devise_user_login(user) }
