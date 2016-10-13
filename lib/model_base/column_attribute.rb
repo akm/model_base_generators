@@ -36,7 +36,7 @@ module ModelBase
     end
 
     def select_renderer
-      red_model ? ReferenceSelectRenderer.new(self) : nil
+      ref_model ? ReferenceSelectRenderer.new(self) : nil
     end
 
     class ReferenceSelectRenderer
