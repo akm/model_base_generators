@@ -31,7 +31,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   required_data_attrs = model.columns.select{|attr| !attr.reference && attr.required? }
 -%>
 <%- required_ref_attrs.each do |attr| -%>
-  let(:<%= attr.name %>){ FactoryGirl.create(:<%= attr.ref_model.full_resource_name %>) }
+  let(:<%= attr.reference.name %>){ FactoryGirl.create(:<%= attr.ref_model.full_resource_name %>) }
 <%- end -%>
 <%- unless required_ref_attrs.any?{|attr| attr.ref_model.name == 'User' }-%>
   let(:user){ FactoryGirl.create(:user) }
@@ -40,8 +40,8 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
 <%-
   unless required_ref_attrs.empty?
-    extra_attributes_to_merge = ".merge(%s)" % required_ref_attrs.map{|attr| "#{attr.name}_id: #{attr.name}.id"}.join(', ')
-    extra_attributes_for_factory = ", %s" % required_ref_attrs.map{|attr| "#{attr.name}: #{attr.name}"}.join(', ')
+    extra_attributes_to_merge = ".merge(%s)" % required_ref_attrs.map{|attr| "#{attr.name}: #{attr.reference.name}.id"}.join(', ')
+    extra_attributes_for_factory = ", %s" % required_ref_attrs.map{|attr| "#{attr.reference.name}: #{attr.reference.name}"}.join(', ')
   end
 -%>
   let(:<%= file_name %>){ FactoryGirl.create(:<%= file_name %><%= extra_attributes_for_factory %>) }
