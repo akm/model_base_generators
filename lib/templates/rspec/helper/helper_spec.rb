@@ -12,6 +12,5 @@ require 'rails_helper'
 # end
 <% module_namespacing do -%>
 RSpec.describe <%= class_name %>Helper, <%= type_metatag(:helper) %> do
-  pending "add some examples to (or delete) #{__FILE__}"
 end
 <% end -%>
