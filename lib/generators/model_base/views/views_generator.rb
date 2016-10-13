@@ -1,8 +1,10 @@
-require 'model_base/generators/base'
+require 'model_base/generators/model_support'
 
 module ModelBase
   module Generators
-    class ViewsGenerator < ::ModelBase::Generators::Base
+    class ViewsGenerator < ::Rails::Generators::NamedBase # :nodoc:
+      include ::ModelBase::Generators::ModelSupport
+
       source_root File.expand_path('../templates', __FILE__)
       argument :layout,             :type => :string, :default => "application",
                                     :banner => "Specify application layout"

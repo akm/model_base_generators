@@ -1,24 +1,25 @@
+require 'model_base'
+
 require 'rails/generators'
-require 'rails/generators/generated_attribute'
 
 module ModelBase
   module Generators
-    class Base < ::Rails::Generators::NamedBase
-      include ::Rails::Generators::ResourceHelpers
-
-      argument :model_name,         :type => :string, :required => false
+    module ModelSupport
+      def self.included(klass)
+        klass.send :include, ::Rails::Generators::ResourceHelpers
+      end
 
       def initialize(args, *options)
         super(args, *options)
-        # binding.pry
         @model_name = (class_path + [@name.singularize.camelize]).join('::') unless @model_name
         @model_name = @model_name.camelize
-        @model = ModelBase::MetaModel.new(@model_name)
       end
 
       protected
 
-      attr_reader :model
+      def model
+        @model ||= ModelBase::MetaModel.new(@model_name)
+      end
 
       def controller_routing_path
         ActiveModel::Naming.route_key(@model_name.constantize)
