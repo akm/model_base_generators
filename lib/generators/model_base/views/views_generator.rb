@@ -21,11 +21,11 @@ module ModelBase
 
       def selected_views
         {
-          "index.html.#{ext}"                 => File.join('app/views', controller_file_path, "index.html.#{ext}"),
-          "new.html.#{ext}"                   => File.join('app/views', controller_file_path, "new.html.#{ext}"),
-          "edit.html.#{ext}"                  => File.join('app/views', controller_file_path, "edit.html.#{ext}"),
-          "#{form_builder}_form.html.#{ext}"  => File.join('app/views', controller_file_path, "_form.html.#{ext}"),
-          "show.html.#{ext}"                  => File.join('app/views', controller_file_path, "show.html.#{ext}")
+          "index.html.#{ext}"                 => File.join('app/views', class_path, controller_file_path, "index.html.#{ext}"),
+          "new.html.#{ext}"                   => File.join('app/views', class_path, controller_file_path, "new.html.#{ext}"),
+          "edit.html.#{ext}"                  => File.join('app/views', class_path, controller_file_path, "edit.html.#{ext}"),
+          "#{form_builder}_form.html.#{ext}"  => File.join('app/views', class_path, controller_file_path, "_form.html.#{ext}"),
+          "show.html.#{ext}"                  => File.join('app/views', class_path, controller_file_path, "show.html.#{ext}")
         }
       end
 
