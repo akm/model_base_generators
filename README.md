@@ -1,6 +1,6 @@
-# ModelBase
+# model_base_generators
 
-ModelBase is a set of generators for scaffolding with models.
+`model_base_generators` extends generators to use your models effectively.
 It uses twitter-bootstrap-rails, rspec, factory_girl and so on.
 
 
@@ -9,7 +9,7 @@ It uses twitter-bootstrap-rails, rspec, factory_girl and so on.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'model_base'
+gem 'model_base_generators'
 ```
 
 And then execute:
@@ -18,11 +18,44 @@ And then execute:
 
 ## Usage
 
+### 1. Generate your model
+
 ```bash
-$ bin/rails g model_base:views
-$ bin/rails g model_base:controller
-$ bin/rails g model_base:scaffold
+$ bin/rails g model Issue project:references{required} title:string status:integer
 ```
+
+### 2. Make up your generated migration
+
+Add `:null` option.
+
+```ruby
+class CreateIssues < ActiveRecord::Migration[5.0]
+  def change
+    create_table :issues do |t|
+      t.references :project, null: false, foreign_key: true
+      t.string :title  , null: false
+      t.integer :status, null: false
+
+      t.timestamps
+    end
+  end
+end
+```
+
+### 3. Run migration
+
+```bash
+$ bin/rails db:migrate
+```
+
+### 4. Gemerate controller and views
+
+```bash
+$ bin/rails g scaffold_controller issues
+```
+
+Run scaffold_controller **WITHOUT attributes**!
+
 
 
 ## Development
@@ -33,7 +66,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/model_base. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/akm/model_base_generators. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
