@@ -4,6 +4,8 @@ module ModelBase
   class Configuration
     include ActiveSupport::Configurable
 
+    config_accessor(:disabled){ false }
+
     config_accessor(:excluded_columns) do
       [
         /.*_checksum/,

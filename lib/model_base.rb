@@ -16,3 +16,4 @@ module ModelBase
     end
   end
 end
+require 'model_base/railtie' if defined?(Rails)
