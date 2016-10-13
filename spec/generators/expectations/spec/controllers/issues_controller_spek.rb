@@ -24,13 +24,13 @@ RSpec.describe IssuesController, type: :controller do
   let(:user){ FactoryGirl.create(:user) }
   before{ devise_user_login(user) }
 
-  let(:generator){ FactoryGirl.create(:generator, project_id: project_id) }
+  let(:issue){ FactoryGirl.create(:issue, project_id: project_id) }
 
   # This should return the minimal set of attributes required to create a valid
   # Issue. As you add validations to Issue, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) {
-    FactoryGirl.attributes_for(:generator).merge(project_id_id: project_id.id)
+    FactoryGirl.attributes_for(:issue).merge(project_id_id: project_id.id)
   }
 
   let(:invalid_parameters) {
@@ -45,30 +45,30 @@ RSpec.describe IssuesController, type: :controller do
   describe "GET #index" do
     it "assigns all issues as @issues" do
       get :index, params: {}, session: valid_session
-      expect(assigns(:issues)).to eq([generator])
+      expect(assigns(:issues)).to eq([issue])
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested generator as @generator" do
-      generator # To create generator
-      get :show, params: {:id => generator.to_param}, session: valid_session
-      expect(assigns(:generator)).to eq(generator)
+    it "assigns the requested issue as @issue" do
+      issue # To create issue
+      get :show, params: {:id => issue.to_param}, session: valid_session
+      expect(assigns(:issue)).to eq(issue)
     end
   end
 
   describe "GET #new" do
-    it "assigns a new generator as @generator" do
+    it "assigns a new issue as @issue" do
       get :new, params: {}, session: valid_session
-      expect(assigns(:generator)).to be_a_new(Issue)
+      expect(assigns(:issue)).to be_a_new(Issue)
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested generator as @generator" do
-      generator # To create generator
-      get :edit, params: {:id => generator.to_param}, session: valid_session
-      expect(assigns(:generator)).to eq(generator)
+    it "assigns the requested issue as @issue" do
+      issue # To create issue
+      get :edit, params: {:id => issue.to_param}, session: valid_session
+      expect(assigns(:issue)).to eq(issue)
     end
   end
 
@@ -76,30 +76,30 @@ RSpec.describe IssuesController, type: :controller do
     context "with valid params" do
       it "creates a new Issue" do
         expect {
-          post :create, params: {:generator => valid_parameters}, session: valid_session
+          post :create, params: {:issue => valid_parameters}, session: valid_session
         }.to change(Issue, :count).by(1)
       end
 
-      it "assigns a newly created generator as @generator" do
-        post :create, params: {:generator => valid_parameters}, session: valid_session
-        expect(assigns(:generator)).to be_a(Issue)
-        expect(assigns(:generator)).to be_persisted
+      it "assigns a newly created issue as @issue" do
+        post :create, params: {:issue => valid_parameters}, session: valid_session
+        expect(assigns(:issue)).to be_a(Issue)
+        expect(assigns(:issue)).to be_persisted
       end
 
-      it "redirects to the created generator" do
-        post :create, params: {:generator => valid_parameters}, session: valid_session
+      it "redirects to the created issue" do
+        post :create, params: {:issue => valid_parameters}, session: valid_session
         expect(response).to redirect_to(Issue.last)
       end
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved generator as @generator" do
-        post :create, params: {:generator => invalid_parameters}, session: valid_session
-        expect(assigns(:generator)).to be_a_new(Issue)
+      it "assigns a newly created but unsaved issue as @issue" do
+        post :create, params: {:issue => invalid_parameters}, session: valid_session
+        expect(assigns(:issue)).to be_a_new(Issue)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {:generator => invalid_parameters}, session: valid_session
+        post :create, params: {:issue => invalid_parameters}, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -114,53 +114,53 @@ RSpec.describe IssuesController, type: :controller do
         valid_parameters.merge(title: new_title, status: new_status)
       }
 
-      it "updates the requested generator" do
-        generator # To create generator
-        put :update, params: {:id => generator.to_param, :generator => new_parameters}, session: valid_session
-        generator.reload
-        expect(generator.title).to eq new_title
-        expect(generator.status).to eq new_status
+      it "updates the requested issue" do
+        issue # To create issue
+        put :update, params: {:id => issue.to_param, :issue => new_parameters}, session: valid_session
+        issue.reload
+        expect(issue.title).to eq new_title
+        expect(issue.status).to eq new_status
       end
 
-      it "assigns the requested generator as @generator" do
-        generator # To create generator
-        put :update, params: {:id => generator.to_param, :generator => valid_parameters}, session: valid_session
-        expect(assigns(:generator)).to eq(generator)
+      it "assigns the requested issue as @issue" do
+        issue # To create issue
+        put :update, params: {:id => issue.to_param, :issue => valid_parameters}, session: valid_session
+        expect(assigns(:issue)).to eq(issue)
       end
 
-      it "redirects to the generator" do
-        generator # To create generator
-        put :update, params: {:id => generator.to_param, :generator => valid_parameters}, session: valid_session
-        expect(response).to redirect_to(generator)
+      it "redirects to the issue" do
+        issue # To create issue
+        put :update, params: {:id => issue.to_param, :issue => valid_parameters}, session: valid_session
+        expect(response).to redirect_to(issue)
       end
     end
 
     context "with invalid params" do
-      it "assigns the generator as @generator" do
-        generator # To create generator
-        put :update, params: {:id => generator.to_param, :generator => invalid_parameters}, session: valid_session
-        expect(assigns(:generator)).to eq(generator)
+      it "assigns the issue as @issue" do
+        issue # To create issue
+        put :update, params: {:id => issue.to_param, :issue => invalid_parameters}, session: valid_session
+        expect(assigns(:issue)).to eq(issue)
       end
 
       it "re-renders the 'edit' template" do
-        generator # To create generator
-        put :update, params: {:id => generator.to_param, :generator => invalid_parameters}, session: valid_session
+        issue # To create issue
+        put :update, params: {:id => issue.to_param, :issue => invalid_parameters}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested generator" do
-      generator # To create generator
+    it "destroys the requested issue" do
+      issue # To create issue
       expect {
-        delete :destroy, params: {:id => generator.to_param}, session: valid_session
+        delete :destroy, params: {:id => issue.to_param}, session: valid_session
       }.to change(Issue, :count).by(-1)
     end
 
     it "redirects to the issues list" do
-      generator # To create generator
-      delete :destroy, params: {:id => generator.to_param}, session: valid_session
+      issue # To create issue
+      delete :destroy, params: {:id => issue.to_param}, session: valid_session
       expect(response).to redirect_to(issues_url)
     end
   end

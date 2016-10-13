@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "spec/generators/show", type: :view do
+RSpec.describe "projects/show", type: :view do
   before(:each) do
-    @spec_generator = assign(:spec_generator, FactoryGirl.create(:spec_generator))
+    @project = assign(:project, FactoryGirl.create(:project))
   end
 
   it "renders attributes in <p>" do

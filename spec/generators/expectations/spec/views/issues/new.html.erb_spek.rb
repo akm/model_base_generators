@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "spec/generators/new", type: :view do
+RSpec.describe "issues/new", type: :view do
   before(:each) do
-    assign(:spec_generator, FactoryGirl.build(:spec_generator))
+    assign(:issue, FactoryGirl.build(:issue))
   end
 
-  it "renders new spec_generator form" do
+  it "renders new issue form" do
     render
 
     assert_select "form[action=?][method=?]", issues_path, "post" do

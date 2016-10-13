@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "spec/generators/index", type: :view do
+RSpec.describe "issues/index", type: :view do
   before(:each) do
     assign(:issues, [
-      FactoryGirl.create(:spec_generator),
-      FactoryGirl.create(:spec_generator),
+      FactoryGirl.create(:issue),
+      FactoryGirl.create(:issue),
     ])
   end
 
-  it "renders a list of spec/generators" do
+  it "renders a list of issues" do
     render
   end
 end

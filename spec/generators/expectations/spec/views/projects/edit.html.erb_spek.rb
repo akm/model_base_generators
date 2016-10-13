@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "spec/generators/edit", type: :view do
+RSpec.describe "projects/edit", type: :view do
   before(:each) do
-    @spec_generator = assign(:spec_generator, FactoryGirl.create(:spec_generator))
+    @project = assign(:project, FactoryGirl.create(:project))
   end
 
-  it "renders the edit spec_generator form" do
+  it "renders the edit project form" do
     render
 
-    assert_select "form[action=?][method=?]", spec_generator_path(@spec_generator), "post" do
+    assert_select "form[action=?][method=?]", project_path(@project), "post" do
     end
   end
 end
