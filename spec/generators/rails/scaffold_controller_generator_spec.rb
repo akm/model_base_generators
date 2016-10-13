@@ -11,6 +11,6 @@ describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
   it 'creates a test initializer' do
     run_generator %w(issues)
 
-    assert_file 'app/controllers/issues_controller.rb', File.read(File.expand_path('../expections/issues_controller.rb', __FILE__))
+    assert_expectation_file 'app/controllers/issues_controller.rb'
   end
 end

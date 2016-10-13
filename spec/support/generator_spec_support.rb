@@ -1,0 +1,11 @@
+module GeneratorSpecSupport
+
+  def assert_expectation_file(path, expectation_filepath = nil)
+    expectation_filepath ||= File.expand_path("../../generators/expectations/#{path}", __FILE__)
+  end
+
+end
+
+RSpec.configure do |config|
+  config.include GeneratorSpecSupport, type: :generator
+end
