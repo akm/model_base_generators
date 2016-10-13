@@ -1,9 +1,8 @@
-require 'rails/generators/resource_helpers'
+require 'model_base/generators/base'
 
-module Rails
+module ModelBase
   module Generators
-    class ScaffoldControllerGenerator < NamedBase # :nodoc:
-      include ResourceHelpers
+    class ControllerGenerator < ::ModelBase::Generators::Base # :nodoc:
 
       check_class_collision suffix: "Controller"
 
