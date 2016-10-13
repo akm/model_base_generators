@@ -47,7 +47,7 @@ module ModelBase
       belongs_to_refs = model_class.reflections.values.select{|ref| ref.is_a?(ActiveRecord::Reflection::BelongsToReflection) }
       cols = raw_cols.map do |col|
         ref = belongs_to_refs.detect{|ref| ref.foreign_key == col.name}
-        ColumnAttribute.new(col.name, col.type, reference: ref)
+        ColumnAttribute.new(self, col.name, col.type, reference: ref)
       end
       @title_column = nil
       ModelBase.config.title_column_candidates.each do |tcc|
@@ -63,7 +63,7 @@ module ModelBase
     end
 
     def new_attribute(name, type, linkable=false)
-      ColumnAttribute.new(name, type).tap{|a| a.linkable = linkable}
+      ColumnAttribute.new(self, name, type).tap{|a| a.linkable = linkable}
     end
 
     def title_column

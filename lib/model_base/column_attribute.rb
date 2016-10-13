@@ -9,12 +9,12 @@ module ModelBase
     attr_reader :column
 
     class << self
-      def from_col(col, reference: nil)
-        ColumnAttribute.new(col.name, col.type, column: col, reference: reference)
+      def from_col(model, col, reference: nil)
+        ColumnAttribute.new(model, col.name, col.type, column: col, reference: reference)
       end
     end
 
-    def initialize(name, type, column: nil, reference: nil, index_type: false, attr_options: {})
+    def initialize(model, name, type, column: nil, reference: nil, index_type: false, attr_options: {})
       super(name, type, index_type, attr_options)
       @reference = reference
       @column = column
@@ -35,28 +35,48 @@ module ModelBase
       !column.try(:null)
     end
 
-    def select_renderer
-      ref_model ? ReferenceSelectRenderer.new(self) : nil
+    def enumerized?
+      model.model_class.respond_to?(name) &&
+        defined?(Enumerize::Attribute) && model.model_class.send(name).is_a?(Enumerize::Attribute)
     end
 
-    class ReferenceSelectRenderer
+    def select_renderer
+      ref_model ? ReferenceSelectRenderer.new(self) :
+        enumerized? ? EnumerizedSelectRenderer.new(self) : nil
+    end
+
+    class AbstractSelectRenderer
       attr_reader :column_attr
       def initialize(column_attr)
         @column_attr = column_attr
       end
 
-      def render(form_name, target_name, options)
+      def render(form_name, target_name, options = {})
+        html = optinos.delete(:html) || {}
+        html_exp = html.empty? ? nil : html.inspect.gsub(/\A\{|\}\z/, '')
+        options.update(include_blank: !column_attr.required?)
+        options_exp = {}.inspect.gsub(/\A\{|\}\z/, '')
+        r = render_core(form_name, target_name)
+        r << ", #{options_exp}"
+        r << ", #{html_exp}" if html
+        r
+      end
+    end
+
+    class ReferenceSelectRenderer < AbstractSelectRenderer
+      def render_core(form_name, target_name, options = {})
         ref_model = column_attr.ref_model
         query =
           ref_model.respond_to?(:choices_for) ?
             "#{ref_model.name}.choices_for(#{taregt_name})" :
             "#{ref_model.name}.all"
-        options_exp = {include_blank: !column_attr.required?}.inspect.gsub(/\A\{|\}\z/, '')
-        r = "#{form_name}.collection_select :#{@column_attr.name}, #{query}, :id, :#{ref_model.title_column.name}"
-        html = optinos.delete(:html) || {}
-        html_exp = html.empty? ? nil : html.inspect.gsub(/\A\{|\}\z/, '')
-        r << ", #{html}" if html
-        r
+        "#{form_name}.collection_select :#{column_attr.name}, #{query}, :id, :#{ref_model.title_column.name}"
+      end
+    end
+
+    class EnumerizedSelectRenderer < AbstractSelectRenderer
+      def render(form_name, target_name, options = {})
+        "#{form_name}.select :#{column_attr.name}, #{column_attr.model.name}.#{column_attr.name}.optoins"
       end
     end
   end
