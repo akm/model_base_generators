@@ -11,7 +11,7 @@ module ModelBase
           ::FactoryGirl::Generators::ModelGenerator.prepend(self)
           ::FactoryGirl::Generators::ModelGenerator.extend(ClassMethod)
           ::FactoryGirl::Generators::ModelGenerator.instance_eval do
-            source_root File.expand_path("../../../../templates/helper/templates", __FILE__)
+            source_root File.expand_path("../../../../templates/factory_girl", __FILE__)
           end
         end
 
