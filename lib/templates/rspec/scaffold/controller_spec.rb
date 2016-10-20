@@ -30,12 +30,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   required_ref_attrs  = model.columns_for(:params).select{|attr|  attr.reference && attr.required? }
   required_data_attrs = model.columns_for(:params).select{|attr| !attr.reference && attr.required? }
 -%>
-<%- model.all_dependencies.each do |m| -%>
-  <%= m.factory_girl_let_definition %>
-<%- end -%>
-<%- unless model.all_dependencies.any?{|m| m.full_resource_name == 'user' }-%>
-  let(:user){ FactoryGirl.create(:user) }
-<%- end -%>
+  <%= model.factory_girl_let_definitions %>
   before{ devise_user_login(user) }
 
 <%-
