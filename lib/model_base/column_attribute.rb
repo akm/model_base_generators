@@ -10,12 +10,18 @@ module ModelBase
     attr_reader :reference
     attr_reader :model, :column
 
-    def initialize(model, name, type, column: nil, reference: nil, index_type: false, attr_options: {})
+    def initialize(model, name, type, column: nil, reference: nil, index_type: false, title: false, attr_options: {})
       super(name, type, index_type, attr_options)
       @model = model
       @reference = reference
       @column = column
+      @title = !!title
     end
+
+    def title?
+      @title
+    end
+    attr_writer :title
 
     def ref_model
       unless defined?(@ref_model)

@@ -30,16 +30,17 @@ module ModelBase
       full_resource_name.pluralize
     end
 
-    def columns
-      @columns ||= retrieve_columns.reject {|c| excluded?(c.name) }
-    end
-
     def model_class
       @model_class ||= name.constantize
     end
 
     def active_record?
       defined?(ActiveRecord) == "constant" && ActiveRecord.class == Module && model_class < ActiveRecord::Base
+    end
+
+    def title_column
+      retrieve_columns unless defined?(@title_column)
+      @title_column
     end
 
     def retrieve_columns
@@ -52,24 +53,31 @@ module ModelBase
       @title_column = nil
       ModelBase.config.title_column_candidates.each do |tcc|
         @title_column = cols.detect{|col| tcc === col.name}
-        break if @title_column
+        if @title_column
+          @title_column.title = true
+          break
+        end
       end
       @title_column.linkable = true if @title_column
       cols
     end
 
-    def excluded?(name)
-      ModelBase.config.excluded_columns.any?{|c| c === name}
+    def raw_columns
+      @raw_columns ||= retrieve_columns
     end
 
-    def title_column
-      retrieve_columns unless defined?(@title_column)
-      @title_column
+    def columns
+      @columns ||=
+        title_column ? raw_columns : [ColumnAttribute.new(self, :id, :integer, title: true)] + raw_columns
     end
 
-    def display_columns
-      @dispaly_columns ||=
-        title_column ? columns : [new_attribute(:id, :integer, true)] + columns
+    def columns_for(type)
+      columns.reject{|c| exclude_for?(type, c) }
+    end
+
+    def exclude_for?(type, col_attr)
+      excluded_columns = ModelBase.config.send("excluded_columns_of_#{type}")
+      excluded_columns.any?{|ex| ex === col_attr.name && !col_attr.title? }
     end
 
   end
