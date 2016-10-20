@@ -170,13 +170,13 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
       it "assigns the requested <%= file_name %> as @<%= file_name %>" do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => valid_parameters}, session: valid_session
+        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
         expect(assigns(:<%= file_name %>)).to eq(<%= file_name %>)
       end
 
       it "redirects to the <%= file_name %>" do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => valid_parameters}, session: valid_session
+        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
         expect(response).to redirect_to(<%= file_name %>)
       end
     end

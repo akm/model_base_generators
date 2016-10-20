@@ -121,13 +121,13 @@ RSpec.describe ProjectsController, type: :controller do
 
       it "assigns the requested project as @project" do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => valid_parameters}, session: valid_session
+        put :update, params: {:id => project.to_param, :project => new_parameters}, session: valid_session
         expect(assigns(:project)).to eq(project)
       end
 
       it "redirects to the project" do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => valid_parameters}, session: valid_session
+        put :update, params: {:id => project.to_param, :project => new_parameters}, session: valid_session
         expect(response).to redirect_to(project)
       end
     end
