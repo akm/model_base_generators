@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "issues/edit", type: :view do
+  let(:project){ FactoryGirl.create(:project, owner: user) }
+  let(:user){ FactoryGirl.create(:user) }
   before(:each) do
-    @issue = assign(:issue, FactoryGirl.create(:issue))
+    @issue = assign(:issue, FactoryGirl.create(:issue, project: project, creator: user))
   end
 
   it "renders the edit issue form" do

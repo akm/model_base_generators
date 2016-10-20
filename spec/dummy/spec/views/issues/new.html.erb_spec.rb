@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "issues/new", type: :view do
+  let(:project){ FactoryGirl.create(:project, owner: user) }
+  let(:user){ FactoryGirl.create(:user) }
   before(:each) do
-    assign(:issue, FactoryGirl.build(:issue))
+    assign(:issue, FactoryGirl.build(:issue, project: project, creator: user))
   end
 
   it "renders new issue form" do
