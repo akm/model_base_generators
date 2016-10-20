@@ -48,6 +48,11 @@ module ModelBase
       select_renderer ? :select : super
     end
 
+    LOCALIZED_TYPES = [:time, :datetime].freeze
+    def to_be_localized?
+      LOCALIZED_TYPES.include?(type)
+    end
+
     class AbstractSelectRenderer
       attr_reader :column_attr
       def initialize(column_attr)
