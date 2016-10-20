@@ -4,7 +4,7 @@
 </div>
 
 <dl class="dl-horizontal">
-<%- model.columns.each do |column| -%>
+<%- model.columns_for(:show).each do |column| -%>
   <dt><strong><%%= model_class.human_attribute_name(:<%= column.name %>) %>:</strong></dt>
   <%- if tcol = column.ref_model.try(:title_column) -%>
   <dd><%%= @<%= model.full_resource_name %>.<%= column.reference.name %>.<%= tcol.name %> %></dd>
