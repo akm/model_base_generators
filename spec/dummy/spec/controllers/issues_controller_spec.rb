@@ -20,7 +20,7 @@ require 'rails_helper'
 
 RSpec.describe IssuesController, type: :controller do
 
-  let(:project){ FactoryGirl.create(:project) }
+  let(:project){ FactoryGirl.create(:project, owner: user) }
   let(:user){ FactoryGirl.create(:user) }
   before{ devise_user_login(user) }
 
