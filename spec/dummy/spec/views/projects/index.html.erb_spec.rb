@@ -11,7 +11,8 @@ RSpec.describe "projects/index", type: :view do
 
   it "renders a list of projects" do
     render
-    assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
+    assert_select "tr>td", :text => 'user1@example.com', :count => 2
+    assert_select "tr>td", :text => 'project1', :count => 1
+    assert_select "tr>td", :text => 'project2', :count => 1
   end
 end
