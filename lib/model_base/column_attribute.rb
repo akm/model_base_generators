@@ -90,6 +90,14 @@ module ModelBase
       end
     end
 
+    def new_attribute_exp
+      if enumerized?
+        '%s.%s.values[%d]' % [model.name, name, 1] # 2nd value
+      else
+        "valid_parameters[:#{name}].succ"
+      end
+    end
+
     class AbstractSelectRenderer
       attr_reader :column_attr
       def initialize(column_attr)

@@ -132,7 +132,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with valid params" do
 <%- if !required_data_attrs.empty? -%>
   <%- required_data_attrs.each do |required_data_attr| -%>
-      let(:new_<%= required_data_attr.name %>){ valid_parameters[:<%= required_data_attr.name %>].succ }
+      let(:new_<%= required_data_attr.name %>){ <%= required_data_attr.new_attribute_exp %> }
   <%- end -%>
 <%- elsif !required_ref_attrs.empty? -%>
       let(:another_<%= required_ref_attrs.last.name %>){ FactoryGirl.create(:<%= required_ref_attrs.last.name %><%= extra_attributes_for_factory %>) }
