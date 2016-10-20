@@ -4,7 +4,6 @@ module IssueValidation
   included do
     validates :project_id, presence: true, numericality: true
     validates :title, presence: true
-    validates :status, presence: true, numericality: true
     validates :creator_id, presence: true, numericality: true
   end
 end
