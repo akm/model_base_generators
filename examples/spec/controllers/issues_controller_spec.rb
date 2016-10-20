@@ -21,16 +21,16 @@ require 'rails_helper'
 RSpec.describe IssuesController, type: :controller do
 
   let(:project){ FactoryGirl.create(:project) }
-  let(:creator){ FactoryGirl.create(:user) }
+  let(:user){ FactoryGirl.create(:user) }
   before{ devise_user_login(user) }
 
-  let(:issue){ FactoryGirl.create(:issue, project: project, creator: creator) }
+  let(:issue){ FactoryGirl.create(:issue, project: project, creator: user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Issue. As you add validations to Issue, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) {
-    FactoryGirl.attributes_for(:issue).merge(project_id: project.id, creator_id: creator.id)
+    FactoryGirl.attributes_for(:issue).merge(project_id: project.id, creator_id: user.id)
   }
 
   let(:invalid_parameters) {
