@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "projects/show", type: :view do
+  let(:user){ FactoryGirl.create(:user) }
   before(:each) do
-    @project = assign(:project, FactoryGirl.create(:project))
+    @project = assign(:project, FactoryGirl.create(:project, owner: user))
   end
 
   it "renders attributes in <p>" do

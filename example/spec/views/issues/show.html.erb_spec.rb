@@ -10,8 +10,8 @@ RSpec.describe "issues/show", type: :view do
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/project1/)
-    expect(rendered).to match(/user1@example.com/)
     expect(rendered).to match(/issue1/)
-    expect(rendered).to match(/Draft|Opened|Closed/)
+    expect(rendered).to match(/Draft/)
+    expect(rendered).to match(/user1@example.com/)
   end
 end

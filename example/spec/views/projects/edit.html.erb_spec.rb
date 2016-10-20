@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "projects/edit", type: :view do
+  let(:user){ FactoryGirl.create(:user) }
   before(:each) do
-    @project = assign(:project, FactoryGirl.create(:project))
+    @project = assign(:project, FactoryGirl.create(:project, owner: user))
   end
 
   it "renders the edit project form" do

@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "projects/new", type: :view do
+  let(:user){ FactoryGirl.create(:user) }
   before(:each) do
-    assign(:project, FactoryGirl.build(:project))
+    assign(:project, FactoryGirl.build(:project, owner: user))
   end
 
   it "renders new project form" do
