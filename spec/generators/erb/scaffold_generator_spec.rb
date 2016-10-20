@@ -8,23 +8,18 @@ describe Erb::Generators::ScaffoldGenerator, type: :generator do
 
   before { prepare_destination }
 
-  it 'creates a test initializer' do
-    run_generator %w(projects)
+  shared_examples :erb_scaffold do |controller_name|
+    context controller_name do
+      before{ run_generator [controller_name.dup] }
 
-    assert_expectation_file 'app/views/projects/_form.html.erb'
-    assert_expectation_file 'app/views/projects/edit.html.erb'
-    assert_expectation_file 'app/views/projects/index.html.erb'
-    assert_expectation_file 'app/views/projects/new.html.erb'
-    assert_expectation_file 'app/views/projects/show.html.erb'
+      it{ assert_expectation_file "app/views/#{controller_name}/_form.html.erb" }
+      it{ assert_expectation_file "app/views/#{controller_name}/edit.html.erb" }
+      it{ assert_expectation_file "app/views/#{controller_name}/index.html.erb" }
+      it{ assert_expectation_file "app/views/#{controller_name}/new.html.erb" }
+      it{ assert_expectation_file "app/views/#{controller_name}/show.html.erb" }
+    end
   end
 
-  it 'creates a test initializer' do
-    run_generator %w(issues)
-
-    assert_expectation_file 'app/views/issues/_form.html.erb'
-    assert_expectation_file 'app/views/issues/edit.html.erb'
-    assert_expectation_file 'app/views/issues/index.html.erb'
-    assert_expectation_file 'app/views/issues/new.html.erb'
-    assert_expectation_file 'app/views/issues/show.html.erb'
-  end
+  it_behaves_like :erb_scaffold, 'projects'
+  it_behaves_like :erb_scaffold, 'issues'
 end

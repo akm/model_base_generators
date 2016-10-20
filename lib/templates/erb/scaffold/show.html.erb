@@ -4,12 +4,14 @@
 </div>
 
 <dl class="dl-horizontal">
-<%- model.columns.each do |column| -%>
+<%- model.columns_for(:show).each do |column| -%>
   <dt><strong><%%= model_class.human_attribute_name(:<%= column.name %>) %>:</strong></dt>
   <%- if tcol = column.ref_model.try(:title_column) -%>
   <dd><%%= @<%= model.full_resource_name %>.<%= column.reference.name %>.<%= tcol.name %> %></dd>
   <%- elsif column.enumerized? -%>
   <dd><%%= @<%= model.full_resource_name %>.<%= column.name %>_text %></dd>
+  <%- elsif column.to_be_localized? -%>
+  <dd><%%=l @<%= model.full_resource_name %>.<%= column.name %> %></dd>
   <%- else -%>
   <dd><%%= @<%= model.full_resource_name %>.<%= column.name %> %></dd>
   <%- end -%>

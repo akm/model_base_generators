@@ -7,4 +7,9 @@ group :test do
   gem 'enumerize'
   gem 'simplecov'
   gem 'sqlite3'
+  gem 'devise'
+  gem 'pretty_validation', git: 'https://github.com/akm/pretty_validation.git'
+  # gem 'cancancan'
+  # gem 'kaminari'
+  # gem 'twitter-bootstrap-rails'
 end

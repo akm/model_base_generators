@@ -8,25 +8,19 @@ describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
   before { prepare_destination }
 
-  context 'issues' do
-    before{ run_generator %w(issues) }
+  shared_examples :rspec_scaffold do |controller_name|
+    context controller_name do
+      before{ run_generator [controller_name.dup] }
 
-    it { assert_expectation_file 'spec/controllers/issues_controller_spec.rb' }
-    it { assert_expectation_file 'spec/routing/issues_routing_spec.rb' }
-    it { assert_expectation_file 'spec/views/issues/edit.html.erb_spec.rb' }
-    it { assert_expectation_file 'spec/views/issues/index.html.erb_spec.rb' }
-    it { assert_expectation_file 'spec/views/issues/new.html.erb_spec.rb' }
-    it { assert_expectation_file 'spec/views/issues/show.html.erb_spec.rb' }
+      it { assert_expectation_file "spec/controllers/#{controller_name}_controller_spec.rb" }
+      it { assert_expectation_file "spec/routing/#{controller_name}_routing_spec.rb" }
+      it { assert_expectation_file "spec/views/#{controller_name}/edit.html.erb_spec.rb" }
+      it { assert_expectation_file "spec/views/#{controller_name}/index.html.erb_spec.rb" }
+      it { assert_expectation_file "spec/views/#{controller_name}/new.html.erb_spec.rb" }
+      it { assert_expectation_file "spec/views/#{controller_name}/show.html.erb_spec.rb" }
+    end
   end
 
-  context 'projects' do
-    before{ run_generator %w(projects) }
-
-    it { assert_expectation_file 'spec/controllers/projects_controller_spec.rb' }
-    it { assert_expectation_file 'spec/routing/projects_routing_spec.rb' }
-    it { assert_expectation_file 'spec/views/projects/edit.html.erb_spec.rb' }
-    it { assert_expectation_file 'spec/views/projects/index.html.erb_spec.rb' }
-    it { assert_expectation_file 'spec/views/projects/new.html.erb_spec.rb' }
-    it { assert_expectation_file 'spec/views/projects/show.html.erb_spec.rb' }
-  end
+  it_behaves_like :rspec_scaffold, 'projects'
+  it_behaves_like :rspec_scaffold, 'issues'
 end

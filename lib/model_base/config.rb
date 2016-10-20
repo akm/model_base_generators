@@ -6,11 +6,22 @@ module ModelBase
 
     config_accessor(:disabled){ false }
 
-    config_accessor(:excluded_columns) do
+    base_exclusions =
       [
         /.*_checksum/,
         /.*_count/,
-      ] + %w[_id _type id created_at updated_at]
+      ] + %w[_id _type id]
+
+    config_accessor(:excluded_columns_of_show) do
+      base_exclusions
+    end
+
+    config_accessor(:excluded_columns_of_index) do
+      base_exclusions + %w[updated_at]
+    end
+
+    config_accessor(:excluded_columns_of_form) do
+      base_exclusions + %w[created_at updated_at]
     end
 
     config_accessor(:title_column_candidates) do

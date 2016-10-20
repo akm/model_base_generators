@@ -65,7 +65,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     <%- if model.columns.empty? -%>
     params[:<%= singular_table_name %>]
     <%- else -%>
-    params.require(:<%= singular_table_name %>).permit(<%= model.columns.map { |c| ":#{c.name}" }.join(', ') %>)
+    params.require(:<%= singular_table_name %>).permit(<%= model.columns_for(:params).map { |c| ":#{c.name}" }.join(', ') %>)
     <%- end -%>
   end
 end

@@ -30,16 +30,17 @@ module ModelBase
       full_resource_name.pluralize
     end
 
-    def columns
-      @columns ||= retrieve_columns.reject {|c| excluded?(c.name) }
-    end
-
     def model_class
       @model_class ||= name.constantize
     end
 
     def active_record?
       defined?(ActiveRecord) == "constant" && ActiveRecord.class == Module && model_class < ActiveRecord::Base
+    end
+
+    def title_column
+      retrieve_columns unless defined?(@title_column)
+      @title_column
     end
 
     def retrieve_columns
@@ -52,25 +53,87 @@ module ModelBase
       @title_column = nil
       ModelBase.config.title_column_candidates.each do |tcc|
         @title_column = cols.detect{|col| tcc === col.name}
-        break if @title_column
+        if @title_column
+          @title_column.title = true
+          break
+        end
       end
       @title_column.linkable = true if @title_column
       cols
     end
 
-    def excluded?(name)
-      ModelBase.config.excluded_columns.any?{|c| c === name}
+    def raw_columns
+      @raw_columns ||= retrieve_columns
     end
 
-    def title_column
-      retrieve_columns unless defined?(@title_column)
-      @title_column
+    def columns
+      @columns ||=
+        title_column ? raw_columns : [ColumnAttribute.new(self, :id, :integer, title: true)] + raw_columns
     end
 
-    def display_columns
-      @dispaly_columns ||=
-        title_column ? columns : [new_attribute(:id, :integer, true)] + columns
+    SPEC_EXCLUSED_COLS = %w[created_at updated_at]
+    def columns_for(type)
+      case type
+      when :form, :index, :show
+        columns.reject{|c| exclude_for?(type, c) }
+      when :params     then columns_for(:form).reject{|c| c.name == 'id'}
+      when :spec_index then columns_for(:index).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
+      when :spec_show  then columns_for(:show ).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
+      else
+        raise "Unknown template type: #{type.inspect}"
+      end
     end
 
+    def exclude_for?(type, col_attr)
+      excluded_columns = ModelBase.config.send("excluded_columns_of_#{type}")
+      excluded_columns.any?{|ex| ex === col_attr.name && !col_attr.title? }
+    end
+
+    def dependencies(required = true)
+      # c: c.required?
+      # r: required (the argument)
+      #
+      # | c \ r | true  | false |
+      # |-------|-------|-------|
+      # | true  | true  | true  |
+      # | false | false | true  |
+      raw_columns.select{|c| !required || c.required? }.
+        select(&:ref_model).
+        each_with_object({}){|c,d| d[c.name] = c.ref_model}
+    end
+
+    def all_dependencies(required = true)
+      dependencies.values.map{|m| [m] + m.dependencies(required).values}.flatten.uniq(&:name)
+    end
+
+    def factory_girl_options
+      dependencies.map{|attr, model| "#{attr.sub(/_id\z/, '')}: #{model.full_resource_name}"}
+    end
+
+    def factory_girl_create(extra = {})
+      factory_girl_method(:create, extra)
+    end
+
+    def factory_girl_build(extra = {})
+      factory_girl_method(:build, extra)
+    end
+
+    def factory_girl_method(name, extra)
+      extra_str = extra.blank? ? '' : ', ' << extra.map{|k,v| "#{k}: '#{v}'"}.join(', ')
+      options = factory_girl_options
+      options_str = options.empty? ? '' : ', ' <<  factory_girl_options.join(', ')
+      'FactoryGirl.%s(:%s%s%s)' % [name, full_resource_name, extra_str, options_str]
+    end
+
+    def factory_girl_let_definition
+      'let(:%s){ %s }' % [full_resource_name, factory_girl_create]
+    end
+
+    def factory_girl_let_definitions(spacer = "  ")
+      deps = all_dependencies
+      r = deps.map(&:factory_girl_let_definition)
+      r << "let(:user){ FactoryGirl.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
+      r.join("\n" << spacer)
+    end
   end
 end

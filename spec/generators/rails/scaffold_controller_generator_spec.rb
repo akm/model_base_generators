@@ -8,9 +8,15 @@ describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
 
   before { prepare_destination }
 
-  it 'creates a test initializer' do
-    run_generator %w(issues)
-
-    assert_expectation_file 'app/controllers/issues_controller.rb'
+  shared_examples :rails_scaffold_controller do |controller_name|
+    context controller_name do
+      it 'creates a test initializer' do
+        run_generator [controller_name.dup]
+        assert_expectation_file "app/controllers/#{controller_name}_controller.rb"
+      end
+    end
   end
+
+  it_behaves_like :rails_scaffold_controller, 'projects'
+  it_behaves_like :rails_scaffold_controller, 'issues'
 end

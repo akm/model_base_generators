@@ -15,7 +15,7 @@
     </div>
   <%% end %>
 
-<%- model.columns.each do |column| -%>
+<%- model.columns_for(:form).each do |column| -%>
   <div class="form-group">
     <%%= f.label :<%= column.name %>, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

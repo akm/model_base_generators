@@ -27,21 +27,16 @@ require 'rails_helper'
 RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:controller) %> do
 
 <%-
-  required_ref_attrs  = model.columns.select{|attr|  attr.reference && attr.required? }
-  required_data_attrs = model.columns.select{|attr| !attr.reference && attr.required? }
+  required_ref_attrs  = model.columns_for(:params).select{|attr|  attr.reference && attr.required? }
+  required_data_attrs = model.columns_for(:params).select{|attr| !attr.reference && attr.required? }
 -%>
-<%- required_ref_attrs.each do |attr| -%>
-  let(:<%= attr.reference.name %>){ FactoryGirl.create(:<%= attr.ref_model.full_resource_name %>) }
-<%- end -%>
-<%- unless required_ref_attrs.any?{|attr| attr.ref_model.name == 'User' }-%>
-  let(:user){ FactoryGirl.create(:user) }
-<%- end -%>
+  <%= model.factory_girl_let_definitions %>
   before{ devise_user_login(user) }
 
 <%-
   unless required_ref_attrs.empty?
-    extra_attributes_to_merge = ".merge(%s)" % required_ref_attrs.map{|attr| "#{attr.name}: #{attr.reference.name}.id"}.join(', ')
-    extra_attributes_for_factory = ", %s" % required_ref_attrs.map{|attr| "#{attr.reference.name}: #{attr.reference.name}"}.join(', ')
+    extra_attributes_to_merge = ".merge(%s)" % required_ref_attrs.map{|attr| "#{attr.name}: #{attr.ref_model.full_resource_name}.id"}.join(', ')
+    extra_attributes_for_factory = ", %s" % required_ref_attrs.map{|attr| "#{attr.reference.name}: #{attr.ref_model.full_resource_name}"}.join(', ')
   end
 -%>
   let(:<%= file_name %>){ FactoryGirl.create(:<%= file_name %><%= extra_attributes_for_factory %>) }
@@ -137,7 +132,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with valid params" do
 <%- if !required_data_attrs.empty? -%>
   <%- required_data_attrs.each do |required_data_attr| -%>
-      let(:new_<%= required_data_attr.name %>){ valid_parameters[:<%= required_data_attr.name %>].succ }
+      let(:new_<%= required_data_attr.name %>){ <%= required_data_attr.new_attribute_exp %> }
   <%- end -%>
 <%- elsif !required_ref_attrs.empty? -%>
       let(:another_<%= required_ref_attrs.last.name %>){ FactoryGirl.create(:<%= required_ref_attrs.last.name %><%= extra_attributes_for_factory %>) }
@@ -170,13 +165,13 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
       it "assigns the requested <%= file_name %> as @<%= file_name %>" do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => valid_parameters}, session: valid_session
+        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
         expect(assigns(:<%= file_name %>)).to eq(<%= file_name %>)
       end
 
       it "redirects to the <%= file_name %>" do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => valid_parameters}, session: valid_session
+        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
         expect(response).to redirect_to(<%= file_name %>)
       end
     end
