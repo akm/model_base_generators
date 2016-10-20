@@ -71,9 +71,9 @@ module ModelBase
         enum.values.first.text
       else
         @default ||= case type
-          when :integer                     then 1
-          when :float                       then 1.5
-          when :decimal                     then "9.99"
+          when :integer                     then idx
+          when :float                       then idx + 0.5
+          when :decimal                     then "#{idx}.99"
           when :datetime, :timestamp, :time then Time.now.to_s(:db)
           when :date                        then Date.today.to_s(:db)
           when :string                      then
@@ -88,6 +88,10 @@ module ModelBase
             ""
         end
       end
+    end
+
+    def sample_string(idx = 1)
+      "'%s'" % sample_value(idx)
     end
 
     def new_attribute_exp

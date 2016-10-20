@@ -18,7 +18,12 @@ RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
   it "renders a list of <%= ns_table_name %>" do
     render
 <% model.columns_for(:spec_index).each do |attribute| -%>
-    assert_select "tr>td", :text => <%= attribute.sample_value %>, :count => 2
+  <%- if attribute.ref_model || attribute.enumerized? -%>
+    assert_select "tr>td", :text => <%= attribute.sample_string %>, :count => 2
+  <%- else -%>
+    assert_select "tr>td", :text => <%= attribute.sample_string(1) %>, :count => 1
+    assert_select "tr>td", :text => <%= attribute.sample_string(2) %>, :count => 1
+  <%- end -%>
 <% end -%>
   end
 end
