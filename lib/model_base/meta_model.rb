@@ -109,7 +109,9 @@ module ModelBase
     end
 
     def factory_girl_let_definition
-      'let(:%s){ FactoryGirl.create(:%s, %s) }' % [full_resource_name, full_resource_name, factory_girl_options.join(', ')]
+      options = factory_girl_options
+      options_str = options.empty? ? '' : ', ' <<  factory_girl_options.join(', ')
+      'let(:%s){ FactoryGirl.create(:%s%s) }' % [full_resource_name, full_resource_name, options_str]
     end
   end
 end
