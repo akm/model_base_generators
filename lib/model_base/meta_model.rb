@@ -87,5 +87,29 @@ module ModelBase
       excluded_columns.any?{|ex| ex === col_attr.name && !col_attr.title? }
     end
 
+    def dependencies(required = true)
+      # c: c.required?
+      # r: required (the argument)
+      #
+      # | c \ r | true  | false |
+      # |-------|-------|-------|
+      # | true  | true  | true  |
+      # | false | false | true  |
+      raw_columns.select{|c| !required || c.required? }.
+        select(&:ref_model).
+        each_with_object({}){|c,d| d[c.name] = c.ref_model}
+    end
+
+    def all_dependencies(required = true)
+      dependencies.values.map{|m| [m] + m.dependencies(required).values}.flatten.uniq(&:name)
+    end
+
+    def factory_girl_options
+      dependencies.map{|attr, model| "#{attr.sub(/_id\z/, '')}: #{model.full_resource_name}"}
+    end
+
+    def factory_girl_let_definition
+      'let(:%s){ FactoryGirl.create(:%s, %s) }' % [full_resource_name, full_resource_name, factory_girl_options.join(', ')]
+    end
   end
 end

@@ -30,10 +30,10 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   required_ref_attrs  = model.columns_for(:params).select{|attr|  attr.reference && attr.required? }
   required_data_attrs = model.columns_for(:params).select{|attr| !attr.reference && attr.required? }
 -%>
-<%- required_ref_attrs.each do |attr| -%>
-  let(:<%= attr.ref_model.full_resource_name %>){ FactoryGirl.create(:<%= attr.ref_model.full_resource_name %>) }
+<%- model.all_dependencies.each do |m| -%>
+  <%= m.factory_girl_let_definition %>
 <%- end -%>
-<%- unless required_ref_attrs.any?{|attr| attr.ref_model.full_resource_name == 'user' }-%>
+<%- unless model.all_dependencies.any?{|m| m.full_resource_name == 'user' }-%>
   let(:user){ FactoryGirl.create(:user) }
 <%- end -%>
   before{ devise_user_login(user) }
