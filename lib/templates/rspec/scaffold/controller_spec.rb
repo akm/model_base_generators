@@ -27,8 +27,8 @@ require 'rails_helper'
 RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:controller) %> do
 
 <%-
-  required_ref_attrs  = model.columns.select{|attr|  attr.reference && attr.required? }
-  required_data_attrs = model.columns.select{|attr| !attr.reference && attr.required? }
+  required_ref_attrs  = model.columns_for(:params).select{|attr|  attr.reference && attr.required? }
+  required_data_attrs = model.columns_for(:params).select{|attr| !attr.reference && attr.required? }
 -%>
 <%- required_ref_attrs.each do |attr| -%>
   let(:<%= attr.ref_model.full_resource_name %>){ FactoryGirl.create(:<%= attr.ref_model.full_resource_name %>) }

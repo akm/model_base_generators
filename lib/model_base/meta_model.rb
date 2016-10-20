@@ -72,7 +72,14 @@ module ModelBase
     end
 
     def columns_for(type)
-      columns.reject{|c| exclude_for?(type, c) }
+      case type
+      when :form, :index, :show
+        columns.reject{|c| exclude_for?(type, c) }
+      when :params
+        columns_for(:form).reject{|c| c.name == 'id'}
+      else
+        raise "Unknown template type: #{type.inspect}"
+      end
     end
 
     def exclude_for?(type, col_attr)
