@@ -24,6 +24,8 @@ module ModelBase
       Rails::Generators::ScaffoldControllerGenerator.source_paths.unshift(templates_dir)
       require 'model_base/generators/erb/scaffold'
       ::ModelBase::Generators::Erb::Scaffold.enable!
+      require 'model_base/generators/factory_girl/model'
+      ::ModelBase::Generators::FactoryGirl::Model.enable!
     end
   end
 end
