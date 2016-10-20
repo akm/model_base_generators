@@ -17,7 +17,7 @@ describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
     end
   end
 
-  # it_behaves_like :rails_scaffold_controller, 'users'
-  # it_behaves_like :rails_scaffold_controller, 'projects'
+  it_behaves_like :rails_scaffold_controller, 'users'
+  it_behaves_like :rails_scaffold_controller, 'projects'
   it_behaves_like :rails_scaffold_controller, 'issues'
 end
