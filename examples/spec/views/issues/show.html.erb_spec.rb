@@ -10,5 +10,6 @@ RSpec.describe "issues/show", type: :view do
     expect(rendered).to match(/2/)
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/3/)
+    expect(rendered).to match(/4/)
   end
 end

@@ -10,6 +10,8 @@
   <dd><%= @issue.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
   <dd><%= @issue.status_text %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:creator_id) %>:</strong></dt>
+  <dd><%= @issue.creator.email %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

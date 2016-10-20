@@ -36,6 +36,13 @@
     </div>
     <%=f.error_span(:status) %>
   </div>
+  <div class="form-group">
+    <%= f.label :creator_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.collection_select :creator_id, User.all, :id, :email, {}, :class=>"form-control" %>
+    </div>
+    <%=f.error_span(:creator_id) %>
+  </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
