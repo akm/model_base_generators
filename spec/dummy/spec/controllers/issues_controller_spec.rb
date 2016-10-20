@@ -124,13 +124,13 @@ RSpec.describe IssuesController, type: :controller do
 
       it "assigns the requested issue as @issue" do
         issue # To create issue
-        put :update, params: {:id => issue.to_param, :issue => valid_parameters}, session: valid_session
+        put :update, params: {:id => issue.to_param, :issue => new_parameters}, session: valid_session
         expect(assigns(:issue)).to eq(issue)
       end
 
       it "redirects to the issue" do
         issue # To create issue
-        put :update, params: {:id => issue.to_param, :issue => valid_parameters}, session: valid_session
+        put :update, params: {:id => issue.to_param, :issue => new_parameters}, session: valid_session
         expect(response).to redirect_to(issue)
       end
     end
