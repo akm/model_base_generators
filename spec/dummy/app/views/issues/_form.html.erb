@@ -32,7 +32,7 @@
   <div class="form-group">
     <%= f.label :status, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select :status, Issue.status.optoins, {}, :class=>"form-control" %>
+      <%= f.select :status, Issue.status.options, {}, :class=>"form-control" %>
     </div>
     <%=f.error_span(:status) %>
   </div>
