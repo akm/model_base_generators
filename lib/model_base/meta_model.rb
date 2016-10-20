@@ -71,12 +71,14 @@ module ModelBase
         title_column ? raw_columns : [ColumnAttribute.new(self, :id, :integer, title: true)] + raw_columns
     end
 
+    SPEC_EXCLUSED_COLS = %w[created_at updated_at]
     def columns_for(type)
       case type
       when :form, :index, :show
         columns.reject{|c| exclude_for?(type, c) }
-      when :params
-        columns_for(:form).reject{|c| c.name == 'id'}
+      when :params     then columns_for(:form).reject{|c| c.name == 'id'}
+      when :spec_index then columns_for(:index).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
+      when :spec_show  then columns_for(:show ).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       else
         raise "Unknown template type: #{type.inspect}"
       end
