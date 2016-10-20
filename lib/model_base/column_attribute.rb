@@ -73,7 +73,7 @@ module ModelBase
 
     class EnumerizedSelectRenderer < AbstractSelectRenderer
       def render_core(form_name, target_name, options = {})
-        "#{form_name}.select :#{column_attr.name}, #{column_attr.model.name}.#{column_attr.name}.optoins"
+        "#{form_name}.select :#{column_attr.name}, #{column_attr.model.name}.#{column_attr.name}.options"
       end
     end
   end
