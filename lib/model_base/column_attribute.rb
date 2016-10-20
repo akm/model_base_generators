@@ -53,6 +53,43 @@ module ModelBase
       LOCALIZED_TYPES.include?(type)
     end
 
+    def sample_value(idx = 1)
+      if name == 'id'
+        idx
+      elsif name == 'email' && type == :string
+        'user1@example.com'
+      elsif title?
+        model.full_resource_name + idx.to_s
+      elsif ref_model
+        if tc = ref_model.title_column
+          tc.sample_value(idx)
+        else
+          1
+        end
+      elsif enumerized?
+        enum = model.model_class.send(name)
+        enum.values.first.text
+      else
+        @default ||= case type
+          when :integer                     then 1
+          when :float                       then 1.5
+          when :decimal                     then "9.99"
+          when :datetime, :timestamp, :time then Time.now.to_s(:db)
+          when :date                        then Date.today.to_s(:db)
+          when :string                      then
+            case name
+            when 'type' then ""
+            else "#{model.full_resource_name}_#{name}_#{idx}"
+            end
+          when :text                        then "#{model.full_resource_name}_#{name}_#{idx}"
+          when :boolean                     then false
+          when :references, :belongs_to     then nil
+          else
+            ""
+        end
+      end
+    end
+
     class AbstractSelectRenderer
       attr_reader :column_attr
       def initialize(column_attr)

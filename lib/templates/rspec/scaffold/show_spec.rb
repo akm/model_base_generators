@@ -8,8 +8,8 @@ RSpec.describe "<%= ns_table_name %>/show", <%= type_metatag(:view) %> do
 
   it "renders attributes in <p>" do
     render
-<% for attribute in output_attributes -%>
-    expect(rendered).to match(/<%= raw_value_for(attribute) %>/)
+<% model.columns_for(:show).each do |attribute| -%>
+    expect(rendered).to match(/<%= attribute.sample_value %>/)
 <% end -%>
   end
 end
