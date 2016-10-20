@@ -6,7 +6,11 @@ RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
   before(:each) do
     assign(:<%= table_name %>, [
 <% [1,2].each_with_index do |id, model_index| -%>
-      FactoryGirl.create(:<%= ns_file_name %>),
+  <%- if tc = model.title_column -%>
+      <%= model.factory_girl_create(tc.name.to_sym => tc.sample_value(model_index + 1)) %>,
+  <%- else -%>
+      <%= model.factory_girl_create %>
+  <%- end -%>
 <% end -%>
     ])
   end

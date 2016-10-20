@@ -110,18 +110,19 @@ module ModelBase
       dependencies.map{|attr, model| "#{attr.sub(/_id\z/, '')}: #{model.full_resource_name}"}
     end
 
-    def factory_girl_create
-      factory_girl_method(:create)
+    def factory_girl_create(extra = {})
+      factory_girl_method(:create, extra)
     end
 
-    def factory_girl_build
-      factory_girl_method(:build)
+    def factory_girl_build(extra = {})
+      factory_girl_method(:build, extra)
     end
 
-    def factory_girl_method(name)
+    def factory_girl_method(name, extra)
+      extra_str = extra.blank? ? '' : ', ' << extra.map{|k,v| "#{k}: '#{v}'"}.join(', ')
       options = factory_girl_options
       options_str = options.empty? ? '' : ', ' <<  factory_girl_options.join(', ')
-      'FactoryGirl.%s(:%s%s)' % [name, full_resource_name, options_str]
+      'FactoryGirl.%s(:%s%s%s)' % [name, full_resource_name, extra_str, options_str]
     end
 
     def factory_girl_let_definition
