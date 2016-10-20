@@ -22,6 +22,8 @@ module ModelBase
       Rails::Generators.templates_path.unshift(templates_dir)
       Rails::Generators.lookup(["rails:scaffold_controller"])
       Rails::Generators::ScaffoldControllerGenerator.source_paths.unshift(templates_dir)
+      require 'model_base/generators/erb/scaffold'
+      ::ModelBase::Generators::Erb::Scaffold.enable!
     end
   end
 end
