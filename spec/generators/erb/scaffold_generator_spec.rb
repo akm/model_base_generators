@@ -20,7 +20,6 @@ describe Erb::Generators::ScaffoldGenerator, type: :generator do
     end
   end
 
-  it_behaves_like :erb_scaffold, 'users'
   it_behaves_like :erb_scaffold, 'projects'
   it_behaves_like :erb_scaffold, 'issues'
 end
