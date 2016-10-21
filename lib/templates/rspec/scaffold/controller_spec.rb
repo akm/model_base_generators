@@ -52,7 +52,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <%- if !required_data_attrs.empty? -%>
     valid_parameters.symbolize_keys.merge(<%= required_data_attrs.first.name %>: '')
 <%- elsif !required_ref_attrs.empty? -%>
-    valid_parameters.symbolize_keys.merge(<%= required_ref_attrs.first.name %>_id: '')
+    valid_parameters.symbolize_keys.merge(<%= required_ref_attrs.first.reference.foreign_key %>: '')
 <%- else -%>
     skip("Add a hash of attributes invalid for your model")
 <%- end -%>
@@ -142,7 +142,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <%- if !required_data_attrs.empty? -%>
         valid_parameters.merge(<%= required_data_attrs.map{|attr| "#{attr.name}: new_#{attr.name}"}.join(', ') %>)
 <%- elsif !required_ref_attrs.empty? -%>
-        valid_parameters.merge(<%= required_ref_attrs.last.name %>_id: another_<%= required_ref_attrs.last.name %>.id)
+        valid_parameters.merge(<%= required_ref_attrs.last.reference.foreign_key %>: another_<%= required_ref_attrs.last.name %>.id)
 <%- else required_data_attrs.empty? -%>
         skip("Add a hash of attributes valid for your model")
 <%- end -%>
@@ -157,7 +157,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
         expect(<%= file_name %>.<%= attr.name %>).to eq new_<%= attr.name %>
   <%- end -%>
 <%- elsif !required_ref_attrs.empty? -%>
-        expect(<%= file_name %>.<%= required_ref_attrs.last.name %>_id).to eq another_<%= required_ref_attrs.last.name %>.id
+        expect(<%= file_name %>.<%= required_ref_attrs.last.reference.foreign_key %>).to eq another_<%= required_ref_attrs.last.name %>.id
 <%- else -%>
         skip("Add assertions for updated state")
 <%- end -%>
