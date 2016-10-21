@@ -18,5 +18,6 @@ describe FactoryGirl::Generators::ModelGenerator, type: :generator do
   end
 
   it_behaves_like :factory_girl_model, 'project'
+  it_behaves_like :factory_girl_model, 'project_assignment'
   it_behaves_like :factory_girl_model, 'issue'
 end

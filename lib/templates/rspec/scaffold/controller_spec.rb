@@ -51,8 +51,6 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   let(:invalid_parameters) {
 <%- if !required_data_attrs.empty? -%>
     valid_parameters.symbolize_keys.merge(<%= required_data_attrs.first.name %>: '')
-<%- elsif !required_ref_attrs.empty? -%>
-    valid_parameters.symbolize_keys.merge(<%= required_ref_attrs.first.name %>_id: '')
 <%- else -%>
     skip("Add a hash of attributes invalid for your model")
 <%- end -%>
@@ -134,15 +132,11 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   <%- required_data_attrs.each do |required_data_attr| -%>
       let(:new_<%= required_data_attr.name %>){ <%= required_data_attr.new_attribute_exp %> }
   <%- end -%>
-<%- elsif !required_ref_attrs.empty? -%>
-      let(:another_<%= required_ref_attrs.last.name %>){ FactoryGirl.create(:<%= required_ref_attrs.last.name %><%= extra_attributes_for_factory %>) }
 <%- end -%>
 
       let(:new_parameters) {
 <%- if !required_data_attrs.empty? -%>
         valid_parameters.merge(<%= required_data_attrs.map{|attr| "#{attr.name}: new_#{attr.name}"}.join(', ') %>)
-<%- elsif !required_ref_attrs.empty? -%>
-        valid_parameters.merge(<%= required_ref_attrs.last.name %>_id: another_<%= required_ref_attrs.last.name %>.id)
 <%- else required_data_attrs.empty? -%>
         skip("Add a hash of attributes valid for your model")
 <%- end -%>
@@ -156,8 +150,6 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   <%- required_data_attrs.each do |attr| -%>
         expect(<%= file_name %>.<%= attr.name %>).to eq new_<%= attr.name %>
   <%- end -%>
-<%- elsif !required_ref_attrs.empty? -%>
-        expect(<%= file_name %>.<%= required_ref_attrs.last.name %>_id).to eq another_<%= required_ref_attrs.last.name %>.id
 <%- else -%>
         skip("Add assertions for updated state")
 <%- end -%>

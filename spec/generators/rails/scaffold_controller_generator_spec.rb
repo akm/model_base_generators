@@ -18,5 +18,6 @@ describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
   end
 
   it_behaves_like :rails_scaffold_controller, 'projects'
+  it_behaves_like :rails_scaffold_controller, 'project_assignments'
   it_behaves_like :rails_scaffold_controller, 'issues'
 end

@@ -68,15 +68,15 @@ module ModelBase
 
     def columns
       @columns ||=
-        title_column ? raw_columns : [ColumnAttribute.new(self, :id, :integer, title: true)] + raw_columns
+        title_column ? raw_columns : [ColumnAttribute.new(self, 'id', :integer, title: true)] + raw_columns
     end
 
-    SPEC_EXCLUSED_COLS = %w[created_at updated_at]
+    SPEC_EXCLUSED_COLS = %w[id created_at updated_at]
     def columns_for(type)
       case type
       when :form, :index, :show
         columns.reject{|c| exclude_for?(type, c) }
-      when :params     then columns_for(:form).reject{|c| c.name == 'id'}
+      when :params     then columns_for(:form).reject{|c| c.name.to_s == 'id'}
       when :spec_index then columns_for(:index).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       when :spec_show  then columns_for(:show ).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       when :factory     then columns_for(:params).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
@@ -99,8 +99,8 @@ module ModelBase
       # | true  | true  | true  |
       # | false | false | true  |
       raw_columns.select{|c| !required || c.required? }.
-        select(&:ref_model).
-        each_with_object({}){|c,d| d[c.name] = c.ref_model}
+        select(&:reference).
+        each_with_object({}){|c,d| d[c.reference.name] = c.ref_model }
     end
 
     def all_dependencies(required = true)
@@ -108,7 +108,7 @@ module ModelBase
     end
 
     def factory_girl_options
-      dependencies.map{|attr, model| "#{attr.sub(/_id\z/, '')}: #{model.full_resource_name}"}
+      dependencies.map{|attr, model| "#{attr}: #{model.full_resource_name}" }
     end
 
     def factory_girl_create(extra = {})
