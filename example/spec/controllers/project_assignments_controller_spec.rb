@@ -34,7 +34,7 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
   }
 
   let(:invalid_parameters) {
-    valid_parameters.symbolize_keys.merge(project_id: Project.maximum(:id) + 1)
+    skip("Add a hash of attributes invalid for your model")
   }
 
   # This should return the minimal set of values that should be in the session
@@ -107,17 +107,16 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:another_user){ FactoryGirl.create(:user, email: 'user2@example.com') }
 
       let(:new_parameters) {
-        valid_parameters.merge(user_id: another_user.id)
+        skip("Add a hash of attributes valid for your model")
       }
 
       it "updates the requested project_assignment" do
         project_assignment # To create project_assignment
         put :update, params: {:id => project_assignment.to_param, :project_assignment => new_parameters}, session: valid_session
         project_assignment.reload
-        expect(project_assignment.user_id).to eq another_user.id
+        skip("Add assertions for updated state")
       end
 
       it "assigns the requested project_assignment as @project_assignment" do
