@@ -76,7 +76,7 @@ module ModelBase
       case type
       when :form, :index, :show
         columns.reject{|c| exclude_for?(type, c) }
-      when :params     then columns_for(:form).reject{|c| c.name == 'id'}
+      when :params     then columns_for(:form).reject{|c| c.name.to_s == 'id'}
       when :spec_index then columns_for(:index).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       when :spec_show  then columns_for(:show ).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       when :factory     then columns_for(:params).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
