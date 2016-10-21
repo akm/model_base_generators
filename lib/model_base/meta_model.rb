@@ -99,8 +99,8 @@ module ModelBase
       # | true  | true  | true  |
       # | false | false | true  |
       raw_columns.select{|c| !required || c.required? }.
-        select(&:ref_model).
-        each_with_object({}){|c,d| d[c.name] = c.ref_model}
+        select(&:reference).
+        each_with_object({}){|c,d| d[c.reference.name] = c.ref_model }
     end
 
     def all_dependencies(required = true)
@@ -108,7 +108,7 @@ module ModelBase
     end
 
     def factory_girl_options
-      dependencies.map{|attr, model| "#{attr.sub(/_id\z/, '')}: #{model.full_resource_name}"}
+      dependencies.map{|attr, model| "#{attr}: #{model.full_resource_name}" }
     end
 
     def factory_girl_create(extra = {})
