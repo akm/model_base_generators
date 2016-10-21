@@ -53,7 +53,7 @@ module ModelBase
       LOCALIZED_TYPES.include?(type)
     end
 
-    def sample_value(idx = 1)
+    def sample_value(idx = 1, context: nil)
       if name == 'id'
         idx
       elsif name == 'email' && type == :string
@@ -68,7 +68,8 @@ module ModelBase
         end
       elsif enumerized?
         enum = model.model_class.send(name)
-        enum.values.first.text
+        r = enum.values.first
+        context == :factory ? r.to_sym : r.text
       else
         @default ||= case type
           when :integer                     then idx
