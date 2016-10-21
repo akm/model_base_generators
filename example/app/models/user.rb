@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :project_assignments
+  
   class << self
     def current_user=(user)
       Thread.current[:current_user] = user
