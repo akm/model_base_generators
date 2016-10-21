@@ -9,7 +9,6 @@ RSpec.describe "project_assignments/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/project_assignment1/)
     expect(rendered).to match(/project1/)
     expect(rendered).to match(/user1@example.com/)
   end
