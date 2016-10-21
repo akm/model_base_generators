@@ -79,6 +79,7 @@ module ModelBase
       when :params     then columns_for(:form).reject{|c| c.name == 'id'}
       when :spec_index then columns_for(:index).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       when :spec_show  then columns_for(:show ).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
+      when :factory     then columns_for(:params).reject{|c| SPEC_EXCLUSED_COLS.include?(c.name)}
       else
         raise "Unknown template type: #{type.inspect}"
       end
