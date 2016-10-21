@@ -68,10 +68,10 @@ module ModelBase
 
     def columns
       @columns ||=
-        title_column ? raw_columns : [ColumnAttribute.new(self, :id, :integer, title: true)] + raw_columns
+        title_column ? raw_columns : [ColumnAttribute.new(self, 'id', :integer, title: true)] + raw_columns
     end
 
-    SPEC_EXCLUSED_COLS = %w[created_at updated_at]
+    SPEC_EXCLUSED_COLS = %w[id created_at updated_at]
     def columns_for(type)
       case type
       when :form, :index, :show
