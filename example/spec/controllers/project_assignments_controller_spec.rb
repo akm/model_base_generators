@@ -34,7 +34,7 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
   }
 
   let(:invalid_parameters) {
-    valid_parameters.symbolize_keys.merge(project_id_id: '')
+    valid_parameters.symbolize_keys.merge(project_id: '')
   }
 
   # This should return the minimal set of values that should be in the session
@@ -110,14 +110,14 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
       let(:another_user_id){ FactoryGirl.create(:user_id, project: project, user: user) }
 
       let(:new_parameters) {
-        valid_parameters.merge(user_id_id: another_user_id.id)
+        valid_parameters.merge(user_id: another_user_id.id)
       }
 
       it "updates the requested project_assignment" do
         project_assignment # To create project_assignment
         put :update, params: {:id => project_assignment.to_param, :project_assignment => new_parameters}, session: valid_session
         project_assignment.reload
-        expect(project_assignment.user_id_id).to eq another_user_id.id
+        expect(project_assignment.user_id).to eq another_user_id.id
       end
 
       it "assigns the requested project_assignment as @project_assignment" do
