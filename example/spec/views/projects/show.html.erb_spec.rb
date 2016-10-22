@@ -10,5 +10,6 @@ RSpec.describe "projects/show", type: :view do
     render
     expect(rendered).to match(/user1@example.com/)
     expect(rendered).to match(/project1/)
+    expect(rendered).to match(/false/)
   end
 end

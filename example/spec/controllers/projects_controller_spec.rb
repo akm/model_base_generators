@@ -107,9 +107,10 @@ RSpec.describe ProjectsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_name){ valid_parameters[:name].succ }
+      let(:new_closed){ valid_parameters[:closed].! }
 
       let(:new_parameters) {
-        valid_parameters.merge(name: new_name)
+        valid_parameters.merge(name: new_name, closed: new_closed)
       }
 
       it "updates the requested project" do
@@ -117,6 +118,7 @@ RSpec.describe ProjectsController, type: :controller do
         put :update, params: {:id => project.to_param, :project => new_parameters}, session: valid_session
         project.reload
         expect(project.name).to eq new_name
+        expect(project.closed).to eq new_closed
       end
 
       it "assigns the requested project as @project" do
