@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20161013025452) do
   create_table :project_assignments do |t|
     t.references :project, null: false, foreign_key: true
     t.references :user   , null: false, foreign_key: true
+    t.datetime :started_at
+    t.datetime :finished_at
     t.datetime :created_at, null: false
   end
 
