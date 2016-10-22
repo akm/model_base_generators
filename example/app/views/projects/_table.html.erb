@@ -4,6 +4,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:owner_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:closed) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -12,6 +13,7 @@
       <tr>
         <td><%= project.owner.email %></td>
         <td><%= link_to project.name, project_path(project) %></td>
+        <td><%= project.closed %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_project_path(project), :class => 'btn btn-default btn-xs' %>
