@@ -14,5 +14,9 @@ RSpec.describe "project_assignments/index", type: :view do
     render
     assert_select "tr>td", :text => 'project1', :count => 2
     assert_select "tr>td", :text => 'user1@example.com', :count => 2
+    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
+    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
+    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
+    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
   end
 end

@@ -5,6 +5,8 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:project_id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:started_at) %></th>
+      <th><%= model_class.human_attribute_name(:finished_at) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -15,6 +17,8 @@
         <td><%= project_assignment.id %></td>
         <td><%= project_assignment.project.name %></td>
         <td><%= project_assignment.user.email %></td>
+        <td><%=l project_assignment.started_at %></td>
+        <td><%=l project_assignment.finished_at %></td>
         <td><%=l project_assignment.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
