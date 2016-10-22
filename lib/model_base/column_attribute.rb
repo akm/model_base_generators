@@ -98,6 +98,8 @@ module ModelBase
     def new_attribute_exp
       if enumerized?
         '%s.%s.values[%d]' % [model.name, name, 1] # 2nd value
+      elsif type == :boolean
+        "valid_parameters[:#{name}].!"
       else
         "valid_parameters[:#{name}].succ"
       end
