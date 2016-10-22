@@ -13,6 +13,7 @@ describe Erb::Generators::ScaffoldGenerator, type: :generator do
       before{ run_generator [controller_name.dup] }
 
       it{ assert_expectation_file "app/views/#{controller_name}/_form.html.erb" }
+      it{ assert_expectation_file "app/views/#{controller_name}/_table.html.erb" }
       it{ assert_expectation_file "app/views/#{controller_name}/edit.html.erb" }
       it{ assert_expectation_file "app/views/#{controller_name}/index.html.erb" }
       it{ assert_expectation_file "app/views/#{controller_name}/new.html.erb" }

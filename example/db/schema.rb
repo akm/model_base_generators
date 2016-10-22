@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20161013025452) do
   create_table :projects do |t|
     t.references :owner, null: false
     t.string :name            , null: false
+    t.boolean :closed, null: false, default: false
   end
   add_foreign_key :projects, :users, column: 'owner_id'
 

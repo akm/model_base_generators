@@ -14,5 +14,6 @@ RSpec.describe "projects/index", type: :view do
     assert_select "tr>td", :text => 'user1@example.com', :count => 2
     assert_select "tr>td", :text => 'project1', :count => 1
     assert_select "tr>td", :text => 'project2', :count => 1
+    assert_select "tr>td", :text => 'false', :count => 2
   end
 end

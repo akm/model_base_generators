@@ -12,6 +12,7 @@ RSpec.describe "projects/edit", type: :view do
     assert_select "form[action=?][method=?]", project_path(@project), "post" do
       assert_select "select#project_owner_id[name=?]", "project[owner_id]"
       assert_select "input#project_name[name=?]", "project[name]"
+      assert_select "input#project_closed[name=?]", "project[closed]"
     end
   end
 end
