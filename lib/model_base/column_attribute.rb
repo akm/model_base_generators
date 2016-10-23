@@ -75,8 +75,8 @@ module ModelBase
           when :integer                     then idx
           when :float                       then idx + 0.5
           when :decimal                     then "#{idx}.99"
-          when :datetime, :timestamp, :time then sample_time.to_s(:db)
-          when :date                        then sample_time.to_date.to_s(:db)
+          when :datetime, :timestamp, :time then sample_time(idx).to_s(:db)
+          when :date                        then sample_time(idx).to_date.to_s(:db)
           when :string                      then
             case name
             when 'type' then ""
@@ -95,11 +95,10 @@ module ModelBase
       name.split('').map(&:ord).sum
     end
 
-    def sample_time
-      @sample_time ||=
-        ModelBase.base_time +
+    def sample_time(idx = 1)
+      ModelBase.base_time +
         model.sample_value.hours +
-        base_sample_value.minutes * 10
+        base_sample_value.minutes * 10 * idx
     end
 
     def sample_string(idx = 1)
