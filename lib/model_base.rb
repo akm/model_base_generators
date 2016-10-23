@@ -27,6 +27,10 @@ module ModelBase
       require 'model_base/generators/factory_girl/model'
       ::ModelBase::Generators::FactoryGirl::Model.enable!
     end
+
+    def base_time
+      Time.zone.parse(config.base_time)
+    end
   end
 end
 require 'model_base/railtie' if defined?(Rails)
