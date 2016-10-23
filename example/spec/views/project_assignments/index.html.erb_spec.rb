@@ -14,9 +14,7 @@ RSpec.describe "project_assignments/index", type: :view do
     render
     assert_select "tr>td", :text => 'project1', :count => 2
     assert_select "tr>td", :text => 'user1@example.com', :count => 2
-    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
-    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
-    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
-    assert_select "tr>td", :text => '2016-10-22 10:49:32', :count => 1
+    assert_select "tr>td", :text => localize(Time.zone.parse("2020-03-22 09:50:00")), :count => 2
+    assert_select "tr>td", :text => localize(Time.zone.parse('2020-03-22 23:40:00')), :count => 2
   end
 end

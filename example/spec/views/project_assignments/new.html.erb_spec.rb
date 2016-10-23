@@ -14,8 +14,8 @@ RSpec.describe "project_assignments/new", type: :view do
       assert_select "input#project_assignment_id[name=?]", "project_assignment[id]"
       assert_select "select#project_assignment_project_id[name=?]", "project_assignment[project_id]"
       assert_select "select#project_assignment_user_id[name=?]", "project_assignment[user_id]"
-      assert_select "input#project_assignment_started_at[name=?]", "project_assignment[started_at]"
-      assert_select "input#project_assignment_finished_at[name=?]", "project_assignment[finished_at]"
+      assert_select_datetime_field :project_assignment, :started_at
+      assert_select_datetime_field :project_assignment, :finished_at
     end
   end
 end
