@@ -136,5 +136,9 @@ module ModelBase
       r << "let(:user){ FactoryGirl.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
       r.join("\n" << spacer)
     end
+
+    def sample_value
+      @sample_value ||= name.split('').map(&:ord).sum
+    end
   end
 end
