@@ -66,6 +66,10 @@ module ModelBase
       @raw_columns ||= retrieve_columns
     end
 
+    def [](name)
+      raw_columns.detect{|c| c.name == name.to_s}
+    end
+
     def columns
       @columns ||=
         title_column ? raw_columns : [ColumnAttribute.new(self, 'id', :integer, title: true)] + raw_columns
