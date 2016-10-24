@@ -71,7 +71,7 @@ module ModelBase
         r = enum.values.first
         context == :factory ? r.to_sym : r.text
       else
-        @default ||= case type
+        case type
           when :integer                     then idx
           when :float                       then idx + 0.5
           when :decimal                     then "#{idx}.99"
@@ -98,17 +98,16 @@ module ModelBase
     def sample_time(idx = 1)
       ModelBase.base_time +
         model.sample_value.hours +
-        base_sample_value.minutes * 10 * idx
+        (base_sample_value.minutes * 10 * idx)
     end
 
     def sample_value_regexp_exp(idx = 1)
-      ptn =
-        case type
-        when :datetime, :timestamp, :time
-          'Regexp.new(Regexp.escape(localize(Time.zone.parse(\'%s\'))))'
-        else '/%s/'
-        end
-      ptn % sample_value(idx)
+      case type
+      when :datetime, :timestamp, :time
+        'Regexp.new(Regexp.escape(%s))' % sample_string_exp(idx)
+      else
+        '/%s/' % sample_value(idx)
+      end
     end
 
     def assert_select_exp
@@ -121,8 +120,13 @@ module ModelBase
       end
     end
 
-    def sample_string(idx = 1)
-      "'%s'" % sample_value(idx)
+    def sample_string_exp(idx = 1)
+      case type
+      when :datetime, :timestamp, :time
+        'localize(Time.zone.parse(\'%s\'))' % sample_value(idx)
+      else
+        "'%s'" % sample_value(idx)
+      end
     end
 
     def new_attribute_exp
