@@ -53,6 +53,14 @@ module ModelBase
       LOCALIZED_TYPES.include?(type)
     end
 
+    def single_sample_only?
+      ref_model || enumerized? ||
+        case type
+        when :boolean, :datetime, :timestamp, :time, :date then true
+        else false
+        end
+    end
+
     def sample_value(idx = 1, context: nil)
       if name == 'id'
         idx
