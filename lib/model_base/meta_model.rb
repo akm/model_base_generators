@@ -48,7 +48,7 @@ module ModelBase
       belongs_to_refs = model_class.reflections.values.select{|ref| ref.is_a?(ActiveRecord::Reflection::BelongsToReflection) }
       cols = raw_cols.map do |col|
         ref = belongs_to_refs.detect{|ref| ref.foreign_key == col.name}
-        ColumnAttribute.new(self, col.name, col.type, reference: ref)
+        ColumnAttribute.new(self, col.name, col.type, column: col, reference: ref)
       end
       @title_column = nil
       ModelBase.config.title_column_candidates.each do |tcc|
@@ -64,6 +64,10 @@ module ModelBase
 
     def raw_columns
       @raw_columns ||= retrieve_columns
+    end
+
+    def [](name)
+      raw_columns.detect{|c| c.name == name.to_s}
     end
 
     def columns
@@ -135,6 +139,10 @@ module ModelBase
       r = deps.map(&:factory_girl_let_definition)
       r << "let(:user){ FactoryGirl.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
       r.join("\n" << spacer)
+    end
+
+    def sample_value
+      @sample_value ||= name.split('').map(&:ord).sum
     end
   end
 end

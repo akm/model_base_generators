@@ -57,6 +57,6 @@ class ProjectAssignmentsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def project_assignment_params
-    params.require(:project_assignment).permit(:project_id, :user_id)
+    params.require(:project_assignment).permit(:project_id, :user_id, :started_at, :finished_at)
   end
 end

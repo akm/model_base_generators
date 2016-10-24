@@ -31,7 +31,7 @@ module ModelBase
     end
 
     def required?
-      !column.try(:null)
+      column ? !column.null : false
     end
 
     def enumerized?
@@ -53,6 +53,14 @@ module ModelBase
       LOCALIZED_TYPES.include?(type)
     end
 
+    def single_sample_only?
+      ref_model || enumerized? ||
+        case type
+        when :boolean, :datetime, :timestamp, :time, :date then true
+        else false
+        end
+    end
+
     def sample_value(idx = 1, context: nil)
       if name == 'id'
         idx
@@ -71,12 +79,12 @@ module ModelBase
         r = enum.values.first
         context == :factory ? r.to_sym : r.text
       else
-        @default ||= case type
+        case type
           when :integer                     then idx
           when :float                       then idx + 0.5
           when :decimal                     then "#{idx}.99"
-          when :datetime, :timestamp, :time then Time.now.to_s(:db)
-          when :date                        then Date.today.to_s(:db)
+          when :datetime, :timestamp, :time then sample_time(idx).to_s(:db)
+          when :date                        then sample_time(idx).to_date.to_s(:db)
           when :string                      then
             case name
             when 'type' then ""
@@ -91,8 +99,42 @@ module ModelBase
       end
     end
 
-    def sample_string(idx = 1)
-      "'%s'" % sample_value(idx)
+    def base_sample_value
+      name.split('').map(&:ord).sum
+    end
+
+    def sample_time(idx = 1)
+      ModelBase.base_time +
+        model.sample_value.hours +
+        (base_sample_value.minutes * 10 * idx)
+    end
+
+    def sample_value_regexp_exp(idx = 1)
+      case type
+      when :datetime, :timestamp, :time
+        'Regexp.new(Regexp.escape(%s))' % sample_string_exp(idx)
+      else
+        '/%s/' % sample_value(idx)
+      end
+    end
+
+    def assert_select_exp
+      model_name = model.full_resource_name
+      case type
+      when :datetime, :timestamp, :time
+        "assert_select_datetime_field :#{model_name}, :#{name}"
+      else
+        "assert_select \"#{ input_type }##{ model_name }_#{ name }[name=?]\", \"#{ model_name }[#{ name }]\""
+      end
+    end
+
+    def sample_string_exp(idx = 1)
+      case type
+      when :datetime, :timestamp, :time
+        'localize(Time.zone.parse(\'%s\'))' % sample_value(idx)
+      else
+        "'%s'" % sample_value(idx)
+      end
     end
 
     def new_attribute_exp

@@ -10,6 +10,10 @@
   <dd><%= @project_assignment.project.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
   <dd><%= @project_assignment.user.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:started_at) %>:</strong></dt>
+  <dd><%=l @project_assignment.started_at %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:finished_at) %>:</strong></dt>
+  <dd><%=l @project_assignment.finished_at %></dd>
   <dt><strong><%= model_class.human_attribute_name(:created_at) %>:</strong></dt>
   <dd><%=l @project_assignment.created_at %></dd>
 </dl>
