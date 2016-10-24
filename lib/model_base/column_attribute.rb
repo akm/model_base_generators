@@ -31,7 +31,7 @@ module ModelBase
     end
 
     def required?
-      !column.try(:null)
+      column ? !column.null : false
     end
 
     def enumerized?
