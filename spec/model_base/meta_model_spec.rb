@@ -30,7 +30,7 @@ describe ModelBase::MetaModel do
     its(:model_class){ is_expected.to eq Project }
   end
 
-  describe :column do
+  describe :columns do
     subject{ ModelBase::MetaModel.new('Project').columns }
     it{ is_expected.to be_an Array }
     it{ is_expected.not_to be_empty }
