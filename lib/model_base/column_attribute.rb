@@ -101,6 +101,16 @@ module ModelBase
         base_sample_value.minutes * 10 * idx
     end
 
+    def sample_value_regexp_exp(idx = 1)
+      ptn =
+        case type
+        when :datetime, :timestamp, :time
+          'Regexp.new(Regexp.escape(localize(Time.zone.parse(\'%s\'))))'
+        else '/%s/'
+        end
+      ptn % sample_value(idx)
+    end
+
     def sample_string(idx = 1)
       "'%s'" % sample_value(idx)
     end
