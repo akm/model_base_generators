@@ -111,6 +111,16 @@ module ModelBase
       ptn % sample_value(idx)
     end
 
+    def assert_select_exp
+      model_name = model.full_resource_name
+      case type
+      when :datetime, :timestamp, :time
+        "assert_select_datetime_field :#{model_name}, :#{name}"
+      else
+        "assert_select \"#{ input_type }##{ model_name }_#{ name }[name=?]\", \"#{ model_name }[#{ name }]\""
+      end
+    end
+
     def sample_string(idx = 1)
       "'%s'" % sample_value(idx)
     end
