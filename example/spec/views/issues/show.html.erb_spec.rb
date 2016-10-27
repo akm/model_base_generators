@@ -13,5 +13,6 @@ RSpec.describe "issues/show", type: :view do
     expect(rendered).to match(/issue1/)
     expect(rendered).to match(/Draft/)
     expect(rendered).to match(/user1@example.com/)
+    expect(rendered).to match(/user1@example.com/)
   end
 end

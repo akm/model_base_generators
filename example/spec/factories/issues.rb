@@ -4,5 +4,6 @@ FactoryGirl.define do
     title "issue1"
     status :draft
     association :creator, factory: :user
+    assignee nil
   end
 end
