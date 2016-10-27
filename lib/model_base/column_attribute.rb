@@ -156,8 +156,8 @@ module ModelBase
       def render(form_name, target_name, options = {})
         html = options.delete(:html) || {}
         html_exp = html.empty? ? nil : html.inspect.gsub(/\A\{|\}\z/, '')
-        options.update(include_blank: !column_attr.required?)
-        options_exp = {}.inspect
+        options.update(include_blank: true) if !column_attr.required?
+        options_exp = '{%s}' % options.map{|k,v| "#{k}: #{v.inspect}"}.join(', ')
         r = render_core(form_name, target_name)
         r << ", #{options_exp}"
         r << ", #{html_exp}" unless html.empty?
