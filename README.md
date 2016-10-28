@@ -16,6 +16,10 @@ And then execute:
 
     $ bundle
 
+## Setup
+
+    $ bin/rails g model_base:install
+
 ## Usage
 
 ### 1. Generate your model
@@ -56,6 +60,9 @@ $ bin/rails g scaffold_controller issues
 
 Run scaffold_controller **WITHOUT attributes**!
 
+## Template for `rails new`
+
+You can use `rails_template.rb` for `--template` option of `rails new`.
 
 
 ## Development
