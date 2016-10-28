@@ -23,5 +23,6 @@ describe Erb::Generators::ScaffoldGenerator, type: :generator do
 
   it_behaves_like :erb_scaffold, 'projects'
   it_behaves_like :erb_scaffold, 'project_assignments'
+  it_behaves_like :erb_scaffold, 'phases'
   it_behaves_like :erb_scaffold, 'issues'
 end
