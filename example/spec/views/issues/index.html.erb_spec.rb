@@ -5,8 +5,8 @@ RSpec.describe "issues/index", type: :view do
   let(:project){ FactoryGirl.create(:project, owner: user) }
   before(:each) do
     assign(:issues, [
-      FactoryGirl.create(:issue, title: 'issue1', project: project, creator: user),
-      FactoryGirl.create(:issue, title: 'issue2', project: project, creator: user),
+      FactoryGirl.create(:issue, project: project, creator: user, title: 'issue1'),
+      FactoryGirl.create(:issue, project: project, creator: user, title: 'issue2'),
     ])
   end
 
