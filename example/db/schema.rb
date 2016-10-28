@@ -49,4 +49,12 @@ ActiveRecord::Schema.define(version: 20161013025452) do
   end
   add_foreign_key :issues, :users, column: 'creator_id'
   add_foreign_key :issues, :users, column: 'assignee_id'
+
+  create_table :issue_comments do |t|
+    t.references :issue, null: false, foreign_key: true
+    t.references :user, null: false, foreign_key: true
+    t.text :description
+    t.datetime :created_at,                          null: false
+    t.datetime :updated_at,                          null: false
+  end
 end
