@@ -115,14 +115,6 @@ module ModelBase
       dependencies.map{|attr, model| "#{attr}: #{model.full_resource_name}" }
     end
 
-    def factory_girl_create(extra = {})
-      factory_girl_method(:create, extra)
-    end
-
-    def factory_girl_build(extra = {})
-      factory_girl_method(:build, extra)
-    end
-
     def factory_girl_method(name, extra)
       extra_str = extra.blank? ? '' : ', ' << extra.map{|k,v| "#{k}: '#{v}'"}.join(', ')
       options = factory_girl_options
@@ -141,7 +133,7 @@ module ModelBase
     end
 
     def factory_girl_let_definition
-      'let(:%s){ %s }' % [full_resource_name, factory_girl_create]
+      'let(:%s){ %s }' % [full_resource_name, factory_girl_to(:create)]
     end
 
     def factory_girl_let_definitions(spacer = "  ")
