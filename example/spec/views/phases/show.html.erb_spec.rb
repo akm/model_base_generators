@@ -11,7 +11,7 @@ RSpec.describe "phases/show", type: :view do
     render
     expect(rendered).to match(/project1/)
     expect(rendered).to match(/phase1/)
-    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-01-29 02:50:00')))))
-    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-01-29 16:40:00')))))
+    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-01-29 02:50:00 +09:00')))))
+    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-01-29 16:40:00 +09:00')))))
   end
 end
