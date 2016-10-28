@@ -19,4 +19,3 @@ module Dummy
     config.time_zone = 'Tokyo'
   end
 end
-

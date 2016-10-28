@@ -11,7 +11,7 @@ RSpec.describe "project_assignments/show", type: :view do
     render
     expect(rendered).to match(/project1/)
     expect(rendered).to match(/user1@example.com/)
-    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-03-22 09:50:00')))))
-    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-03-22 23:40:00')))))
+    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-03-22 09:50:00 +0900')))))
+    expect(rendered).to match(Regexp.new(Regexp.escape(localize(Time.zone.parse('2020-03-22 23:40:00 +0900')))))
   end
 end
