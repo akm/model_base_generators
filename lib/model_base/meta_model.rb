@@ -127,7 +127,17 @@ module ModelBase
       extra_str = extra.blank? ? '' : ', ' << extra.map{|k,v| "#{k}: '#{v}'"}.join(', ')
       options = factory_girl_options
       options_str = options.empty? ? '' : ', ' <<  factory_girl_options.join(', ')
-      'FactoryGirl.%s(:%s%s%s)' % [name, full_resource_name, extra_str, options_str]
+      'FactoryGirl.%s(:%s%s%s)' % [name, full_resource_name, options_str, extra_str]
+    end
+
+    def factory_girl_to(name, context: nil, index: 1, extra: {})
+      case context
+      when :spec_index
+        columns_for(:spec_index).delete_if(&:single_sample_only?).delete_if(&:reference).each do |col|
+          extra[col.name] = col.sample_value(index)
+        end
+      end
+      factory_girl_method(name, extra)
     end
 
     def factory_girl_let_definition

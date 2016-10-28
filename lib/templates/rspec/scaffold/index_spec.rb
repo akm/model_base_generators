@@ -9,7 +9,7 @@ RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
   <%- if tc = model.title_column -%>
       <%= model.factory_girl_create(tc.name.to_sym => tc.sample_value(model_index + 1)) %>,
   <%- else -%>
-      <%= model.factory_girl_create %>,
+      <%= model.factory_girl_to(:create, context: :spec_index, index: id, ) %>,
   <%- end -%>
 <% end -%>
     ])
