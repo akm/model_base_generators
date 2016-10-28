@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "phases/show", type: :view do
-  let(:project){ FactoryGirl.create(:project, owner: user) }
   let(:user){ FactoryGirl.create(:user) }
+  let(:project){ FactoryGirl.create(:project, owner: user) }
   before(:each) do
     @phase = assign(:phase, FactoryGirl.create(:phase, project: project))
   end

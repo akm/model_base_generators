@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "phases/index", type: :view do
-  let(:project){ FactoryGirl.create(:project, owner: user) }
   let(:user){ FactoryGirl.create(:user) }
+  let(:project){ FactoryGirl.create(:project, owner: user) }
   before(:each) do
     assign(:phases, [
       FactoryGirl.create(:phase, name: 'phase1', project: project),

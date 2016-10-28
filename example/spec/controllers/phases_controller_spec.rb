@@ -20,8 +20,8 @@ require 'rails_helper'
 
 RSpec.describe PhasesController, type: :controller do
 
-  let(:project){ FactoryGirl.create(:project, owner: user) }
   let(:user){ FactoryGirl.create(:user) }
+  let(:project){ FactoryGirl.create(:project, owner: user) }
   before{ devise_user_login(user) }
 
   let(:phase){ FactoryGirl.create(:phase, project: project) }

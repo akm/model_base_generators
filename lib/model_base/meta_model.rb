@@ -136,7 +136,7 @@ module ModelBase
 
     def factory_girl_let_definitions(spacer = "  ")
       deps = all_dependencies
-      r = deps.map(&:factory_girl_let_definition)
+      r = deps.reverse.map(&:factory_girl_let_definition)
       r << "let(:user){ FactoryGirl.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
       r.join("\n" << spacer)
     end

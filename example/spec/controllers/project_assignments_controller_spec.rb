@@ -20,8 +20,8 @@ require 'rails_helper'
 
 RSpec.describe ProjectAssignmentsController, type: :controller do
 
-  let(:project){ FactoryGirl.create(:project, owner: user) }
   let(:user){ FactoryGirl.create(:user) }
+  let(:project){ FactoryGirl.create(:project, owner: user) }
   before{ devise_user_login(user) }
 
   let(:project_assignment){ FactoryGirl.create(:project_assignment, project: project, user: user) }
