@@ -15,6 +15,8 @@ module Dummy
       g.test_framework  :rspec
       g.factory_girl dir: 'spec/factories'
     end
+
+    config.time_zone = 'Tokyo'
   end
 end
 
