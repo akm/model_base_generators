@@ -1,0 +1,9 @@
+<%- model_class = Phase -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<%= render 'phases/table' %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_phase_path,
+            :class => 'btn btn-primary' %>
