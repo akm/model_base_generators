@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20161013025452) do
   end
   add_foreign_key :projects, :users, column: 'owner_id'
 
+  create_table :phases do |t|
+    t.references :project  , null: false, foreign_key: true
+    t.string :name         , null: false
+    t.datetime :started_at , null: false
+    t.datetime :finished_at, null: false
+  end
+
   create_table :project_assignments do |t|
     t.references :project, null: false, foreign_key: true
     t.references :user   , null: false, foreign_key: true

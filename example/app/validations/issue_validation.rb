@@ -5,5 +5,6 @@ module IssueValidation
     validates :project_id, presence: true, numericality: true
     validates :title, presence: true
     validates :creator_id, presence: true, numericality: true
+    validates :assignee_id, numericality: true, allow_nil: true
   end
 end
