@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "<%= ns_table_name %>/edit", <%= type_metatag(:view) %> do
   <%= model.factory_girl_let_definitions %>
   before(:each) do
-    @<%= ns_file_name %> = assign(:<%= ns_file_name %>, <%= model.factory_girl_create %>)
+    @<%= ns_file_name %> = assign(:<%= ns_file_name %>, <%= model.factory_girl_to :create %>)
   end
 
   it "renders the edit <%= ns_file_name %> form" do

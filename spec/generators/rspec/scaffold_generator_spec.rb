@@ -25,4 +25,5 @@ describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   it_behaves_like :rspec_scaffold, 'project_assignments'
   it_behaves_like :rspec_scaffold, 'phases'
   it_behaves_like :rspec_scaffold, 'issues'
+  it_behaves_like :rspec_scaffold, 'issue_comments'
 end

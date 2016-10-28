@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe "<%= ns_table_name %>/new", <%= type_metatag(:view) %> do
   <%= model.factory_girl_let_definitions %>
   before(:each) do
-    assign(:<%= ns_file_name %>, <%= model.factory_girl_build %>)
+    assign(:<%= ns_file_name %>, <%= model.factory_girl_to :build %>)
   end
 
   it "renders new <%= ns_file_name %> form" do

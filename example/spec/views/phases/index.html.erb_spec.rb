@@ -5,8 +5,8 @@ RSpec.describe "phases/index", type: :view do
   let(:project){ FactoryGirl.create(:project, owner: user) }
   before(:each) do
     assign(:phases, [
-      FactoryGirl.create(:phase, name: 'phase1', project: project),
-      FactoryGirl.create(:phase, name: 'phase2', project: project),
+      FactoryGirl.create(:phase, project: project, name: 'phase1'),
+      FactoryGirl.create(:phase, project: project, name: 'phase2'),
     ])
   end
 

@@ -36,4 +36,23 @@ describe ModelBase::MetaModel do
     it{ is_expected.not_to be_empty }
   end
 
+  describe :all_dependencies do
+    subject{ ModelBase::MetaModel.new('IssueComment') }
+    its(:all_dependencies){ is_expected.to be_an Array }
+    let(:issue_comment_depdency_res_names){ %w[issue project user] }
+    it{ expect(subject.all_dependencies.map(&:full_resource_name)).to eq issue_comment_depdency_res_names }
+  end
+
+  describe :factory_girl_let_definitions do
+    subject{ ModelBase::MetaModel.new('IssueComment') }
+    it do
+      expected = [
+        "let(:user){ FactoryGirl.create(:user) }",
+        "let(:project){ FactoryGirl.create(:project, owner: user) }",
+        "let(:issue){ FactoryGirl.create(:issue, project: project, creator: user) }",
+      ]
+      expect(subject.factory_girl_let_definitions('')).to eq expected.join("\n")
+    end
+  end
+
 end

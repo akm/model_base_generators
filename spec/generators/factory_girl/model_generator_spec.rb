@@ -21,4 +21,5 @@ describe FactoryGirl::Generators::ModelGenerator, type: :generator do
   it_behaves_like :factory_girl_model, 'project_assignment'
   it_behaves_like :factory_girl_model, 'phase'
   it_behaves_like :factory_girl_model, 'issue'
+  it_behaves_like :factory_girl_model, 'issue_comment'
 end
