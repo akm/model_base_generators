@@ -83,7 +83,7 @@ module ModelBase
           when :integer                     then idx
           when :float                       then idx + 0.5
           when :decimal                     then "#{idx}.99"
-          when :datetime, :timestamp, :time then sample_time(idx).to_s(:db)
+          when :datetime, :timestamp, :time then sample_time(idx).strftime('%F %T %:z')
           when :date                        then sample_time(idx).to_date.to_s(:db)
           when :string                      then
             case name
