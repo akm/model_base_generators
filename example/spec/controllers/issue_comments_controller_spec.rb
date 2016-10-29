@@ -22,9 +22,8 @@ RSpec.describe IssueCommentsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
-  before { devise_user_login(user) }
-
   let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
+  before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # IssueComment. As you add validations to IssueComment, be sure to

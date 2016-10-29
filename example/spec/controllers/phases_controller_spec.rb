@@ -21,9 +21,8 @@ require 'rails_helper'
 RSpec.describe PhasesController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
-  before { devise_user_login(user) }
-
   let(:phase) { FactoryGirl.create(:phase, project: project) }
+  before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Phase. As you add validations to Phase, be sure to
