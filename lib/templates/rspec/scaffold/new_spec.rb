@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 <% output_attributes = model.columns.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-RSpec.describe "<%= ns_table_name %>/new", <%= type_metatag(:view) %> do
+RSpec.describe '<%= ns_table_name %>/new', <%= type_metatag(:view) %> do
   <%= model.factory_girl_let_definitions %>
   before(:each) do
     assign(:<%= ns_file_name %>, <%= model.factory_girl_to :build %>)
   end
 
-  it "renders new <%= ns_file_name %> form" do
+  it 'renders new <%= ns_file_name %> form' do
     render
 
-    assert_select "form[action=?][method=?]", <%= index_helper %>_path, "post" do
+    assert_select 'form[action=?][method=?]', <%= index_helper %>_path, 'post' do
 <% model.columns_for(:form).each do |attribute| -%>
       <%= attribute.assert_select_exp %>
 <% end -%>

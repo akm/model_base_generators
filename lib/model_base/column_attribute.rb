@@ -124,7 +124,7 @@ module ModelBase
       when :datetime, :timestamp, :time
         "assert_select_datetime_field :#{model_name}, :#{name}"
       else
-        "assert_select \"#{ input_type }##{ model_name }_#{ name }[name=?]\", \"#{ model_name }[#{ name }]\""
+        "assert_select '#{ input_type }##{ model_name }_#{ name }[name=?]', '#{ model_name }[#{ name }]'"
       end
     end
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 <% output_attributes = model.columns.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
+RSpec.describe '<%= ns_table_name %>/index', <%= type_metatag(:view) %> do
   <%= model.factory_girl_let_definitions %>
   before(:each) do
     assign(:<%= table_name %>, [
@@ -15,14 +15,14 @@ RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
     ])
   end
 
-  it "renders a list of <%= ns_table_name %>" do
+  it 'renders a list of <%= ns_table_name %>' do
     render
 <% model.columns_for(:spec_index).each do |attribute| -%>
   <%- if attribute.single_sample_only? -%>
-    assert_select "tr>td", :text => <%= attribute.sample_string_exp %>, :count => 2
+    assert_select 'tr>td', text: <%= attribute.sample_string_exp %>, count: 2
   <%- else -%>
-    assert_select "tr>td", :text => <%= attribute.sample_string_exp(1) %>, :count => 1
-    assert_select "tr>td", :text => <%= attribute.sample_string_exp(2) %>, :count => 1
+    assert_select 'tr>td', text: <%= attribute.sample_string_exp(1) %>, count: 1
+    assert_select 'tr>td', text: <%= attribute.sample_string_exp(2) %>, count: 1
   <%- end -%>
 <% end -%>
   end
