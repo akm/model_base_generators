@@ -24,3 +24,8 @@ Style/TrailingCommaInLiteral:
 
 Style/Documentation:
   Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'

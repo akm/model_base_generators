@@ -44,7 +44,8 @@ RSpec.describe IssueCommentsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all issue_comments as @issue_comments' do
-      get :index, params: {}, session: valid_session
+      get :index, session: valid_session,
+                  params: {}
       expect(assigns(:issue_comments)).to eq([issue_comment])
     end
   end
@@ -52,14 +53,16 @@ RSpec.describe IssueCommentsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested issue_comment as @issue_comment' do
       issue_comment # To create issue_comment
-      get :show, params: { id: issue_comment.to_param }, session: valid_session
+      get :show, session: valid_session,
+                 params: { id: issue_comment.to_param }
       expect(assigns(:issue_comment)).to eq(issue_comment)
     end
   end
 
   describe 'GET #new' do
     it 'assigns a new issue_comment as @issue_comment' do
-      get :new, params: {}, session: valid_session
+      get :new, session: valid_session,
+                params: {}
       expect(assigns(:issue_comment)).to be_a_new(IssueComment)
     end
   end
@@ -67,7 +70,8 @@ RSpec.describe IssueCommentsController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested issue_comment as @issue_comment' do
       issue_comment # To create issue_comment
-      get :edit, params: { id: issue_comment.to_param }, session: valid_session
+      get :edit, session: valid_session,
+                 params: { id: issue_comment.to_param }
       expect(assigns(:issue_comment)).to eq(issue_comment)
     end
   end
@@ -75,31 +79,36 @@ RSpec.describe IssueCommentsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new IssueComment' do
-        expect do
-          post :create, params: { issue_comment: valid_parameters }, session: valid_session
-        end.to change(IssueComment, :count).by(1)
+        expect {
+          post :create, session: valid_session,
+                        params: { issue_comment: valid_parameters }
+        }.to change(IssueComment, :count).by(1)
       end
 
       it 'assigns a newly created issue_comment as @issue_comment' do
-        post :create, params: { issue_comment: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { issue_comment: valid_parameters }
         expect(assigns(:issue_comment)).to be_a(IssueComment)
         expect(assigns(:issue_comment)).to be_persisted
       end
 
       it 'redirects to the created issue_comment' do
-        post :create, params: { issue_comment: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { issue_comment: valid_parameters }
         expect(response).to redirect_to(IssueComment.last)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved issue_comment as @issue_comment' do
-        post :create, params: { issue_comment: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { issue_comment: invalid_parameters }
         expect(assigns(:issue_comment)).to be_a_new(IssueComment)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: { issue_comment: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { issue_comment: invalid_parameters }
         expect(response).to render_template('new')
       end
     end
@@ -113,20 +122,23 @@ RSpec.describe IssueCommentsController, type: :controller do
 
       it 'updates the requested issue_comment' do
         issue_comment # To create issue_comment
-        put :update, params: { id: issue_comment.to_param, issue_comment: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: issue_comment.to_param, issue_comment: new_parameters }
         issue_comment.reload
         skip('Add assertions for updated state')
       end
 
       it 'assigns the requested issue_comment as @issue_comment' do
         issue_comment # To create issue_comment
-        put :update, params: { id: issue_comment.to_param, issue_comment: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: issue_comment.to_param, issue_comment: new_parameters }
         expect(assigns(:issue_comment)).to eq(issue_comment)
       end
 
       it 'redirects to the issue_comment' do
         issue_comment # To create issue_comment
-        put :update, params: { id: issue_comment.to_param, issue_comment: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: issue_comment.to_param, issue_comment: new_parameters }
         expect(response).to redirect_to(issue_comment)
       end
     end
@@ -134,13 +146,15 @@ RSpec.describe IssueCommentsController, type: :controller do
     context 'with invalid params' do
       it 'assigns the issue_comment as @issue_comment' do
         issue_comment # To create issue_comment
-        put :update, params: { id: issue_comment.to_param, issue_comment: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: issue_comment.to_param, issue_comment: invalid_parameters }
         expect(assigns(:issue_comment)).to eq(issue_comment)
       end
 
       it "re-renders the 'edit' template" do
         issue_comment # To create issue_comment
-        put :update, params: { id: issue_comment.to_param, issue_comment: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: issue_comment.to_param, issue_comment: invalid_parameters }
         expect(response).to render_template('edit')
       end
     end
@@ -149,14 +163,16 @@ RSpec.describe IssueCommentsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested issue_comment' do
       issue_comment # To create issue_comment
-      expect do
-        delete :destroy, params: { id: issue_comment.to_param }, session: valid_session
-      end.to change(IssueComment, :count).by(-1)
+      expect {
+        delete :destroy, session: valid_session,
+                         params: { id: issue_comment.to_param }
+      }.to change(IssueComment, :count).by(-1)
     end
 
     it 'redirects to the issue_comments list' do
       issue_comment # To create issue_comment
-      delete :destroy, params: { id: issue_comment.to_param }, session: valid_session
+      delete :destroy, session: valid_session,
+                       params: { id: issue_comment.to_param }
       expect(response).to redirect_to(issue_comments_url)
     end
   end
