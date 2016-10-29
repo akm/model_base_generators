@@ -49,6 +49,7 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
     arel (7.1.4)
+    ast (2.3.0)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -131,6 +132,9 @@ GEM
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
+    parser (2.3.1.4)
+      ast (~> 2.2)
+    powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -182,6 +186,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.1.0)
     rake (11.3.0)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
@@ -210,6 +215,12 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    rubocop (0.44.1)
+      parser (>= 2.3.1.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -250,6 +261,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
+    unicode-display_width (1.1.1)
     uniform_notifier (1.10.0)
     warden (1.2.6)
       rack (>= 1.0)
@@ -290,6 +302,7 @@ DEPENDENCIES
   rails_best_practices
   rspec
   rspec-rails
+  rubocop (~> 0.44.1)
   sass-rails (~> 5.0)
   simplecov
   simplecov-rcov
@@ -301,4 +314,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.2
+   1.13.6
