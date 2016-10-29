@@ -5,7 +5,7 @@ RSpec.describe 'project_assignments/show', type: :view do
   let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:project_assignment){ FactoryGirl.create(:project_assignment, project: project, user: user) }
   before(:each) do
-    @project_assignment = assign(:project_assignment, project_assignment)
+    assign(:project_assignment, project_assignment)
   end
 
   it 'renders attributes in <p>' do
