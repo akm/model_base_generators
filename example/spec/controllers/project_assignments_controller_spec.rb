@@ -21,9 +21,8 @@ require 'rails_helper'
 RSpec.describe ProjectAssignmentsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
-  before { devise_user_login(user) }
-
   let(:project_assignment) { FactoryGirl.create(:project_assignment, project: project, user: user) }
+  before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # ProjectAssignment. As you add validations to ProjectAssignment, be sure to
