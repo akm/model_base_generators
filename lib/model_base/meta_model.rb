@@ -132,8 +132,8 @@ module ModelBase
       factory_girl_method(name, extra)
     end
 
-    def factory_girl_let_definition
-      'let(:%s){ %s }' % [full_resource_name, factory_girl_to(:create)]
+    def factory_girl_let_definition(action: :create)
+      'let(:%s) { %s }' % [full_resource_name, factory_girl_to(action)]
     end
 
     def factory_girl_let_definitions(spacer = "  ")

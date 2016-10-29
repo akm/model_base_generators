@@ -19,147 +19,159 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProjectAssignmentsController, type: :controller do
-
-  let(:user){ FactoryGirl.create(:user) }
-  let(:project){ FactoryGirl.create(:project, owner: user) }
-  before{ devise_user_login(user) }
-
-  let(:project_assignment){ FactoryGirl.create(:project_assignment, project: project, user: user) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:project_assignment) { FactoryGirl.create(:project_assignment, project: project, user: user) }
+  before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # ProjectAssignment. As you add validations to ProjectAssignment, be sure to
   # adjust the attributes here as well.
-  let(:valid_parameters) {
+  let(:valid_parameters) do
     FactoryGirl.attributes_for(:project_assignment).merge(project_id: project.id, user_id: user.id)
-  }
+  end
 
-  let(:invalid_parameters) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_parameters) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ProjectAssignmentsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all project_assignments as @project_assignments" do
-      get :index, params: {}, session: valid_session
+  describe 'GET #index' do
+    it 'assigns all project_assignments as @project_assignments' do
+      get :index, session: valid_session,
+                  params: {}
       expect(assigns(:project_assignments)).to eq([project_assignment])
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested project_assignment as @project_assignment" do
+  describe 'GET #show' do
+    it 'assigns the requested project_assignment as @project_assignment' do
       project_assignment # To create project_assignment
-      get :show, params: {:id => project_assignment.to_param}, session: valid_session
+      get :show, session: valid_session,
+                 params: { id: project_assignment.to_param }
       expect(assigns(:project_assignment)).to eq(project_assignment)
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new project_assignment as @project_assignment" do
-      get :new, params: {}, session: valid_session
+  describe 'GET #new' do
+    it 'assigns a new project_assignment as @project_assignment' do
+      get :new, session: valid_session,
+                params: {}
       expect(assigns(:project_assignment)).to be_a_new(ProjectAssignment)
     end
   end
 
-  describe "GET #edit" do
-    it "assigns the requested project_assignment as @project_assignment" do
+  describe 'GET #edit' do
+    it 'assigns the requested project_assignment as @project_assignment' do
       project_assignment # To create project_assignment
-      get :edit, params: {:id => project_assignment.to_param}, session: valid_session
+      get :edit, session: valid_session,
+                 params: { id: project_assignment.to_param }
       expect(assigns(:project_assignment)).to eq(project_assignment)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new ProjectAssignment" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new ProjectAssignment' do
         expect {
-          post :create, params: {:project_assignment => valid_parameters}, session: valid_session
+          post :create, session: valid_session,
+                        params: { project_assignment: valid_parameters }
         }.to change(ProjectAssignment, :count).by(1)
       end
 
-      it "assigns a newly created project_assignment as @project_assignment" do
-        post :create, params: {:project_assignment => valid_parameters}, session: valid_session
+      it 'assigns a newly created project_assignment as @project_assignment' do
+        post :create, session: valid_session,
+                      params: { project_assignment: valid_parameters }
         expect(assigns(:project_assignment)).to be_a(ProjectAssignment)
         expect(assigns(:project_assignment)).to be_persisted
       end
 
-      it "redirects to the created project_assignment" do
-        post :create, params: {:project_assignment => valid_parameters}, session: valid_session
+      it 'redirects to the created project_assignment' do
+        post :create, session: valid_session,
+                      params: { project_assignment: valid_parameters }
         expect(response).to redirect_to(ProjectAssignment.last)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved project_assignment as @project_assignment" do
-        post :create, params: {:project_assignment => invalid_parameters}, session: valid_session
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved project_assignment as @project_assignment' do
+        post :create, session: valid_session,
+                      params: { project_assignment: invalid_parameters }
         expect(assigns(:project_assignment)).to be_a_new(ProjectAssignment)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {:project_assignment => invalid_parameters}, session: valid_session
-        expect(response).to render_template("new")
+        post :create, session: valid_session,
+                      params: { project_assignment: invalid_parameters }
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-
-      let(:new_parameters) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested project_assignment" do
-        project_assignment # To create project_assignment
-        put :update, params: {:id => project_assignment.to_param, :project_assignment => new_parameters}, session: valid_session
-        project_assignment.reload
-        skip("Add assertions for updated state")
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_parameters) do
+        skip('Add a hash of attributes valid for your model')
       end
 
-      it "assigns the requested project_assignment as @project_assignment" do
+      it 'updates the requested project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: {:id => project_assignment.to_param, :project_assignment => new_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project_assignment.to_param, project_assignment: new_parameters }
+        project_assignment.reload
+        skip('Add assertions for updated state')
+      end
+
+      it 'assigns the requested project_assignment as @project_assignment' do
+        project_assignment # To create project_assignment
+        put :update, session: valid_session,
+                     params: { id: project_assignment.to_param, project_assignment: new_parameters }
         expect(assigns(:project_assignment)).to eq(project_assignment)
       end
 
-      it "redirects to the project_assignment" do
+      it 'redirects to the project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: {:id => project_assignment.to_param, :project_assignment => new_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project_assignment.to_param, project_assignment: new_parameters }
         expect(response).to redirect_to(project_assignment)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the project_assignment as @project_assignment" do
+    context 'with invalid params' do
+      it 'assigns the project_assignment as @project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: {:id => project_assignment.to_param, :project_assignment => invalid_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project_assignment.to_param, project_assignment: invalid_parameters }
         expect(assigns(:project_assignment)).to eq(project_assignment)
       end
 
       it "re-renders the 'edit' template" do
         project_assignment # To create project_assignment
-        put :update, params: {:id => project_assignment.to_param, :project_assignment => invalid_parameters}, session: valid_session
-        expect(response).to render_template("edit")
+        put :update, session: valid_session,
+                     params: { id: project_assignment.to_param, project_assignment: invalid_parameters }
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested project_assignment" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested project_assignment' do
       project_assignment # To create project_assignment
       expect {
-        delete :destroy, params: {:id => project_assignment.to_param}, session: valid_session
+        delete :destroy, session: valid_session,
+                         params: { id: project_assignment.to_param }
       }.to change(ProjectAssignment, :count).by(-1)
     end
 
-    it "redirects to the project_assignments list" do
+    it 'redirects to the project_assignments list' do
       project_assignment # To create project_assignment
-      delete :destroy, params: {:id => project_assignment.to_param}, session: valid_session
+      delete :destroy, session: valid_session,
+                       params: { id: project_assignment.to_param }
       expect(response).to redirect_to(project_assignments_url)
     end
   end
-
 end

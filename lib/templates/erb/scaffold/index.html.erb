@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<%%= render '<%= plural_table_name %>/table' %>
+<%%= render '<%= plural_table_name %>/table', <%= plural_table_name %>: @<%= plural_table_name %> %>
 
 <%%= link_to t('.new', :default => t("helpers.links.new")),
             new_<%= singular_controller_routing_path %>_path,

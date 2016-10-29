@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @projects.each do |project| %>
+    <% projects.each do |project| %>
       <tr>
         <td><%= project.owner.email %></td>
         <td><%= link_to project.name, project_path(project) %></td>

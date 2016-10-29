@@ -8,7 +8,7 @@ FactoryGirl.define do
     <%= col.reference.name %> nil
     <%- end -%>
   <%- else -%>
-    <%= col.name %> <%= col.sample_value(context: :factory).inspect %>
+    <%= col.name %> <%= col.sample_value(context: :factory).inspect.gsub(/\A\"|\"\z/, "'") %>
   <%- end -%>
 <%- end -%>
   end

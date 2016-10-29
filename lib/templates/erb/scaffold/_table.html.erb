@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <%% @<%= model.plural_full_resource_name %>.each do |<%= model.full_resource_name %>| %>
+    <%% <%= model.plural_full_resource_name %>.each do |<%= model.full_resource_name %>| %>
       <tr>
         <%- model.columns_for(:index).each do |column| -%>
           <%- if column.linkable? -%>

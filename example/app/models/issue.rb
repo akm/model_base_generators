@@ -15,5 +15,4 @@ class Issue < ApplicationRecord
     closed: 2,
   }.freeze
   enumerize :status, in: STATUS_MAP
-
 end

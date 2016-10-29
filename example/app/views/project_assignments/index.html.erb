@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<%= render 'project_assignments/table' %>
+<%= render 'project_assignments/table', project_assignments: @project_assignments %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_project_assignment_path,

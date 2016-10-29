@@ -112,7 +112,7 @@ module ModelBase
     def sample_value_regexp_exp(idx = 1)
       case type
       when :datetime, :timestamp, :time
-        'Regexp.new(Regexp.escape(%s))' % sample_string_exp(idx)
+        "localized_time_re('%s')" % sample_value(idx)
       else
         '/%s/' % sample_value(idx)
       end
@@ -124,7 +124,7 @@ module ModelBase
       when :datetime, :timestamp, :time
         "assert_select_datetime_field :#{model_name}, :#{name}"
       else
-        "assert_select \"#{ input_type }##{ model_name }_#{ name }[name=?]\", \"#{ model_name }[#{ name }]\""
+        "assert_select '#{ input_type }##{ model_name }_#{ name }[name=?]', '#{ model_name }[#{ name }]'"
       end
     end
 

@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @issues.each do |issue| %>
+    <% issues.each do |issue| %>
       <tr>
         <td><%= issue.project.name %></td>
         <td><%= link_to issue.title, issue_path(issue) %></td>

@@ -47,9 +47,9 @@ describe ModelBase::MetaModel do
     subject{ ModelBase::MetaModel.new('IssueComment') }
     it do
       expected = [
-        "let(:user){ FactoryGirl.create(:user) }",
-        "let(:project){ FactoryGirl.create(:project, owner: user) }",
-        "let(:issue){ FactoryGirl.create(:issue, project: project, creator: user) }",
+        "let(:user) { FactoryGirl.create(:user) }",
+        "let(:project) { FactoryGirl.create(:project, owner: user) }",
+        "let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }",
       ]
       expect(subject.factory_girl_let_definitions('')).to eq expected.join("\n")
     end

@@ -25,36 +25,34 @@ require 'rails_helper'
 
 <% module_namespacing do -%>
 RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:controller) %> do
-
 <%-
   required_ref_attrs  = model.columns_for(:params).select{|attr|  attr.reference && attr.required? }
   required_data_attrs = model.columns_for(:params).select{|attr| !attr.reference && attr.required? }
 -%>
   <%= model.factory_girl_let_definitions %>
-  before{ devise_user_login(user) }
-
 <%-
   unless required_ref_attrs.empty?
     extra_attributes_to_merge = ".merge(%s)" % required_ref_attrs.map{|attr| "#{attr.name}: #{attr.ref_model.full_resource_name}.id"}.join(', ')
     extra_attributes_for_factory = ", %s" % required_ref_attrs.map{|attr| "#{attr.reference.name}: #{attr.ref_model.full_resource_name}"}.join(', ')
   end
 -%>
-  let(:<%= file_name %>){ FactoryGirl.create(:<%= file_name %><%= extra_attributes_for_factory %>) }
+  let(:<%= file_name %>) { FactoryGirl.create(:<%= file_name %><%= extra_attributes_for_factory %>) }
+  before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # adjust the attributes here as well.
-  let(:valid_parameters) {
+  let(:valid_parameters) do
     FactoryGirl.attributes_for(:<%= file_name %>)<%= extra_attributes_to_merge %>
-  }
+  end
 
-  let(:invalid_parameters) {
+  let(:invalid_parameters) do
 <%- if !required_data_attrs.empty? -%>
     valid_parameters.symbolize_keys.merge(<%= required_data_attrs.first.name %>: '')
 <%- else -%>
-    skip("Add a hash of attributes invalid for your model")
+    skip('Add a hash of attributes invalid for your model')
 <%- end -%>
-  }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -62,141 +60,155 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   let(:valid_session) { {} }
 
 <% unless options[:singleton] -%>
-  describe "GET #index" do
-    it "assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>" do
-      get :index, params: {}, session: valid_session
+  describe 'GET #index' do
+    it 'assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>' do
+      get :index, session: valid_session,
+                  params: {}
       expect(assigns(:<%= table_name %>)).to eq([<%= file_name %>])
     end
   end
 
 <% end -%>
-  describe "GET #show" do
-    it "assigns the requested <%= file_name %> as @<%= file_name %>" do
+  describe 'GET #show' do
+    it 'assigns the requested <%= file_name %> as @<%= file_name %>' do
       <%= file_name %> # To create <%= file_name %>
-      get :show, params: {:id => <%= file_name %>.to_param}, session: valid_session
+      get :show, session: valid_session,
+                 params: { id: <%= file_name %>.to_param }
       expect(assigns(:<%= file_name %>)).to eq(<%= file_name %>)
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new <%= file_name %> as @<%= file_name %>" do
-      get :new, params: {}, session: valid_session
+  describe 'GET #new' do
+    it 'assigns a new <%= file_name %> as @<%= file_name %>' do
+      get :new, session: valid_session,
+                params: {}
       expect(assigns(:<%= file_name %>)).to be_a_new(<%= class_name %>)
     end
   end
 
-  describe "GET #edit" do
-    it "assigns the requested <%= file_name %> as @<%= file_name %>" do
+  describe 'GET #edit' do
+    it 'assigns the requested <%= file_name %> as @<%= file_name %>' do
       <%= file_name %> # To create <%= file_name %>
-      get :edit, params: {:id => <%= file_name %>.to_param}, session: valid_session
+      get :edit, session: valid_session,
+                 params: { id: <%= file_name %>.to_param }
       expect(assigns(:<%= file_name %>)).to eq(<%= file_name %>)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new <%= class_name %>" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new <%= class_name %>' do
         expect {
-          post :create, params: {:<%= file_name %> => valid_parameters}, session: valid_session
+          post :create, session: valid_session,
+                        params: { <%= file_name %>: valid_parameters }
         }.to change(<%= class_name %>, :count).by(1)
       end
 
-      it "assigns a newly created <%= file_name %> as @<%= file_name %>" do
-        post :create, params: {:<%= file_name %> => valid_parameters}, session: valid_session
+      it 'assigns a newly created <%= file_name %> as @<%= file_name %>' do
+        post :create, session: valid_session,
+                      params: { <%= file_name %>: valid_parameters }
         expect(assigns(:<%= file_name %>)).to be_a(<%= class_name %>)
         expect(assigns(:<%= file_name %>)).to be_persisted
       end
 
-      it "redirects to the created <%= file_name %>" do
-        post :create, params: {:<%= file_name %> => valid_parameters}, session: valid_session
+      it 'redirects to the created <%= file_name %>' do
+        post :create, session: valid_session,
+                      params: { <%= file_name %>: valid_parameters }
         expect(response).to redirect_to(<%= class_name %>.last)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved <%= file_name %> as @<%= file_name %>" do
-        post :create, params: {:<%= file_name %> => invalid_parameters}, session: valid_session
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved <%= file_name %> as @<%= file_name %>' do
+        post :create, session: valid_session,
+                      params: { <%= file_name %>: invalid_parameters }
         expect(assigns(:<%= file_name %>)).to be_a_new(<%= class_name %>)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {:<%= file_name %> => invalid_parameters}, session: valid_session
-        expect(response).to render_template("new")
+        post :create, session: valid_session,
+                      params: { <%= file_name %>: invalid_parameters }
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
+  describe 'PUT #update' do
+    context 'with valid params' do
 <%- if !required_data_attrs.empty? -%>
   <%- required_data_attrs.each do |required_data_attr| -%>
-      let(:new_<%= required_data_attr.name %>){ <%= required_data_attr.new_attribute_exp %> }
+      let(:new_<%= required_data_attr.name %>) { <%= required_data_attr.new_attribute_exp %> }
   <%- end -%>
 <%- end -%>
-
-      let(:new_parameters) {
+      let(:new_parameters) do
 <%- if !required_data_attrs.empty? -%>
         valid_parameters.merge(<%= required_data_attrs.map{|attr| "#{attr.name}: new_#{attr.name}"}.join(', ') %>)
 <%- else required_data_attrs.empty? -%>
-        skip("Add a hash of attributes valid for your model")
+        skip('Add a hash of attributes valid for your model')
 <%- end -%>
-      }
+      end
 
-      it "updates the requested <%= file_name %>" do
+      it 'updates the requested <%= file_name %>' do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: <%= file_name %>.to_param, <%= file_name %>: new_parameters }
         <%= file_name %>.reload
 <%- if !required_data_attrs.empty? -%>
   <%- required_data_attrs.each do |attr| -%>
         expect(<%= file_name %>.<%= attr.name %>).to eq new_<%= attr.name %>
   <%- end -%>
 <%- else -%>
-        skip("Add assertions for updated state")
+        skip('Add assertions for updated state')
 <%- end -%>
       end
 
-      it "assigns the requested <%= file_name %> as @<%= file_name %>" do
+      it 'assigns the requested <%= file_name %> as @<%= file_name %>' do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: <%= file_name %>.to_param, <%= file_name %>: new_parameters }
         expect(assigns(:<%= file_name %>)).to eq(<%= file_name %>)
       end
 
-      it "redirects to the <%= file_name %>" do
+      it 'redirects to the <%= file_name %>' do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => new_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: <%= file_name %>.to_param, <%= file_name %>: new_parameters }
         expect(response).to redirect_to(<%= file_name %>)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the <%= file_name %> as @<%= file_name %>" do
+    context 'with invalid params' do
+      it 'assigns the <%= file_name %> as @<%= file_name %>' do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => invalid_parameters}, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: <%= file_name %>.to_param, <%= file_name %>: invalid_parameters }
         expect(assigns(:<%= file_name %>)).to eq(<%= file_name %>)
       end
 
       it "re-renders the 'edit' template" do
         <%= file_name %> # To create <%= file_name %>
-        put :update, params: {:id => <%= file_name %>.to_param, :<%= file_name %> => invalid_parameters}, session: valid_session
-        expect(response).to render_template("edit")
+        put :update, session: valid_session,
+                     params: { id: <%= file_name %>.to_param, <%= file_name %>: invalid_parameters }
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested <%= file_name %>" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested <%= file_name %>' do
       <%= file_name %> # To create <%= file_name %>
       expect {
-        delete :destroy, params: {:id => <%= file_name %>.to_param}, session: valid_session
+        delete :destroy, session: valid_session,
+                         params: { id: <%= file_name %>.to_param }
       }.to change(<%= class_name %>, :count).by(-1)
     end
 
-    it "redirects to the <%= table_name %> list" do
+    it 'redirects to the <%= table_name %> list' do
       <%= file_name %> # To create <%= file_name %>
-      delete :destroy, params: {:id => <%= file_name %>.to_param}, session: valid_session
+      delete :destroy, session: valid_session,
+                       params: { id: <%= file_name %>.to_param }
       expect(response).to redirect_to(<%= index_helper %>_url)
     end
   end
-
 end
 <% end -%>

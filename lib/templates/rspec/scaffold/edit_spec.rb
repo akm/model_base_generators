@@ -1,15 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe "<%= ns_table_name %>/edit", <%= type_metatag(:view) %> do
+RSpec.describe '<%= ns_table_name %>/edit', <%= type_metatag(:view) %> do
   <%= model.factory_girl_let_definitions %>
+  <%= model.factory_girl_let_definition %>
   before(:each) do
-    @<%= ns_file_name %> = assign(:<%= ns_file_name %>, <%= model.factory_girl_to :create %>)
+    assign(:<%= model.full_resource_name %>, <%= model.full_resource_name %>)
   end
 
-  it "renders the edit <%= ns_file_name %> form" do
+  it 'renders the edit <%= model.full_resource_name %> form' do
     render
 
-    assert_select "form[action=?][method=?]", <%= ns_file_name %>_path(@<%= ns_file_name %>), "post" do
+    assert_select 'form[action=?][method=?]', <%= model.full_resource_name %>_path(<%= model.full_resource_name %>), 'post' do
 <% model.columns_for(:form).each do |attribute| -%>
       <%= attribute.assert_select_exp %>
 <% end -%>

@@ -1,0 +1,31 @@
+# https://github.com/bbatsov/rubocop/blob/master/manual/configuration.md
+# http://blog-ja.sideci.com/entry/2015/03/26/103000
+# http://rochefort.hatenablog.com/entry/2014/08/14/073000
+
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+  DisplayCopNames: true
+
+Rails:
+  Enabled: true
+
+LineLength:
+  Max: 120
+
+# http://qiita.com/tbpgr/items/7f49fdc42e4bfe47e331
+# https://github.com/bbatsov/rubocop/pull/735/files
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/Documentation:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'

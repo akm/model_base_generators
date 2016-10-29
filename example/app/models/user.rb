@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :project_assignments
-  
+
   class << self
     def current_user=(user)
       Thread.current[:current_user] = user
@@ -16,7 +16,8 @@ class User < ApplicationRecord
     end
 
     def current(user)
-      orig_user, User.current_user = User.current_user, user
+      orig_user = User.current_user
+      User.current_user = user
       begin
         return yield
       ensure
