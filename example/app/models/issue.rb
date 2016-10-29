@@ -12,8 +12,7 @@ class Issue < ApplicationRecord
   STATUS_MAP = {
     draft: 0,
     opened: 1,
-    closed: 2,
+    closed: 2
   }.freeze
   enumerize :status, in: STATUS_MAP
-
 end

@@ -19,149 +19,147 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProjectsController, type: :controller do
+  let(:user) { FactoryGirl.create(:user) }
+  before { devise_user_login(user) }
 
-  let(:user){ FactoryGirl.create(:user) }
-  before{ devise_user_login(user) }
-
-  let(:project){ FactoryGirl.create(:project, owner: user) }
+  let(:project) { FactoryGirl.create(:project, owner: user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
-  let(:valid_parameters) {
+  let(:valid_parameters) do
     FactoryGirl.attributes_for(:project).merge(owner_id: user.id)
-  }
+  end
 
-  let(:invalid_parameters) {
+  let(:invalid_parameters) do
     valid_parameters.symbolize_keys.merge(name: '')
-  }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ProjectsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all projects as @projects" do
+  describe 'GET #index' do
+    it 'assigns all projects as @projects' do
       get :index, params: {}, session: valid_session
       expect(assigns(:projects)).to eq([project])
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested project as @project" do
+  describe 'GET #show' do
+    it 'assigns the requested project as @project' do
       project # To create project
-      get :show, params: {:id => project.to_param}, session: valid_session
+      get :show, params: { id: project.to_param }, session: valid_session
       expect(assigns(:project)).to eq(project)
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new project as @project" do
+  describe 'GET #new' do
+    it 'assigns a new project as @project' do
       get :new, params: {}, session: valid_session
       expect(assigns(:project)).to be_a_new(Project)
     end
   end
 
-  describe "GET #edit" do
-    it "assigns the requested project as @project" do
+  describe 'GET #edit' do
+    it 'assigns the requested project as @project' do
       project # To create project
-      get :edit, params: {:id => project.to_param}, session: valid_session
+      get :edit, params: { id: project.to_param }, session: valid_session
       expect(assigns(:project)).to eq(project)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Project" do
-        expect {
-          post :create, params: {:project => valid_parameters}, session: valid_session
-        }.to change(Project, :count).by(1)
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new Project' do
+        expect do
+          post :create, params: { project: valid_parameters }, session: valid_session
+        end.to change(Project, :count).by(1)
       end
 
-      it "assigns a newly created project as @project" do
-        post :create, params: {:project => valid_parameters}, session: valid_session
+      it 'assigns a newly created project as @project' do
+        post :create, params: { project: valid_parameters }, session: valid_session
         expect(assigns(:project)).to be_a(Project)
         expect(assigns(:project)).to be_persisted
       end
 
-      it "redirects to the created project" do
-        post :create, params: {:project => valid_parameters}, session: valid_session
+      it 'redirects to the created project' do
+        post :create, params: { project: valid_parameters }, session: valid_session
         expect(response).to redirect_to(Project.last)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved project as @project" do
-        post :create, params: {:project => invalid_parameters}, session: valid_session
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved project as @project' do
+        post :create, params: { project: invalid_parameters }, session: valid_session
         expect(assigns(:project)).to be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {:project => invalid_parameters}, session: valid_session
-        expect(response).to render_template("new")
+        post :create, params: { project: invalid_parameters }, session: valid_session
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_name){ valid_parameters[:name].succ }
-      let(:new_closed){ valid_parameters[:closed].! }
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_name) { valid_parameters[:name].succ }
+      let(:new_closed) { valid_parameters[:closed].! }
 
-      let(:new_parameters) {
+      let(:new_parameters) do
         valid_parameters.merge(name: new_name, closed: new_closed)
-      }
+      end
 
-      it "updates the requested project" do
+      it 'updates the requested project' do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => new_parameters}, session: valid_session
+        put :update, params: { id: project.to_param, project: new_parameters }, session: valid_session
         project.reload
         expect(project.name).to eq new_name
         expect(project.closed).to eq new_closed
       end
 
-      it "assigns the requested project as @project" do
+      it 'assigns the requested project as @project' do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => new_parameters}, session: valid_session
+        put :update, params: { id: project.to_param, project: new_parameters }, session: valid_session
         expect(assigns(:project)).to eq(project)
       end
 
-      it "redirects to the project" do
+      it 'redirects to the project' do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => new_parameters}, session: valid_session
+        put :update, params: { id: project.to_param, project: new_parameters }, session: valid_session
         expect(response).to redirect_to(project)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the project as @project" do
+    context 'with invalid params' do
+      it 'assigns the project as @project' do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => invalid_parameters}, session: valid_session
+        put :update, params: { id: project.to_param, project: invalid_parameters }, session: valid_session
         expect(assigns(:project)).to eq(project)
       end
 
       it "re-renders the 'edit' template" do
         project # To create project
-        put :update, params: {:id => project.to_param, :project => invalid_parameters}, session: valid_session
-        expect(response).to render_template("edit")
+        put :update, params: { id: project.to_param, project: invalid_parameters }, session: valid_session
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested project" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested project' do
       project # To create project
-      expect {
-        delete :destroy, params: {:id => project.to_param}, session: valid_session
-      }.to change(Project, :count).by(-1)
+      expect do
+        delete :destroy, params: { id: project.to_param }, session: valid_session
+      end.to change(Project, :count).by(-1)
     end
 
-    it "redirects to the projects list" do
+    it 'redirects to the projects list' do
       project # To create project
-      delete :destroy, params: {:id => project.to_param}, session: valid_session
+      delete :destroy, params: { id: project.to_param }, session: valid_session
       expect(response).to redirect_to(projects_url)
     end
   end
-
 end

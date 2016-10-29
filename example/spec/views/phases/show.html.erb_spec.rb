@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "phases/show", type: :view do
-  let(:user){ FactoryGirl.create(:user) }
-  let(:project){ FactoryGirl.create(:project, owner: user) }
+RSpec.describe 'phases/show', type: :view do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:project) { FactoryGirl.create(:project, owner: user) }
   before(:each) do
     @phase = assign(:phase, FactoryGirl.create(:phase, project: project))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/project1/)
     expect(rendered).to match(/phase1/)
