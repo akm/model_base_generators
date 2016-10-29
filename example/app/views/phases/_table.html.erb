@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @phases.each do |phase| %>
+    <% phases.each do |phase| %>
       <tr>
         <td><%= phase.project.name %></td>
         <td><%= link_to phase.name, phase_path(phase) %></td>
