@@ -4,14 +4,15 @@ RSpec.describe 'issue_comments/edit', type: :view do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
+  let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
   before(:each) do
-    @issue_comment = assign(:issue_comment, FactoryGirl.create(:issue_comment, issue: issue, user: user))
+    assign(:issue_comment, issue_comment)
   end
 
   it 'renders the edit issue_comment form' do
     render
 
-    assert_select 'form[action=?][method=?]', issue_comment_path(@issue_comment), 'post' do
+    assert_select 'form[action=?][method=?]', issue_comment_path(issue_comment), 'post' do
       assert_select 'input#issue_comment_id[name=?]', 'issue_comment[id]'
       assert_select 'select#issue_comment_issue_id[name=?]', 'issue_comment[issue_id]'
       assert_select 'select#issue_comment_user_id[name=?]', 'issue_comment[user_id]'
