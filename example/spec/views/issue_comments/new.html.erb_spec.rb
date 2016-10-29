@@ -4,8 +4,9 @@ RSpec.describe 'issue_comments/new', type: :view do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
+  let(:issue_comment) { FactoryGirl.build(:issue_comment, issue: issue, user: user) }
   before(:each) do
-    assign(:issue_comment, FactoryGirl.build(:issue_comment, issue: issue, user: user))
+    assign(:issue_comment, issue_comment)
   end
 
   it 'renders new issue_comment form' do

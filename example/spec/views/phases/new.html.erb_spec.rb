@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'phases/new', type: :view do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:phase) { FactoryGirl.build(:phase, project: project) }
   before(:each) do
-    assign(:phase, FactoryGirl.build(:phase, project: project))
+    assign(:phase, phase)
   end
 
   it 'renders new phase form' do
