@@ -117,7 +117,6 @@ RSpec.describe IssuesController, type: :controller do
     context 'with valid params' do
       let(:new_title) { valid_parameters[:title].succ }
       let(:new_status) { Issue.status.values[1] }
-
       let(:new_parameters) do
         valid_parameters.merge(title: new_title, status: new_status)
       end
