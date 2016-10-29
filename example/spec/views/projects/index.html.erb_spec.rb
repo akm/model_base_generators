@@ -5,7 +5,7 @@ RSpec.describe 'projects/index', type: :view do
   before(:each) do
     assign(:projects, [
              FactoryGirl.create(:project, owner: user, name: 'project1'),
-             FactoryGirl.create(:project, owner: user, name: 'project2')
+             FactoryGirl.create(:project, owner: user, name: 'project2'),
            ])
   end
 

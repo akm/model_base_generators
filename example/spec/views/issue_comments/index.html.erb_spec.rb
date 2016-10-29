@@ -7,7 +7,7 @@ RSpec.describe 'issue_comments/index', type: :view do
   before(:each) do
     assign(:issue_comments, [
              FactoryGirl.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_1'),
-             FactoryGirl.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_2')
+             FactoryGirl.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_2'),
            ])
   end
 

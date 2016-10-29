@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'project_assignments/new', type: :view do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:project_assignment){ FactoryGirl.build(:project_assignment, project: project, user: user) }
+  let(:project_assignment) { FactoryGirl.build(:project_assignment, project: project, user: user) }
   before(:each) do
     assign(:project_assignment, project_assignment)
   end
