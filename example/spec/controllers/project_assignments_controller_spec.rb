@@ -43,7 +43,8 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all project_assignments as @project_assignments' do
-      get :index, params: {}, session: valid_session
+      get :index, session: valid_session,
+          params: {}
       expect(assigns(:project_assignments)).to eq([project_assignment])
     end
   end
@@ -51,14 +52,16 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested project_assignment as @project_assignment' do
       project_assignment # To create project_assignment
-      get :show, params: { id: project_assignment.to_param }, session: valid_session
+      get :show, session: valid_session,
+          params: { id: project_assignment.to_param }
       expect(assigns(:project_assignment)).to eq(project_assignment)
     end
   end
 
   describe 'GET #new' do
     it 'assigns a new project_assignment as @project_assignment' do
-      get :new, params: {}, session: valid_session
+      get :new, session: valid_session,
+          params: {}
       expect(assigns(:project_assignment)).to be_a_new(ProjectAssignment)
     end
   end
@@ -66,7 +69,8 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested project_assignment as @project_assignment' do
       project_assignment # To create project_assignment
-      get :edit, params: { id: project_assignment.to_param }, session: valid_session
+      get :edit, session: valid_session,
+          params: { id: project_assignment.to_param }
       expect(assigns(:project_assignment)).to eq(project_assignment)
     end
   end
@@ -80,25 +84,29 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
       end
 
       it 'assigns a newly created project_assignment as @project_assignment' do
-        post :create, params: { project_assignment: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+             params: { project_assignment: valid_parameters }
         expect(assigns(:project_assignment)).to be_a(ProjectAssignment)
         expect(assigns(:project_assignment)).to be_persisted
       end
 
       it 'redirects to the created project_assignment' do
-        post :create, params: { project_assignment: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+             params: { project_assignment: valid_parameters }
         expect(response).to redirect_to(ProjectAssignment.last)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved project_assignment as @project_assignment' do
-        post :create, params: { project_assignment: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+             params: { project_assignment: invalid_parameters }
         expect(assigns(:project_assignment)).to be_a_new(ProjectAssignment)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: { project_assignment: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+             params: { project_assignment: invalid_parameters }
         expect(response).to render_template('new')
       end
     end
@@ -112,20 +120,23 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
 
       it 'updates the requested project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: { id: project_assignment.to_param, project_assignment: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+            params: { id: project_assignment.to_param, project_assignment: new_parameters }
         project_assignment.reload
         skip('Add assertions for updated state')
       end
 
       it 'assigns the requested project_assignment as @project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: { id: project_assignment.to_param, project_assignment: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+            params: { id: project_assignment.to_param, project_assignment: new_parameters }
         expect(assigns(:project_assignment)).to eq(project_assignment)
       end
 
       it 'redirects to the project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: { id: project_assignment.to_param, project_assignment: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+            params: { id: project_assignment.to_param, project_assignment: new_parameters }
         expect(response).to redirect_to(project_assignment)
       end
     end
@@ -133,13 +144,15 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
     context 'with invalid params' do
       it 'assigns the project_assignment as @project_assignment' do
         project_assignment # To create project_assignment
-        put :update, params: { id: project_assignment.to_param, project_assignment: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+            params: { id: project_assignment.to_param, project_assignment: invalid_parameters }
         expect(assigns(:project_assignment)).to eq(project_assignment)
       end
 
       it "re-renders the 'edit' template" do
         project_assignment # To create project_assignment
-        put :update, params: { id: project_assignment.to_param, project_assignment: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+            params: { id: project_assignment.to_param, project_assignment: invalid_parameters }
         expect(response).to render_template('edit')
       end
     end
