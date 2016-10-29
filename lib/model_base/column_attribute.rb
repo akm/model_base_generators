@@ -112,7 +112,7 @@ module ModelBase
     def sample_value_regexp_exp(idx = 1)
       case type
       when :datetime, :timestamp, :time
-        'Regexp.new(Regexp.escape(%s))' % sample_string_exp(idx)
+        "localized_time_re('%s')" % sample_value(idx)
       else
         '/%s/' % sample_value(idx)
       end
