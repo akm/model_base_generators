@@ -42,7 +42,8 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all projects as @projects' do
-      get :index, params: {}, session: valid_session
+      get :index, session: valid_session,
+                  params: {}
       expect(assigns(:projects)).to eq([project])
     end
   end
@@ -50,14 +51,16 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested project as @project' do
       project # To create project
-      get :show, params: { id: project.to_param }, session: valid_session
+      get :show, session: valid_session,
+                 params: { id: project.to_param }
       expect(assigns(:project)).to eq(project)
     end
   end
 
   describe 'GET #new' do
     it 'assigns a new project as @project' do
-      get :new, params: {}, session: valid_session
+      get :new, session: valid_session,
+                params: {}
       expect(assigns(:project)).to be_a_new(Project)
     end
   end
@@ -65,7 +68,8 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested project as @project' do
       project # To create project
-      get :edit, params: { id: project.to_param }, session: valid_session
+      get :edit, session: valid_session,
+                 params: { id: project.to_param }
       expect(assigns(:project)).to eq(project)
     end
   end
@@ -73,31 +77,36 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Project' do
-        expect do
-          post :create, params: { project: valid_parameters }, session: valid_session
-        end.to change(Project, :count).by(1)
+        expect {
+          post :create, session: valid_session,
+                        params: { project: valid_parameters }
+        }.to change(Project, :count).by(1)
       end
 
       it 'assigns a newly created project as @project' do
-        post :create, params: { project: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { project: valid_parameters }
         expect(assigns(:project)).to be_a(Project)
         expect(assigns(:project)).to be_persisted
       end
 
       it 'redirects to the created project' do
-        post :create, params: { project: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { project: valid_parameters }
         expect(response).to redirect_to(Project.last)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved project as @project' do
-        post :create, params: { project: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { project: invalid_parameters }
         expect(assigns(:project)).to be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: { project: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { project: invalid_parameters }
         expect(response).to render_template('new')
       end
     end
@@ -107,14 +116,14 @@ RSpec.describe ProjectsController, type: :controller do
     context 'with valid params' do
       let(:new_name) { valid_parameters[:name].succ }
       let(:new_closed) { valid_parameters[:closed].! }
-
       let(:new_parameters) do
         valid_parameters.merge(name: new_name, closed: new_closed)
       end
 
       it 'updates the requested project' do
         project # To create project
-        put :update, params: { id: project.to_param, project: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project.to_param, project: new_parameters }
         project.reload
         expect(project.name).to eq new_name
         expect(project.closed).to eq new_closed
@@ -122,13 +131,15 @@ RSpec.describe ProjectsController, type: :controller do
 
       it 'assigns the requested project as @project' do
         project # To create project
-        put :update, params: { id: project.to_param, project: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project.to_param, project: new_parameters }
         expect(assigns(:project)).to eq(project)
       end
 
       it 'redirects to the project' do
         project # To create project
-        put :update, params: { id: project.to_param, project: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project.to_param, project: new_parameters }
         expect(response).to redirect_to(project)
       end
     end
@@ -136,13 +147,15 @@ RSpec.describe ProjectsController, type: :controller do
     context 'with invalid params' do
       it 'assigns the project as @project' do
         project # To create project
-        put :update, params: { id: project.to_param, project: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project.to_param, project: invalid_parameters }
         expect(assigns(:project)).to eq(project)
       end
 
       it "re-renders the 'edit' template" do
         project # To create project
-        put :update, params: { id: project.to_param, project: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: project.to_param, project: invalid_parameters }
         expect(response).to render_template('edit')
       end
     end
@@ -151,14 +164,16 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested project' do
       project # To create project
-      expect do
-        delete :destroy, params: { id: project.to_param }, session: valid_session
-      end.to change(Project, :count).by(-1)
+      expect {
+        delete :destroy, session: valid_session,
+                         params: { id: project.to_param }
+      }.to change(Project, :count).by(-1)
     end
 
     it 'redirects to the projects list' do
       project # To create project
-      delete :destroy, params: { id: project.to_param }, session: valid_session
+      delete :destroy, session: valid_session,
+                       params: { id: project.to_param }
       expect(response).to redirect_to(projects_url)
     end
   end

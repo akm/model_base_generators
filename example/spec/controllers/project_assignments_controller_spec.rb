@@ -77,10 +77,10 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new ProjectAssignment' do
-        expect do
+        expect {
           post :create, session: valid_session,
                         params: { project_assignment: valid_parameters }
-        end.to change(ProjectAssignment, :count).by(1)
+        }.to change(ProjectAssignment, :count).by(1)
       end
 
       it 'assigns a newly created project_assignment as @project_assignment' do
@@ -161,10 +161,10 @@ RSpec.describe ProjectAssignmentsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested project_assignment' do
       project_assignment # To create project_assignment
-      expect do
+      expect {
         delete :destroy, session: valid_session,
                          params: { id: project_assignment.to_param }
-      end.to change(ProjectAssignment, :count).by(-1)
+      }.to change(ProjectAssignment, :count).by(-1)
     end
 
     it 'redirects to the project_assignments list' do
