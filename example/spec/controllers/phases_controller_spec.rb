@@ -43,7 +43,8 @@ RSpec.describe PhasesController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all phases as @phases' do
-      get :index, params: {}, session: valid_session
+      get :index, session: valid_session,
+                  params: {}
       expect(assigns(:phases)).to eq([phase])
     end
   end
@@ -51,14 +52,16 @@ RSpec.describe PhasesController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested phase as @phase' do
       phase # To create phase
-      get :show, params: { id: phase.to_param }, session: valid_session
+      get :show, session: valid_session,
+                 params: { id: phase.to_param }
       expect(assigns(:phase)).to eq(phase)
     end
   end
 
   describe 'GET #new' do
     it 'assigns a new phase as @phase' do
-      get :new, params: {}, session: valid_session
+      get :new, session: valid_session,
+                params: {}
       expect(assigns(:phase)).to be_a_new(Phase)
     end
   end
@@ -66,7 +69,8 @@ RSpec.describe PhasesController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested phase as @phase' do
       phase # To create phase
-      get :edit, params: { id: phase.to_param }, session: valid_session
+      get :edit, session: valid_session,
+                 params: { id: phase.to_param }
       expect(assigns(:phase)).to eq(phase)
     end
   end
@@ -74,31 +78,36 @@ RSpec.describe PhasesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Phase' do
-        expect do
-          post :create, params: { phase: valid_parameters }, session: valid_session
-        end.to change(Phase, :count).by(1)
+        expect {
+          post :create, session: valid_session,
+                        params: { phase: valid_parameters }
+        }.to change(Phase, :count).by(1)
       end
 
       it 'assigns a newly created phase as @phase' do
-        post :create, params: { phase: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { phase: valid_parameters }
         expect(assigns(:phase)).to be_a(Phase)
         expect(assigns(:phase)).to be_persisted
       end
 
       it 'redirects to the created phase' do
-        post :create, params: { phase: valid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { phase: valid_parameters }
         expect(response).to redirect_to(Phase.last)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved phase as @phase' do
-        post :create, params: { phase: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { phase: invalid_parameters }
         expect(assigns(:phase)).to be_a_new(Phase)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: { phase: invalid_parameters }, session: valid_session
+        post :create, session: valid_session,
+                      params: { phase: invalid_parameters }
         expect(response).to render_template('new')
       end
     end
@@ -109,14 +118,14 @@ RSpec.describe PhasesController, type: :controller do
       let(:new_name) { valid_parameters[:name].succ }
       let(:new_started_at) { valid_parameters[:started_at].succ }
       let(:new_finished_at) { valid_parameters[:finished_at].succ }
-
       let(:new_parameters) do
         valid_parameters.merge(name: new_name, started_at: new_started_at, finished_at: new_finished_at)
       end
 
       it 'updates the requested phase' do
         phase # To create phase
-        put :update, params: { id: phase.to_param, phase: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: phase.to_param, phase: new_parameters }
         phase.reload
         expect(phase.name).to eq new_name
         expect(phase.started_at).to eq new_started_at
@@ -125,13 +134,15 @@ RSpec.describe PhasesController, type: :controller do
 
       it 'assigns the requested phase as @phase' do
         phase # To create phase
-        put :update, params: { id: phase.to_param, phase: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: phase.to_param, phase: new_parameters }
         expect(assigns(:phase)).to eq(phase)
       end
 
       it 'redirects to the phase' do
         phase # To create phase
-        put :update, params: { id: phase.to_param, phase: new_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: phase.to_param, phase: new_parameters }
         expect(response).to redirect_to(phase)
       end
     end
@@ -139,13 +150,15 @@ RSpec.describe PhasesController, type: :controller do
     context 'with invalid params' do
       it 'assigns the phase as @phase' do
         phase # To create phase
-        put :update, params: { id: phase.to_param, phase: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: phase.to_param, phase: invalid_parameters }
         expect(assigns(:phase)).to eq(phase)
       end
 
       it "re-renders the 'edit' template" do
         phase # To create phase
-        put :update, params: { id: phase.to_param, phase: invalid_parameters }, session: valid_session
+        put :update, session: valid_session,
+                     params: { id: phase.to_param, phase: invalid_parameters }
         expect(response).to render_template('edit')
       end
     end
@@ -154,14 +167,16 @@ RSpec.describe PhasesController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested phase' do
       phase # To create phase
-      expect do
-        delete :destroy, params: { id: phase.to_param }, session: valid_session
-      end.to change(Phase, :count).by(-1)
+      expect {
+        delete :destroy, session: valid_session,
+                         params: { id: phase.to_param }
+      }.to change(Phase, :count).by(-1)
     end
 
     it 'redirects to the phases list' do
       phase # To create phase
-      delete :destroy, params: { id: phase.to_param }, session: valid_session
+      delete :destroy, session: valid_session,
+                       params: { id: phase.to_param }
       expect(response).to redirect_to(phases_url)
     end
   end
