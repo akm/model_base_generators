@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'phases/show', type: :view do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:phase) { FactoryGirl.create(:phase, project: project) }
   before(:each) do
-    @phase = assign(:phase, FactoryGirl.create(:phase, project: project))
+    assign(:phase, phase)
   end
 
   it 'renders attributes in <p>' do
