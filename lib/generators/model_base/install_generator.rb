@@ -13,6 +13,7 @@ module ModelBase
         'spec/support/controller_macros.rb',
         'spec/support/devise.rb',
         'spec/support/field_assertions.rb',
+        'spec/support/time_match_support.rb',
       ].each{|f| template f, f }
     end
   end
