@@ -15,6 +15,14 @@ module ModelBase
         @model_name = @model_name.camelize
       end
 
+      def template(src, dest, *args, &block)
+        if ModelBase.skipped_file?(dest)
+          $stderr.puts("\e[34m#{dest} was SKIPPED\e[0m")
+          return
+        end
+        super
+      end
+
       protected
 
       def model
