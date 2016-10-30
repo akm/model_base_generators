@@ -28,6 +28,10 @@ module ModelBase
       ['name', 'title', 'email', 'display_name', 'display_title', /_name\z/, /_title\z/]
     end
 
+    config_accessor(:skipped_files) do
+      []
+    end
+
     config_accessor(:base_time) do
       '2020-01-01 00:00:00'
     end

@@ -31,6 +31,12 @@ module ModelBase
     def base_time
       Time.zone.parse(config.base_time)
     end
+
+    def skipped_file?(path)
+      config.skipped_files.any? do |ptn|
+        File.fnmatch?(ptn, path, File::FNM_EXTGLOB)
+      end
+    end
   end
 end
 require 'model_base/railtie' if defined?(Rails)
