@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+APP_PATH = File.expand_path('config/application')
+require APP_PATH
+
+require 'thor'
+
+class ModelBaseCli < Thor
+  desc "each controller COMMAND [ARG1...]", "Call command with each controller"
+  long_desc [
+    "Run COMMAND with each controller. ",
+    "For example, `bundle exec model_base each controller rails g scaffold_controller`",
+    " runs `rails g scaffold_controller CONTROLLER`. ",
+    "All of CONTROLLER are loaded from .model_base/controllers",
+  ].join("\n")
+  def each(type, command, *args)
+    names =
+      case type
+      when 'controller' then # OK
+        ModelBase.generated_controllers
+      else raise "type must `controller` now"
+      end
+    names.each do |name|
+      cmd = "#{command.shellescape} #{args.map(&:shellescape).join(' ')} #{name}"
+      puts "\e[34m#{cmd}\e[0m"
+      Bundler.with_clean_env do
+        exit(1) unless system(cmd)
+      end
+    end
+  end
+end
+
+ModelBaseCli.start(ARGV)
