@@ -23,4 +23,4 @@ Dir[File.expand_path('../support/**/*.rb', __FILE__)].sort.each { |f| require f 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "model_base"
 
-ModelBase.enable!
+ModelBase::Generators.enable!

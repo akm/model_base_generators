@@ -5,7 +5,7 @@ module ModelBase
 
     generators do |g|
       unless ModelBase.config.disabled
-        ModelBase.enable!
+        ModelBase::Generators.enable!
       end
     end
 
