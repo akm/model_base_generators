@@ -4,6 +4,8 @@ module ModelBase
   class Configuration
     include ActiveSupport::Configurable
 
+    config_accessor(:home_dir){ ::Rails.root.join('.model_base').to_s }
+
     config_accessor(:disabled){ false }
 
     base_exclusions =
@@ -26,6 +28,10 @@ module ModelBase
 
     config_accessor(:title_column_candidates) do
       ['name', 'title', 'email', 'display_name', 'display_title', /_name\z/, /_title\z/]
+    end
+
+    config_accessor(:skipped_files) do
+      []
     end
 
     config_accessor(:base_time) do

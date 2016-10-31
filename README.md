@@ -64,6 +64,29 @@ Run scaffold_controller **WITHOUT attributes**!
 
 You can use `rails_template.rb` for `--template` option of `rails new`.
 
+## Re-generate files
+
+```bash
+$ bundle exec model_base each controller rails g scaffold_controller
+```
+
+It runs `rails g scaffold_controller CONTROLLER` for each controller
+
+controllers are loaded from `.model_base/controllers`.
+
+## Skipped files
+
+If you want to overwrite the files, you can set the file name or patterns
+to
+
+```ruby
+ModelBase.configure do |config|
+  config.skipped_files = [
+    'app/views/projects/show.html.erb',
+    'spec/views/**/index.html.erb_spec.rb'
+  ]
+end
+```
 
 ## Development
 

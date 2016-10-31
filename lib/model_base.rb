@@ -4,6 +4,7 @@ module ModelBase
 
   autoload :ColumnAttribute, 'model_base/column_attribute'
   autoload :Configuration, 'model_base/config'
+  autoload :Generators   , 'model_base/generators'
   autoload :MetaModel    , 'model_base/meta_model'
 
   class << self
@@ -15,21 +16,31 @@ module ModelBase
       @config ||= Configuration.new
     end
 
-    def enable!
-      require 'model_base/generators/model_support'
-      ::Rails::Generators::NamedBase.prepend(::ModelBase::Generators::ModelSupport)
-      templates_dir = File::expand_path('../templates', __FILE__)
-      Rails::Generators.templates_path.unshift(templates_dir)
-      Rails::Generators.lookup(["rails:scaffold_controller"])
-      Rails::Generators::ScaffoldControllerGenerator.source_paths.unshift(templates_dir)
-      require 'model_base/generators/erb/scaffold'
-      ::ModelBase::Generators::Erb::Scaffold.enable!
-      require 'model_base/generators/factory_girl/model'
-      ::ModelBase::Generators::FactoryGirl::Model.enable!
-    end
-
     def base_time
       Time.zone.parse(config.base_time)
+    end
+
+    def skipped_file?(path)
+      config.skipped_files.any? do |ptn|
+        File.fnmatch?(ptn, path, File::FNM_EXTGLOB)
+      end
+    end
+
+    def generated_controllers_path
+      File.join(ModelBase.config.home_dir, 'controllers').to_s
+    end
+
+    def generated_controllers
+      path = generated_controllers_path
+      File.readable?(path) ? File.read(path).lines.map(&:strip) : []
+    end
+
+    def add_generated_controller(name)
+      path = ModelBase.generated_controllers_path
+      FileUtils.mkdir_p(File.dirname(path))
+      names = generated_controllers
+      names << name
+      open(path, 'w'){|f| f.puts(names.uniq.join("\n")) }
     end
   end
 end
