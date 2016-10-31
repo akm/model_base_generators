@@ -4,6 +4,8 @@ module ModelBase
   class Configuration
     include ActiveSupport::Configurable
 
+    config_accessor(:home_dir){ ::Rails.root.join('.model_base').to_s }
+
     config_accessor(:disabled){ false }
 
     base_exclusions =

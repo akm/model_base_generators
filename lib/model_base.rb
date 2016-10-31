@@ -26,6 +26,8 @@ module ModelBase
       ::ModelBase::Generators::Erb::Scaffold.enable!
       require 'model_base/generators/factory_girl/model'
       ::ModelBase::Generators::FactoryGirl::Model.enable!
+      require 'model_base/generators/rails/scaffold_controller'
+      ::ModelBase::Generators::Rails::ScaffoldController.enable!
     end
 
     def base_time
