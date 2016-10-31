@@ -12,12 +12,10 @@ module ModelBase
         end
 
         def create_controller_files
-          controller_name = File.join(controller_class_path, controller_file_name)
-          path = File.join(ModelBase.config.home_dir, 'controllers').to_s
-          FileUtils.mkdir_p(File.dirname(path))
-          names = File.readable?(path) ? File.read(path).lines.map(&:strip) : []
-          names << controller_name.strip.sub(/\A\//, '')
-          open(path, 'w'){|f| f.puts(names.uniq.join("\n")) }
+          name =
+            File.join(controller_class_path, controller_file_name).
+              strip.sub(/\A\//, '')
+          ModelBase.add_generated_controller(name)
           super
         end
       end

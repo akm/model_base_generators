@@ -25,6 +25,23 @@ module ModelBase
         File.fnmatch?(ptn, path, File::FNM_EXTGLOB)
       end
     end
+
+    def generated_controllers_path
+      File.join(ModelBase.config.home_dir, 'controllers').to_s
+    end
+
+    def generated_controllers
+      path = generated_controllers_path
+      File.readable?(path) ? File.read(path).lines.map(&:strip) : []
+    end
+
+    def add_generated_controller(name)
+      path = ModelBase.generated_controllers_path
+      FileUtils.mkdir_p(File.dirname(path))
+      names = generated_controllers
+      names << name
+      open(path, 'w'){|f| f.puts(names.uniq.join("\n")) }
+    end
   end
 end
 require 'model_base/railtie' if defined?(Rails)
