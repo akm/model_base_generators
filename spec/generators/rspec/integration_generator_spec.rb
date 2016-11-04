@@ -10,7 +10,7 @@ describe Rspec::Generators::IntegrationGenerator, type: :generator do
 
   shared_examples :rspec_integration do |controller_name|
     context controller_name do
-      before{ run_generator [controller_name.dup] }
+      before{ run_generator [controller_name.singularize] }
 
       it { assert_expectation_file "spec/requests/#{controller_name}_spec.rb" }
     end
