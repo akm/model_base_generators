@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-(and-RSpec)
 RSpec.configure do |config|
   config.with_options(type: :controller) do |c|
