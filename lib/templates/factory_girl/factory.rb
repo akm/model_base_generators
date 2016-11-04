@@ -1,3 +1,6 @@
+<%- unless ModelBase.config.frozen_string_literal.nil? -%>
+# frozen_string_literal: <%= ModelBase.config.frozen_string_literal.inspect %>
+<%- end -%>
 FactoryGirl.define do
   factory :<%= model.full_resource_name %> do
 <%- model.columns_for(:factory).each do |col| -%>

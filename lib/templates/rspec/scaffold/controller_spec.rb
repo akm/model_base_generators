@@ -1,3 +1,6 @@
+<%- unless ModelBase.config.frozen_string_literal.nil? -%>
+# frozen_string_literal: <%= ModelBase.config.frozen_string_literal.inspect %>
+<%- end -%>
 <%-
   # ns_file_name incldues namespace.
   # file_name doesn't include namespace.

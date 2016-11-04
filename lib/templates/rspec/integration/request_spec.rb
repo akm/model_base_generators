@@ -1,3 +1,6 @@
+<%- unless ModelBase.config.frozen_string_literal.nil? -%>
+# frozen_string_literal: <%= ModelBase.config.frozen_string_literal.inspect %>
+<%- end -%>
 require 'rails_helper'
 
 RSpec.describe "<%= class_name.pluralize %>", <%= type_metatag(:request) %> do
