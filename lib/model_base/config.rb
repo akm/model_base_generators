@@ -38,5 +38,9 @@ module ModelBase
       '2020-01-01 00:00:00'
     end
 
+    config_accessor(:frozen_string_literal) do
+      true
+    end
+
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ProjectAssignmentsController < ApplicationController
   include Authentication
   load_and_authorize_resource except: [:index]

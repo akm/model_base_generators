@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module UserValidation
   extend ActiveSupport::Concern
 

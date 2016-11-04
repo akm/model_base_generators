@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ProjectAssignment < ApplicationRecord
   belongs_to :project
   belongs_to :user

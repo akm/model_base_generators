@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ControllerMacros
   def devise_login(key, user)
     @request.env['devise.mapping'] = Devise.mappings[key]
