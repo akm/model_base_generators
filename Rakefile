@@ -7,7 +7,7 @@ namespace :example do
   desc "Run spec in example"
   task :spec do
     Bundler.with_clean_env do
-      cmd = 'cd example && bundle && bundle exec rake spec'
+      cmd = 'cd example && bundle && rm -f db/*.sqlite3 && bundle exec rake db:create db:schema:load spec'
       unless system(cmd)
         raise "Failure: #{cmd}"
       end
