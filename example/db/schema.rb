@@ -57,4 +57,11 @@ ActiveRecord::Schema.define(version: 20_161_013_025_452) do
     t.datetime :created_at,                          null: false
     t.datetime :updated_at,                          null: false
   end
+
+  create_table :attached_files do |t|
+    t.references :issue_comment, null: false, foreign_key: true
+    t.string   :url, limit: 4096, null: false, foreign_key: true
+    t.datetime :created_at,                          null: false
+    t.datetime :updated_at,                          null: false
+  end
 end
