@@ -1,3 +1,6 @@
+<%- unless ModelBase.config.frozen_string_literal.nil? -%>
+# frozen_string_literal: <%= ModelBase.config.frozen_string_literal.inspect %>
+<%- end -%>
 # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-(and-RSpec)
 RSpec.configure do |config|
   config.with_options(:type => :controller) do |c|

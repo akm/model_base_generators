@@ -1,3 +1,6 @@
+<%- unless ModelBase.config.frozen_string_literal.nil? -%>
+# frozen_string_literal: <%= ModelBase.config.frozen_string_literal.inspect %>
+<%- end -%>
 module Authentication
   def self.included(klass)
     klass.class_eval do
