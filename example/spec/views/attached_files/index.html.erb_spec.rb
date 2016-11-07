@@ -3,6 +3,7 @@ require 'rails_helper'
 
 RSpec.describe 'attached_files/index', type: :view do
   let(:user) { FactoryGirl.create(:user) }
+  let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
   let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
   before(:each) do

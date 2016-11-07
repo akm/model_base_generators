@@ -21,6 +21,7 @@ require 'rails_helper'
 
 RSpec.describe AttachedFilesController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
+  let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
   let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
   let(:attached_file) { FactoryGirl.create(:attached_file, issue_comment: issue_comment) }
