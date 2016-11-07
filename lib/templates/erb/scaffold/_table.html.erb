@@ -14,11 +14,15 @@
         <%- model.columns_for(:index).each do |column| -%>
           <%- if column.linkable? -%>
         <td><%%= link_to <%= model.full_resource_name %>.<%= column.name %>, <%= singular_controller_routing_path %>_path(<%= model.full_resource_name %>) %></td>
-          <%- elsif tcol = column.ref_model.try(:title_column) -%>
-            <%- if column.required? -%>
+          <%- elsif column.ref_model -%>
+            <%- if tcol = column.ref_model.try(:title_column) -%>
+              <%- if column.required? -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.reference.name %>.<%= tcol.name %> %></td>
-            <%- else -%>
+              <%- else -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.reference.name %>.try(:<%= tcol.name %>) %></td>
+              <%- end -%>
+            <%- else -%>
+        <td><%%= <%= model.full_resource_name %>.<%= column.reference.name %>.title %></td>
             <%- end -%>
           <%- elsif column.enumerized? -%>
         <td><%%= <%= model.full_resource_name %>.<%= column.name %>_text %></td>

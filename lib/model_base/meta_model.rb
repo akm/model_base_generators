@@ -108,7 +108,7 @@ module ModelBase
     end
 
     def all_dependencies(required = true)
-      dependencies.values.map{|m| [m] + m.dependencies(required).values}.flatten.uniq(&:name)
+      dependencies.values.map{|m| [m] + m.all_dependencies(required)}.flatten.uniq(&:name)
     end
 
     def factory_girl_options

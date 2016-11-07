@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attached_files
   resources :issue_comments
   devise_for :users
   resources :projects

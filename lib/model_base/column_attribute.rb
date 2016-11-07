@@ -72,7 +72,7 @@ module ModelBase
         if tc = ref_model.title_column
           tc.sample_value(idx)
         else
-          1
+          block_given? ? yield : 1
         end
       elsif enumerized?
         enum = model.model_class.send(name)
@@ -133,7 +133,11 @@ module ModelBase
       when :datetime, :timestamp, :time
         'localize(Time.zone.parse(\'%s\'))' % sample_value(idx)
       else
-        "'%s'" % sample_value(idx)
+        if !title? && ref_model && !ref_model.title_column
+          "#{ref_model.full_resource_name}.title"
+        else
+          "'%s'" % sample_value(idx)
+        end
       end
     end
 
@@ -172,7 +176,8 @@ module ModelBase
           ref_model.respond_to?(:choices_for) ?
             "#{ref_model.name}.choices_for(#{taregt_name})" :
             "#{ref_model.name}.all"
-        "#{form_name}.collection_select :#{column_attr.name}, #{query}, :id, :#{ref_model.title_column.name}"
+        tc = ref_model.title_column
+        "#{form_name}.collection_select :#{column_attr.name}, #{query}, :id, :#{tc ? tc.name : 'title'}"
       end
     end
 

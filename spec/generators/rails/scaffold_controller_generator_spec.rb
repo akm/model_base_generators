@@ -29,4 +29,5 @@ describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
   it_behaves_like :rails_scaffold_controller, 'phases'
   it_behaves_like :rails_scaffold_controller, 'issues'
   it_behaves_like :rails_scaffold_controller, 'issue_comments'
+  it_behaves_like :rails_scaffold_controller, 'attached_files'
 end
