@@ -25,7 +25,7 @@
   <div class="form-group">
     <%= f.label :issue_comment_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.collection_select :issue_comment_id, IssueComment.all, :id, ::title, {}, :class=>"form-control" %>
+      <%= f.collection_select :issue_comment_id, IssueComment.all, :id, :title, {}, :class=>"form-control" %>
     </div>
     <%=f.error_span(:issue_comment_id) %>
   </div>
