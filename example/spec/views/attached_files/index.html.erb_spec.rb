@@ -15,7 +15,7 @@ RSpec.describe 'attached_files/index', type: :view do
 
   it 'renders a list of attached_files' do
     render
-    assert_select 'tr>td', text: '1', count: 2
+    assert_select 'tr>td', text: issue_comment.title, count: 2
     assert_select 'tr>td', text: 'attached_file_url_1', count: 1
     assert_select 'tr>td', text: 'attached_file_url_2', count: 1
   end

@@ -13,7 +13,7 @@
     <% attached_files.each do |attached_file| %>
       <tr>
         <td><%= attached_file.id %></td>
-        <td><%= attached_file.issue_comment_id %></td>
+        <td><%= attached_file.issue_comment.title %></td>
         <td><%= attached_file.url %></td>
         <td><%=l attached_file.created_at %></td>
         <td>
