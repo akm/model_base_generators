@@ -21,4 +21,5 @@ describe Rspec::Generators::HelperGenerator, type: :generator do
   it_behaves_like :rspec_helper, 'phases'
   it_behaves_like :rspec_helper, 'issues'
   it_behaves_like :rspec_helper, 'issue_comments'
+  it_behaves_like :rspec_helper, 'attached_files'
 end

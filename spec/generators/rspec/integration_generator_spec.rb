@@ -21,4 +21,5 @@ describe Rspec::Generators::IntegrationGenerator, type: :generator do
   it_behaves_like :rspec_integration, 'phases'
   it_behaves_like :rspec_integration, 'issues'
   it_behaves_like :rspec_integration, 'issue_comments'
+  it_behaves_like :rspec_integration, 'attached_files'
 end

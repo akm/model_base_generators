@@ -26,4 +26,5 @@ describe Erb::Generators::ScaffoldGenerator, type: :generator do
   it_behaves_like :erb_scaffold, 'phases'
   it_behaves_like :erb_scaffold, 'issues'
   it_behaves_like :erb_scaffold, 'issue_comments'
+  it_behaves_like :erb_scaffold, 'attached_files'
 end

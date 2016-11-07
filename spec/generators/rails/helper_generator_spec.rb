@@ -28,4 +28,5 @@ describe Rails::Generators::HelperGenerator, type: :generator do
   it_behaves_like :rails_helper, 'phases'
   it_behaves_like :rails_helper, 'issues'
   it_behaves_like :rails_helper, 'issue_comments'
+  it_behaves_like :rails_helper, 'attached_files'
 end
