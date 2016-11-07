@@ -173,7 +173,7 @@ module ModelBase
             "#{ref_model.name}.choices_for(#{taregt_name})" :
             "#{ref_model.name}.all"
         tc = ref_model.title_column
-        "#{form_name}.collection_select :#{column_attr.name}, #{query}, :id, :#{tc ? tc.name : ':title'}"
+        "#{form_name}.collection_select :#{column_attr.name}, #{query}, :id, :#{tc ? tc.name : 'title'}"
       end
     end
 
