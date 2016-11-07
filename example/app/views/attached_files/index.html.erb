@@ -1,0 +1,9 @@
+<%- model_class = AttachedFile -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<%= render 'attached_files/table', attached_files: @attached_files %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_attached_file_path,
+            :class => 'btn btn-primary' %>

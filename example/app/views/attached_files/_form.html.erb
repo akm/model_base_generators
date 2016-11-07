@@ -1,0 +1,48 @@
+<%= form_for attached_file, :html => { :class => "form-horizontal attached_file" } do |f| %>
+
+  <% if attached_file.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(attached_file.errors.count, "error") %> prohibited this attached_file from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% attached_file.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.number_field :id, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :issue_comment_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.collection_select :issue_comment_id, IssueComment.all, :id, ::title, {}, :class=>"form-control" %>
+    </div>
+    <%=f.error_span(:issue_comment_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :url, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :url, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:url) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                attached_files_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
