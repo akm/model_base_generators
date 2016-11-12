@@ -6,15 +6,17 @@ module ModelBase
 
     desc "Generate files to work with model_base"
 
+    FILES = [
+      'app/controllers/concerns/authentication.rb',
+      'spec/factories/users.rb',
+      'spec/support/controller_macros.rb',
+      'spec/support/devise.rb',
+      'spec/support/field_assertions.rb',
+      'spec/support/time_match_support.rb',
+    ].freeze
+
     def generate_files
-      [
-        'app/controllers/concerns/authentication.rb',
-        'spec/factories/users.rb',
-        'spec/support/controller_macros.rb',
-        'spec/support/devise.rb',
-        'spec/support/field_assertions.rb',
-        'spec/support/time_match_support.rb',
-      ].each{|f| template f, f }
+      FILES.each{|f| template f, f }
     end
   end
 end
