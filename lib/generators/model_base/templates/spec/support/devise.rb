@@ -14,7 +14,7 @@ RSpec.configure do |config|
   # For request spec
   # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
   # http://qiita.com/gakkie/items/40e5678af7b63afc14df
-  config.include Warden::Test::Helpers, :type => :request
+  config.include Warden::Test::Helpers, type: :request
   config.before :suite do
     Warden.test_mode!
   end
