@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-(and-RSpec)
 RSpec.configure do |config|
-  config.with_options(type: :controller) do |c|
-    c.include Devise::Test::ControllerHelpers
-    c.include ControllerMacros
-    c.extend  ControllerMacros
+  [:controller, :view].each do |t|
+    config.with_options(type: t) do |c|
+      c.include Devise::Test::ControllerHelpers
+      c.include ControllerMacros
+      c.extend  ControllerMacros
+    end
   end
 
   # For request spec
