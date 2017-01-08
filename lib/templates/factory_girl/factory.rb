@@ -1,6 +1,8 @@
 <%- unless ModelBase.config.frozen_string_literal.nil? -%>
 # frozen_string_literal: <%= ModelBase.config.frozen_string_literal.inspect %>
 <%- end -%>
+<%- columns = model.columns_for(:factory) rescue nil-%>
+<%- if columns -%>
 FactoryGirl.define do
   factory :<%= model.full_resource_name %> do
 <%- model.columns_for(:factory).each do |col| -%>
@@ -16,3 +18,12 @@ FactoryGirl.define do
 <%- end -%>
   end
 end
+<%- else -%>
+FactoryGirl.define do
+  factory :<%= singular_table_name %><%= explicit_class_option %> do
+    <%- attributes.map do |attribute| -%>
+      <%= attribute.name %> <%= attribute.default.inspect %>
+    <%- end -%>
+  end
+end
+<%- end -%>
