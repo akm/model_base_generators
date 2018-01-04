@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :attached_files
+  resources :issue_comments
   devise_for :users
-  # root to: "devise/sessions#new" # Sign in
-  root to: "rails_admin/main#dashboard" # TODO Change top page
-
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :projects
+  resources :project_assignments
+  resources :phases
+  resources :issues
+  root to: 'projects#index'
 end
