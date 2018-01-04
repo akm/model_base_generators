@@ -5,6 +5,12 @@ GIT
     pretty_validation (0.3.0)
       rails (>= 4.0.0)
 
+PATH
+  remote: ../..
+  specs:
+    model_base_generators (0.3.9)
+      rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -293,6 +299,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   listen (~> 3.0.5)
+  model_base_generators!
   pretty_validation!
   pry-byebug
   pry-rails
