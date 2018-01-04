@@ -91,10 +91,10 @@ GEM
       activesupport (>= 3.2)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_girl (4.7.0)
+    factory_bot (4.7.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.7.0)
-      factory_girl (~> 4.7.0)
+    factory_bot_rails (4.7.0)
+      factory_bot (~> 4.7.0)
       railties (>= 3.0.0)
     ffi (1.9.14)
     fuubar (2.2.0)
@@ -292,8 +292,8 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   enumerize
-  factory_girl
-  factory_girl_rails
+  factory_bot
+  factory_bot_rails
   fuubar
   jbuilder (~> 2.5)
   jquery-rails

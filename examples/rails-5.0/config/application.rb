@@ -13,7 +13,7 @@ module Dummy
 
     config.generators do |g|
       g.test_framework  :rspec
-      g.factory_girl dir: 'spec/factories'
+      g.factory_bot dir: 'spec/factories'
     end
 
     config.time_zone = 'Tokyo'
