@@ -5,8 +5,8 @@ end
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
-
-EXAMPLE_APP_PATH = File.expand_path("../../examples/rails-5.0", __FILE__)
+target_rails_version = (ENV['BUNDLE_GEMFILE'] || 'rails-5.1').split('-').last
+EXAMPLE_APP_PATH = File.expand_path("../../examples/rails-#{target_rails_version}", __FILE__)
 
 require File.join(EXAMPLE_APP_PATH, "config/environment.rb")
 ActiveRecord::Migrator.migrations_paths = [File.join(EXAMPLE_APP_PATH, "db/migrate")]
