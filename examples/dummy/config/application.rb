@@ -8,6 +8,19 @@ Bundler.require(*Rails.groups)
 
 module Dummy
   class Application < Rails::Application
+    
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
+    config.i18n.default_locale = :ja
+
+    config.generators do |g|
+      # g.orm             :mongoid
+      g.test_framework  :rspec
+      g.factory_bot dir: 'spec/factories'
+      # g.template_engine :haml
+    end
+  
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
