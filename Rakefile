@@ -8,7 +8,7 @@ namespace :example do
   task :spec do
     Bundler.with_clean_env do
       cmd = [
-        'cd example',
+        'cd examples/rails-5.0',
         'bundle',
         'rm -f db/*.sqlite3',
         'bundle exec rake db:create db:schema:load spec'
