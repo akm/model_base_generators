@@ -8,11 +8,14 @@ namespace :example do
   task :spec do
     target_rails_version = (ENV['BUNDLE_GEMFILE'] || 'rails-5.1').split('-').last
     Bundler.with_clean_env do
+      ENV.delete('RAILS_ENV')
+      ENV.delete('BUNDLE_GEMFILE')
       cmd = [
         "cd examples/rails-#{target_rails_version}",
-        'bundle',
-        'rm -f db/*.sqlite3',
-        'bundle exec rake db:create db:schema:load spec'
+        'bundle install',
+        'bundle exec rake db:drop:all',
+        'bundle exec rake db:schema:load',
+        'bundle exec rake spec',
       ].join(' && ')
       unless system(cmd)
         raise "Failure: #{cmd}"
