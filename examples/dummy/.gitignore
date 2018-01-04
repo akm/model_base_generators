@@ -1,0 +1,4 @@
+*.log
+coverage
+db/*.sqlite3
+tmp/cache
