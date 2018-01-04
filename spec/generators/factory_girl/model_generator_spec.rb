@@ -8,7 +8,7 @@ describe FactoryGirl::Generators::ModelGenerator, type: :generator do
 
   before { prepare_destination }
 
-  shared_examples :factory_girl_model do |model_name|
+  shared_examples :factory_bot_model do |model_name|
     context model_name do
       it 'creates a test initializer' do
         run_generator [model_name.dup, '--dir=spec/factories']
@@ -17,10 +17,10 @@ describe FactoryGirl::Generators::ModelGenerator, type: :generator do
     end
   end
 
-  it_behaves_like :factory_girl_model, 'project'
-  it_behaves_like :factory_girl_model, 'project_assignment'
-  it_behaves_like :factory_girl_model, 'phase'
-  it_behaves_like :factory_girl_model, 'issue'
-  it_behaves_like :factory_girl_model, 'issue_comment'
-  it_behaves_like :factory_girl_model, 'attached_file'
+  it_behaves_like :factory_bot_model, 'project'
+  it_behaves_like :factory_bot_model, 'project_assignment'
+  it_behaves_like :factory_bot_model, 'phase'
+  it_behaves_like :factory_bot_model, 'issue'
+  it_behaves_like :factory_bot_model, 'issue_comment'
+  it_behaves_like :factory_bot_model, 'attached_file'
 end

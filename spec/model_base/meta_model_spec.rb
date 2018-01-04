@@ -43,7 +43,7 @@ describe ModelBase::MetaModel do
     it{ expect(subject.all_dependencies.map(&:full_resource_name)).to eq issue_comment_depdency_res_names }
   end
 
-  describe :factory_girl_let_definitions do
+  describe :factory_bot_let_definitions do
     subject{ ModelBase::MetaModel.new('IssueComment') }
     it do
       expected = [
@@ -51,7 +51,7 @@ describe ModelBase::MetaModel do
         "let(:project) { FactoryGirl.create(:project, owner: user) }",
         "let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }",
       ]
-      expect(subject.factory_girl_let_definitions('')).to eq expected.join("\n")
+      expect(subject.factory_bot_let_definitions('')).to eq expected.join("\n")
     end
   end
 

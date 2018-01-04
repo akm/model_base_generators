@@ -94,8 +94,8 @@ gem_group :development, :test do
   gem "pry-byebug"
   gem "pry-stack_explorer"
   gem "fuubar"
-  gem "factory_girl"
-  gem "factory_girl_rails"
+  gem "factory_bot"
+  gem "factory_bot_rails"
   gem "annotate"
   gem "rails_best_practices"
   # https://github.com/flyerhzm/bullet
@@ -131,7 +131,7 @@ application  do
     config.generators do |g|
       # g.orm             :mongoid
       g.test_framework  :rspec
-      g.factory_girl dir: 'spec/factories'
+      g.factory_bot dir: 'spec/factories'
       # g.template_engine :haml
     end
   }

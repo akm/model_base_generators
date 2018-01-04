@@ -5,8 +5,8 @@ require 'rails_helper'
 
 <% output_attributes = model.columns.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 RSpec.describe '<%= ns_table_name %>/new', <%= type_metatag(:view) %> do
-  <%= model.factory_girl_let_definitions %>
-  <%= model.factory_girl_let_definition(action: :build) %>
+  <%= model.factory_bot_let_definitions %>
+  <%= model.factory_bot_let_definition(action: :build) %>
   before(:each) do
     assign(:<%= model.full_resource_name %>, <%= model.full_resource_name %>)
   end

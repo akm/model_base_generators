@@ -111,34 +111,34 @@ module ModelBase
       dependencies.values.map{|m| [m] + m.all_dependencies(required)}.flatten.uniq(&:name)
     end
 
-    def factory_girl_options
+    def factory_bot_options
       dependencies.map{|attr, model| "#{attr}: #{model.full_resource_name}" }
     end
 
-    def factory_girl_method(name, extra)
+    def factory_bot_method(name, extra)
       extra_str = extra.blank? ? '' : ', ' << extra.map{|k,v| "#{k}: '#{v}'"}.join(', ')
-      options = factory_girl_options
-      options_str = options.empty? ? '' : ', ' <<  factory_girl_options.join(', ')
+      options = factory_bot_options
+      options_str = options.empty? ? '' : ', ' <<  factory_bot_options.join(', ')
       'FactoryGirl.%s(:%s%s%s)' % [name, full_resource_name, options_str, extra_str]
     end
 
-    def factory_girl_to(name, context: nil, index: 1, extra: {})
+    def factory_bot_to(name, context: nil, index: 1, extra: {})
       case context
       when :spec_index
         columns_for(:spec_index).delete_if(&:single_sample_only?).delete_if(&:reference).each do |col|
           extra[col.name] = col.sample_value(index)
         end
       end
-      factory_girl_method(name, extra)
+      factory_bot_method(name, extra)
     end
 
-    def factory_girl_let_definition(action: :create)
-      'let(:%s) { %s }' % [full_resource_name, factory_girl_to(action)]
+    def factory_bot_let_definition(action: :create)
+      'let(:%s) { %s }' % [full_resource_name, factory_bot_to(action)]
     end
 
-    def factory_girl_let_definitions(spacer = "  ")
+    def factory_bot_let_definitions(spacer = "  ")
       deps = all_dependencies
-      r = deps.reverse.map(&:factory_girl_let_definition)
+      r = deps.reverse.map(&:factory_bot_let_definition)
       r << "let(:user){ FactoryGirl.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
       r.join("\n" << spacer)
     end

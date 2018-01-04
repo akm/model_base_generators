@@ -9,7 +9,7 @@ module ModelBase
     end
 
     module FactoryGirl
-      autoload :Model, 'model_base/generators/factory_girl/model'
+      autoload :Model, 'model_base/generators/factory_bot/model'
     end
 
     module Rails
