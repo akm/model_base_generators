@@ -105,6 +105,11 @@ end
 gem_group :development do
   gem "better_errors"
   gem 'binding_of_caller'
+  if Dir.pwd =~ /model_base_generators\/examples\//
+    gem 'model_base_generators', path: '../..'
+  else
+    gem 'model_base_generators'
+  end
 end
 
 
