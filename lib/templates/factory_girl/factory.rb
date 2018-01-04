@@ -3,7 +3,7 @@
 <%- end -%>
 <%- columns = model.columns_for(:factory) rescue nil-%>
 <%- if columns -%>
-FactoryGirl.define do
+FactoryBot.define do
   factory :<%= model.full_resource_name %> do
 <%- model.columns_for(:factory).each do |col| -%>
   <%- if col.reference -%>
@@ -19,7 +19,7 @@ FactoryGirl.define do
   end
 end
 <%- else -%>
-FactoryGirl.define do
+FactoryBot.define do
   factory :<%= singular_table_name %><%= explicit_class_option %> do
     <%- attributes.map do |attribute| -%>
       <%= attribute.name %> <%= attribute.default.inspect %>

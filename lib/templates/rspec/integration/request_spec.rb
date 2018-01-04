@@ -4,7 +4,7 @@
 require 'rails_helper'
 
 RSpec.describe '<%= class_name.pluralize %>', <%= type_metatag(:request) %> do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   before { login_as(user, scope: :user) }
 
   describe 'GET /<%= table_name %>' do

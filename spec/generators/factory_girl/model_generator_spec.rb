@@ -2,7 +2,7 @@ require 'spec_helper'
 
 Rails::Generators.lookup(["rails:scaffold_controller"])
 
-describe FactoryGirl::Generators::ModelGenerator, type: :generator do
+describe FactoryBot::Generators::ModelGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))
   arguments %w(verbose)
 

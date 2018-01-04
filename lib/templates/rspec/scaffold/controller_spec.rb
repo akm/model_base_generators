@@ -39,14 +39,14 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     extra_attributes_for_factory = ", %s" % required_ref_attrs.map{|attr| "#{attr.reference.name}: #{attr.ref_model.full_resource_name}"}.join(', ')
   end
 -%>
-  let(:<%= file_name %>) { FactoryGirl.create(:<%= file_name %><%= extra_attributes_for_factory %>) }
+  let(:<%= file_name %>) { FactoryBot.create(:<%= file_name %><%= extra_attributes_for_factory %>) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:<%= file_name %>)<%= extra_attributes_to_merge %>
+    FactoryBot.attributes_for(:<%= file_name %>)<%= extra_attributes_to_merge %>
   end
 
   let(:invalid_parameters) do

@@ -4,13 +4,13 @@ require 'generators/factory_bot/model/model_generator'
 
 module ModelBase
   module Generators
-    module FactoryGirl
+    module FactoryBot
 
       module Model
         def self.enable!
-          ::FactoryGirl::Generators::ModelGenerator.prepend(self)
-          ::FactoryGirl::Generators::ModelGenerator.extend(ClassMethod)
-          ::FactoryGirl::Generators::ModelGenerator.instance_eval do
+          ::FactoryBot::Generators::ModelGenerator.prepend(self)
+          ::FactoryBot::Generators::ModelGenerator.extend(ClassMethod)
+          ::FactoryBot::Generators::ModelGenerator.instance_eval do
             source_root File.expand_path("../../../../templates/factory_bot", __FILE__)
           end
         end

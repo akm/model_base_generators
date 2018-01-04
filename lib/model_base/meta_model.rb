@@ -119,7 +119,7 @@ module ModelBase
       extra_str = extra.blank? ? '' : ', ' << extra.map{|k,v| "#{k}: '#{v}'"}.join(', ')
       options = factory_bot_options
       options_str = options.empty? ? '' : ', ' <<  factory_bot_options.join(', ')
-      'FactoryGirl.%s(:%s%s%s)' % [name, full_resource_name, options_str, extra_str]
+      'FactoryBot.%s(:%s%s%s)' % [name, full_resource_name, options_str, extra_str]
     end
 
     def factory_bot_to(name, context: nil, index: 1, extra: {})
@@ -139,7 +139,7 @@ module ModelBase
     def factory_bot_let_definitions(spacer = "  ")
       deps = all_dependencies
       r = deps.reverse.map(&:factory_bot_let_definition)
-      r << "let(:user){ FactoryGirl.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
+      r << "let(:user){ FactoryBot.create(:user) }" unless deps.any?{|m| m.full_resource_name == 'user' }
       r.join("\n" << spacer)
     end
 
