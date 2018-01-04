@@ -45,7 +45,15 @@ end
 git :init unless ENV['SKIP_GIT_INIT'] =~ /true|yes|on|1/i
 git_add_commit "#{File.basename($PROGRAM_NAME)} #{ARGV.join(' ')}"
 
-if File.exist?('README.rdoc') && File.exist?('README.md')
+create_file '.gitignore', <<EOS
+*.log
+coverage
+db/*.sqlite3
+tmp/cache
+EOS
+git_add_commit "Add .gitignore file"
+
+if File.exist?('README.rdoc') && !File.exist?('README.md')
   run 'mv README.rdoc README.md'
   git_add_commit "Rename README.rdoc to README.md"
 end
