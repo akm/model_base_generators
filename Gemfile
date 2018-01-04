@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem "rails", "~>5.0.6"
-
 # Specify your gem's dependencies in model_base.gemspec
 gemspec
 
