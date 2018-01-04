@@ -21,7 +21,7 @@ module ModelBase
         ::Rails::Generators::NamedBase.prepend(ModelSupport)
         templates_dir = File::expand_path('../../templates', __FILE__)
         ::Rails::Generators.templates_path.unshift(templates_dir)
-        ::Rails::Generators.lookup(["rails:scaffold_controller"])
+        ::Rails::Generators.send(:lookup, ["rails:scaffold_controller"])
         ::Rails::Generators::ScaffoldControllerGenerator.source_paths.unshift(templates_dir)
         Erb::Scaffold.enable!
         FactoryBot::Model.enable!

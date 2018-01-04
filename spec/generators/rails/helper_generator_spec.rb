@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["rails:helper"])
+Rails::Generators.send(:lookup, ["rails:helper"])
 
 describe Rails::Generators::HelperGenerator, type: :generator do
   destination File.expand_path('../../../../tmp/generator', __FILE__)

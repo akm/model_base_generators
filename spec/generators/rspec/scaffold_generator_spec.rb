@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["rspec:scaffold"])
+Rails::Generators.send(:lookup, ["rspec:scaffold"])
 
 describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))

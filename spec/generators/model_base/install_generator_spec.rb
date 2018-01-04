@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["model_base:install"])
+Rails::Generators.send(:lookup, ["model_base:install"])
 
 describe ModelBase::InstallGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))

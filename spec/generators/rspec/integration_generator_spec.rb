@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["rspec:integration"])
+Rails::Generators.send(:lookup, ["rspec:integration"])
 
 describe Rspec::Generators::IntegrationGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))

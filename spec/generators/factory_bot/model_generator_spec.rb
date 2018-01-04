@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["rails:scaffold_controller"])
+Rails::Generators.send(:lookup, ["rails:scaffold_controller"])
 
 describe FactoryBot::Generators::ModelGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))

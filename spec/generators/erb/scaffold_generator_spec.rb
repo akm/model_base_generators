@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["erb:scaffold"])
+Rails::Generators.send(:lookup, ["erb:scaffold"])
 
 describe Erb::Generators::ScaffoldGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))

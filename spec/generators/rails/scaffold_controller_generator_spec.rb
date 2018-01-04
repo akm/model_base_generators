@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["rails:scaffold_controller"])
+Rails::Generators.send(:lookup, ["rails:scaffold_controller"])
 
 describe Rails::Generators::ScaffoldControllerGenerator, type: :generator do
   destination File.expand_path('../../../../tmp/generator', __FILE__)
