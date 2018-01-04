@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  # When you add dependency, add them to Gemfiles/*
   spec.add_runtime_dependency "rails"
 
   spec.add_development_dependency "bundler", "~> 1.13"
