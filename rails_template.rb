@@ -293,11 +293,11 @@ git_rake "db:create db:migrate"
 
 ## gitguard
 if ENV['USE_GITGUARD'] =~ /true|yes|on|1/i
-gem_group :development do
-  # https://github.com/akm/gitguard
-  gem 'gitguard'
-end
-generate_with_git "gitguard:install"
+  gem_group :development do
+    # https://github.com/akm/gitguard
+    gem 'gitguard'
+  end
+  generate_with_git "gitguard:install"
 end
 
 ## The End
