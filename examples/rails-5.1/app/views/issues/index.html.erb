@@ -1,0 +1,9 @@
+<%- model_class = Issue -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<%= render 'issues/table', issues: @issues %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_issue_path,
+            :class => 'btn btn-primary' %>
