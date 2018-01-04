@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :issue_comment do
     association :issue, factory: :issue
     association :user, factory: :user

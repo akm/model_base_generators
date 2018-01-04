@@ -20,16 +20,16 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProjectAssignmentsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:project_assignment) { FactoryGirl.create(:project_assignment, project: project, user: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:project_assignment) { FactoryBot.create(:project_assignment, project: project, user: user) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # ProjectAssignment. As you add validations to ProjectAssignment, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:project_assignment).merge(project_id: project.id, user_id: user.id)
+    FactoryBot.attributes_for(:project_assignment).merge(project_id: project.id, user_id: user.id)
   end
 
   let(:invalid_parameters) do

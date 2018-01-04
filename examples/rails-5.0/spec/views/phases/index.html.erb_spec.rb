@@ -2,12 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe 'phases/index', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
   before(:each) do
     assign(:phases, [
-             FactoryGirl.create(:phase, project: project, name: 'phase1'),
-             FactoryGirl.create(:phase, project: project, name: 'phase2'),
+             FactoryBot.create(:phase, project: project, name: 'phase1'),
+             FactoryBot.create(:phase, project: project, name: 'phase2'),
            ])
   end
 

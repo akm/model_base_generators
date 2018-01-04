@@ -20,15 +20,15 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProjectsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:project).merge(owner_id: user.id)
+    FactoryBot.attributes_for(:project).merge(owner_id: user.id)
   end
 
   let(:invalid_parameters) do

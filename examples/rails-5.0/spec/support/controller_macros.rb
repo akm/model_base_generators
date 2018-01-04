@@ -10,10 +10,10 @@ module ControllerMacros
   end
 
   def login_admin
-    before(:each) { devise_login(:admin, FactoryGirl.create(:admin)) }
+    before(:each) { devise_login(:admin, FactoryBot.create(:admin)) }
   end
 
   def login_user
-    before(:each) { devise_login(:user, FactoryGirl.create(:user)) }
+    before(:each) { devise_login(:user, FactoryBot.create(:user)) }
   end
 end

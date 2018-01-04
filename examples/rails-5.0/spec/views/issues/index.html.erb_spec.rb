@@ -2,12 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe 'issues/index', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
   before(:each) do
     assign(:issues, [
-             FactoryGirl.create(:issue, project: project, creator: user, title: 'issue1'),
-             FactoryGirl.create(:issue, project: project, creator: user, title: 'issue2'),
+             FactoryBot.create(:issue, project: project, creator: user, title: 'issue1'),
+             FactoryBot.create(:issue, project: project, creator: user, title: 'issue2'),
            ])
   end
 

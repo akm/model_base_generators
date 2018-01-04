@@ -20,16 +20,16 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe IssuesController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:issue) { FactoryBot.create(:issue, project: project, creator: user) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Issue. As you add validations to Issue, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:issue).merge(project_id: project.id, creator_id: user.id)
+    FactoryBot.attributes_for(:issue).merge(project_id: project.id, creator_id: user.id)
   end
 
   let(:invalid_parameters) do

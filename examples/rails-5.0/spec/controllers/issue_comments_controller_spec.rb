@@ -20,17 +20,17 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe IssueCommentsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
-  let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:issue) { FactoryBot.create(:issue, project: project, creator: user) }
+  let(:issue_comment) { FactoryBot.create(:issue_comment, issue: issue, user: user) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # IssueComment. As you add validations to IssueComment, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:issue_comment).merge(issue_id: issue.id, user_id: user.id)
+    FactoryBot.attributes_for(:issue_comment).merge(issue_id: issue.id, user_id: user.id)
   end
 
   let(:invalid_parameters) do

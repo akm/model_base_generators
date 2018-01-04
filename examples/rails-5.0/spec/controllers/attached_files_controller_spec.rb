@@ -20,18 +20,18 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe AttachedFilesController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
-  let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
-  let(:attached_file) { FactoryGirl.create(:attached_file, issue_comment: issue_comment) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:issue) { FactoryBot.create(:issue, project: project, creator: user) }
+  let(:issue_comment) { FactoryBot.create(:issue_comment, issue: issue, user: user) }
+  let(:attached_file) { FactoryBot.create(:attached_file, issue_comment: issue_comment) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # AttachedFile. As you add validations to AttachedFile, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:attached_file).merge(issue_comment_id: issue_comment.id)
+    FactoryBot.attributes_for(:attached_file).merge(issue_comment_id: issue_comment.id)
   end
 
   let(:invalid_parameters) do

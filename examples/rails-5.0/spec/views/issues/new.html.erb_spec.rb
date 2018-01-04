@@ -2,9 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe 'issues/new', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:issue) { FactoryGirl.build(:issue, project: project, creator: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:issue) { FactoryBot.build(:issue, project: project, creator: user) }
   before(:each) do
     assign(:issue, issue)
   end

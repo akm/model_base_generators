@@ -2,9 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe 'project_assignments/edit', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:project_assignment) { FactoryGirl.create(:project_assignment, project: project, user: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:project_assignment) { FactoryBot.create(:project_assignment, project: project, user: user) }
   before(:each) do
     assign(:project_assignment, project_assignment)
   end

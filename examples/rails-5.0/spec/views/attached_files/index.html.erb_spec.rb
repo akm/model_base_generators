@@ -2,14 +2,14 @@
 require 'rails_helper'
 
 RSpec.describe 'attached_files/index', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
-  let(:issue_comment) { FactoryGirl.create(:issue_comment, issue: issue, user: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:issue) { FactoryBot.create(:issue, project: project, creator: user) }
+  let(:issue_comment) { FactoryBot.create(:issue_comment, issue: issue, user: user) }
   before(:each) do
     assign(:attached_files, [
-             FactoryGirl.create(:attached_file, issue_comment: issue_comment, url: 'attached_file_url_1'),
-             FactoryGirl.create(:attached_file, issue_comment: issue_comment, url: 'attached_file_url_2'),
+             FactoryBot.create(:attached_file, issue_comment: issue_comment, url: 'attached_file_url_1'),
+             FactoryBot.create(:attached_file, issue_comment: issue_comment, url: 'attached_file_url_2'),
            ])
   end
 

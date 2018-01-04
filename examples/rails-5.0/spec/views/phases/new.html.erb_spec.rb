@@ -2,9 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe 'phases/new', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:phase) { FactoryGirl.build(:phase, project: project) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:phase) { FactoryBot.build(:phase, project: project) }
   before(:each) do
     assign(:phase, phase)
   end

@@ -20,16 +20,16 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe PhasesController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:phase) { FactoryGirl.create(:phase, project: project) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:phase) { FactoryBot.create(:phase, project: project) }
   before { devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Phase. As you add validations to Phase, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) do
-    FactoryGirl.attributes_for(:phase).merge(project_id: project.id)
+    FactoryBot.attributes_for(:phase).merge(project_id: project.id)
   end
 
   let(:invalid_parameters) do

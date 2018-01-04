@@ -2,13 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe 'issue_comments/index', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
-  let(:issue) { FactoryGirl.create(:issue, project: project, creator: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
+  let(:issue) { FactoryBot.create(:issue, project: project, creator: user) }
   before(:each) do
     assign(:issue_comments, [
-             FactoryGirl.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_1'),
-             FactoryGirl.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_2'),
+             FactoryBot.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_1'),
+             FactoryBot.create(:issue_comment, issue: issue, user: user, description: 'issue_comment_description_2'),
            ])
   end
 

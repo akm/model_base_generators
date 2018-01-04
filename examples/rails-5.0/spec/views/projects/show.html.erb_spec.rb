@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe 'projects/show', type: :view do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, owner: user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:project) { FactoryBot.create(:project, owner: user) }
   before(:each) do
     assign(:project, project)
   end
