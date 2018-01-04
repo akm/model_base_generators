@@ -43,7 +43,8 @@ def uncomment(path, target)
 end
 
 git :init unless ENV['SKIP_GIT_INIT'] =~ /true|yes|on|1/i
-git_add_commit "#{File.basename($PROGRAM_NAME)} #{ARGV.join(' ')}"
+args = ARGV.map{|arg| arg.gsub(Dir.home, '$HOME').gsub(Dir.pwd, '.')}
+git_add_commit "#{File.basename($PROGRAM_NAME)} #{args.join(' ')}"
 
 create_file '.gitignore', <<EOS
 *.log
