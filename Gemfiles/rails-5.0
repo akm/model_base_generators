@@ -1,0 +1,25 @@
+source 'https://rubygems.org'
+
+gem "rails", "~>5.0.6"
+
+# # Specify your gem's dependencies in model_base.gemspec
+# gemspec
+
+group :development do
+  gem 'rspec'
+  gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'generator_spec'
+end
+
+group :test do
+  gem 'enumerize'
+  gem 'simplecov'
+  gem 'sqlite3'
+  gem 'devise'
+  gem 'pretty_validation', git: 'https://github.com/akm/pretty_validation.git'
+  gem 'factory_bot_rails'
+  # gem 'cancancan'
+  # gem 'kaminari'
+  # gem 'twitter-bootstrap-rails'
+end

@@ -4,8 +4,8 @@
 require 'rails_helper'
 
 RSpec.describe '<%= ns_table_name %>/edit', <%= type_metatag(:view) %> do
-  <%= model.factory_girl_let_definitions %>
-  <%= model.factory_girl_let_definition %>
+  <%= model.factory_bot_let_definitions %>
+  <%= model.factory_bot_let_definition %>
   before(:each) do
     assign(:<%= model.full_resource_name %>, <%= model.full_resource_name %>)
   end

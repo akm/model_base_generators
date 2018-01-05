@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Generators.lookup(["rspec:helper"])
+Rails::Generators.send(:lookup, ["rspec:helper"])
 
 describe Rspec::Generators::HelperGenerator, type: :generator do
   destination File.expand_path('../../../tmp', File.dirname(__FILE__))

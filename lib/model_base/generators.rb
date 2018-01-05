@@ -8,8 +8,8 @@ module ModelBase
       autoload :Scaffold, 'model_base/generators/erb/scaffold'
     end
 
-    module FactoryGirl
-      autoload :Model, 'model_base/generators/factory_girl/model'
+    module FactoryBot
+      autoload :Model, 'model_base/generators/factory_bot/model'
     end
 
     module Rails
@@ -21,10 +21,10 @@ module ModelBase
         ::Rails::Generators::NamedBase.prepend(ModelSupport)
         templates_dir = File::expand_path('../../templates', __FILE__)
         ::Rails::Generators.templates_path.unshift(templates_dir)
-        ::Rails::Generators.lookup(["rails:scaffold_controller"])
+        ::Rails::Generators.send(:lookup, ["rails:scaffold_controller"])
         ::Rails::Generators::ScaffoldControllerGenerator.source_paths.unshift(templates_dir)
         Erb::Scaffold.enable!
-        FactoryGirl::Model.enable!
+        FactoryBot::Model.enable!
         Rails::ScaffoldController.enable!
       end
     end

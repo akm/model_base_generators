@@ -43,9 +43,18 @@ def uncomment(path, target)
 end
 
 git :init unless ENV['SKIP_GIT_INIT'] =~ /true|yes|on|1/i
-git_add_commit "#{File.basename($PROGRAM_NAME)} #{ARGV.join(' ')}"
+args = ARGV.map{|arg| arg.gsub(Dir.home, '$HOME').gsub(Dir.pwd, '.')}
+git_add_commit "#{File.basename($PROGRAM_NAME)} #{args.join(' ')}"
 
-if File.exist?('README.rdoc') && File.exist?('README.md')
+create_file '.gitignore', <<EOS
+*.log
+coverage
+db/*.sqlite3
+tmp/cache
+EOS
+git_add_commit "Add .gitignore file"
+
+if File.exist?('README.rdoc') && !File.exist?('README.md')
   run 'mv README.rdoc README.md'
   git_add_commit "Rename README.rdoc to README.md"
 end
@@ -86,8 +95,8 @@ gem_group :development, :test do
   gem "pry-byebug"
   gem "pry-stack_explorer"
   gem "fuubar"
-  gem "factory_girl"
-  gem "factory_girl_rails"
+  gem "factory_bot"
+  gem "factory_bot_rails"
   gem "annotate"
   gem "rails_best_practices"
   # https://github.com/flyerhzm/bullet
@@ -97,6 +106,11 @@ end
 gem_group :development do
   gem "better_errors"
   gem 'binding_of_caller'
+  if Dir.pwd =~ /model_base_generators\/examples\//
+    gem 'model_base_generators', path: '../..'
+  else
+    gem 'model_base_generators'
+  end
 end
 
 
@@ -123,7 +137,7 @@ application  do
     config.generators do |g|
       # g.orm             :mongoid
       g.test_framework  :rspec
-      g.factory_girl dir: 'spec/factories'
+      g.factory_bot dir: 'spec/factories'
       # g.template_engine :haml
     end
   }
@@ -277,13 +291,15 @@ generate_with_git 'model_base:install'
 ## DB
 git_rake "db:create db:migrate"
 
-## gitguard
-gem_group :development do
-  # https://github.com/akm/gitguard
-  gem 'gitguard'
-end
 
-generate_with_git "gitguard:install"
+## gitguard
+if ENV['USE_GITGUARD'] =~ /true|yes|on|1/i
+  gem_group :development do
+    # https://github.com/akm/gitguard
+    gem 'gitguard'
+  end
+  generate_with_git "gitguard:install"
+end
 
 ## The End
 git commit: "-m \"\[COMPLETE\] rails new with akm/rails_template\" --allow-empty "

@@ -6,8 +6,17 @@ RSpec::Core::RakeTask.new(:spec)
 namespace :example do
   desc "Run spec in example"
   task :spec do
+    target_rails_version = (ENV['BUNDLE_GEMFILE'] || 'rails-5.1').split('-').last
     Bundler.with_clean_env do
-      cmd = 'cd example && bundle && rm -f db/*.sqlite3 && bundle exec rake db:create db:schema:load spec'
+      ENV.delete('RAILS_ENV')
+      ENV.delete('BUNDLE_GEMFILE')
+      cmd = [
+        "cd examples/rails-#{target_rails_version}",
+        'bundle install',
+        'bundle exec rake db:drop:all',
+        'bundle exec rake db:schema:load',
+        'bundle exec rake spec',
+      ].join(' && ')
       unless system(cmd)
         raise "Failure: #{cmd}"
       end

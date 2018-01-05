@@ -1,7 +1,7 @@
 # model_base_generators [![Build Status](https://travis-ci.org/akm/model_base_generators.svg?branch=master)](https://travis-ci.org/akm/model_base_generators)
 
 `model_base_generators` extends generators to use your models effectively.
-It uses twitter-bootstrap-rails, rspec, factory_girl and so on.
+It uses twitter-bootstrap-rails, rspec, factory_bot and so on.
 
 
 ## Installation
